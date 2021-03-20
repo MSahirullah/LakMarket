@@ -1,0 +1,113 @@
+.content {
+    font-size: 14px;
+}
+
+.titlebar-title {
+    font-size: 14px !important;
+    transition: 0.3s;
+}
+.titlebar {
+    padding-left: 14px;
+    font-weight: 400;
+}
+
+/* unvisited link */
+.titlebar a:link {
+    color: rgb(54, 53, 53);
+}
+
+/* visited link */
+.titlebar a:visited {
+    color: rgb(54, 53, 53);
+}
+
+/* mouse over link */
+.titlebar a:hover {
+    text-decoration: none;
+    color: #042863;
+    transition: 0.3s;
+}
+
+/* selected link */
+.titlebar a:active {
+    color: black;
+}
+
+.titlebar-icon {
+    color: #042863;
+    font-size: 15px;
+}
+
+.welcome-window {
+    background-color: #f1f3fa;
+    margin-top: 22px;
+    border-radius: 25px;
+    padding: 30px;
+}
+
+.welcome-msg {
+    font-size: 16px !important;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.sign-input {
+    border-radius: 7px;
+    font-size: 14px;
+    height: 38px;
+}
+.sign-input::placeholder {
+    font-size: 0.8rem !important;
+}
+
+.sign-in-remember,
+.sign-in-forget {
+    color: rgba(116, 116, 116, 0.993);
+    margin-bottom: 5px;
+    font-size: 14px !important;
+}
+
+.submit-button {
+    margin-top: 15px;
+    width: 100%;
+    height: 38px;
+    border-radius: 7px;
+}
+
+.button-1 {
+    background-color: #042863;
+    margin-bottom: 20px;
+}
+
+.button-1:hover {
+    background-color: #0347b6;
+}
+
+.button-2 {
+    background-color: #39374e;
+    margin-bottom: 5px;
+}
+
+.sign-new {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    line-height: 0.1em;
+    margin: 10px 0 23px;
+}
+
+.sign-new span {
+    background: #f1f3fa;
+    padding: 0 10px;
+}
+
+.sign-image {
+    margin-top: 164px;
+    width: 90%;
+    margin-right: -50px;
+}
+
+.welcome-desc {
+    font-size: 13px !important;
+    margin-bottom: 20px;
+}

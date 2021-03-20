@@ -1,0 +1,26 @@
+.cc-desc {
+    font-size: 13px !important;
+    margin-bottom: 20px;
+}
+
+.cc-enquiry {
+    height: 185px !important;
+    margin-bottom: 10px;
+    resize: none;
+}
+
+.cc-image {
+    margin-top: 180px;
+    width: 90%;
+    margin-right: -30px;
+}
+
+.required:after {
+    content: "*";
+    color: red;
+    font-size: 17px;
+}
+
+.astrike-hide:after {
+    content: "" !important;
+}
