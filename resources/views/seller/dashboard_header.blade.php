@@ -8,7 +8,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button" onclick="ocMiniSideMenu()"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="/seller/dashboard" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -59,7 +59,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Log Out
+                    <a class="nav-link" href="/seller/logout">Log Out
                         <i class="fas fa-sign-out-alt na-sign-out-icon"></i>
                     </a>
                 </li>
@@ -70,20 +70,21 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar elevation-4" id="sideMenu">
             <!-- Brand Logo -->
-            <a href="index.html" class="brand-link">
-                <img src="img\dashboard-logo.png" alt="LAK MARKETLogo" class="brand-image" style="opacity: 0.8" />
+            <a href="/seller/dashboard" class="brand-link">
+                <img src="/img/dashboard-logo.png" alt="LAK MARKETLogo" class="brand-image" style="opacity: 0.8" />
                 <span class="brand-text font-weight-light">Lak Market</span>
             </a>
+
 
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 d-flex">
                     <div class="image">
-                        <img src="img/tempuser.jpg" class="elevation-2" alt="User Image" />
+                        <img src="" class="elevation-2" alt="User Image" id="user-profile-photo" />
                     </div>
                     <div class="info">
-                        <a href="#" class="online-seller-name">Alexander Pierce</a><br>
+                        <a href="/seller/dashboard" class="online-seller-name"></a><br>
                         <span class="online-status"></span>
                         <span class="online-status-seller">Seller</span>
                     </div>
@@ -94,25 +95,25 @@
                     <ul class="nav nav-pills nav-sidebar flex-column">
 
                         <li class="nav-item">
-                            <a href="" class="nav-link" id="sidebarMenu1">
+                            <a href="/seller/dashboard" class="nav-link" id="sidebarMenuDashboard">
                                 <i class=" nav-icon fas fa-tachometer-alt"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
 
                         <li class="nav-item" id="sidebarMenu2">
-                            <a href="" class="nav-link">
+                            <a href="/seller/dashboard/profile" class="nav-link">
                                 <i class="nav-icon fas fa-store"></i>
                                 <p>Profile</p>
                             </a>
                         </li>
-                        <li class="nav-item" id="sidebarMenu3">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item">
+                            <a href="/seller/dashboard/products" class="nav-link" id="sidebarMenuProducts">
                                 <i class="nav-icon fas fa-shopping-basket"></i>
                                 <p>Products</p>
                             </a>
                         </li>
-                        <li class="nav-item" id="sidebarMenu4">
+                        <li class="nav-item" id="sidebarMenuCatagories">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>Catagories</p>
@@ -124,7 +125,7 @@
                                 <p>Discounts</p>
                             </a>
                         </li>
-                        <li class="nav-item" id="sidebarMenu1">
+                        <li class="nav-item" id="sidebarMenu6">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-envelope-open-text"></i>
                                 <p>News Letters</p>

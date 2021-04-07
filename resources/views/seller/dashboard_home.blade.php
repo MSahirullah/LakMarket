@@ -14,6 +14,8 @@
     <!-- /.content-header -->
     <!-- Main content -->
 
+    <span id="seller-name" data-name='{{Session::get('sellerName')}}' data-image='{{Session::get('sellerImage')}}'></span>
+
     <section class="content">
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
