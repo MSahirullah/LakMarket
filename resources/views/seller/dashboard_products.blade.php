@@ -5,7 +5,7 @@
 <span id="notificationStatus" {{ Session::has('addNewStatus') ? 'data-notification' : '' }} data-notification-status='{{ Session::get('addNewStatus') }}'>
 </span>
 
-<span id="seller-name" data-name='{{Session::get('addNewStatus')}}' data-image='{{Session::get('addNewStatus')}}'></span>
+
 
 <link href="{{ URL::asset('css/sellercss/products.css') }}" rel="stylesheet">
 
@@ -149,7 +149,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="closeBtn" data-dismiss="modal">Close</button>
                     <button type="Submit" class="btn btn-primary btnSubmit">Save</button>
-                    <!-- <button type="submit" style="display: none;"></button> -->
+                    <button type="submit" style="display: none;"></button>
                 </div>
             </form>
         </div>

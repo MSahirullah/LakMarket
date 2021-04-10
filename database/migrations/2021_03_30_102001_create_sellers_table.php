@@ -19,7 +19,7 @@ class CreateSellersTable extends Migration
             $table->string('full_name'); 
             $table->string('url'); 
             $table->string('store_name'); 
-            $table->string('image')->nullable;
+            $table->string('store_image')->nullable;
             $table->string('profile_photo')->nullable;
             $table->string('business_email')->unique(); 
             $table->string('hotline')->nullable;

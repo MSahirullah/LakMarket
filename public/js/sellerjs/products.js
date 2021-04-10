@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    $("#sidebarMenuProducts").addClass('disabled');
+
     $("#sidebarMenuProducts").addClass('highlighted-title');
     
     $('#sidebarMenuProducts').hover( function(){ 
@@ -75,20 +77,20 @@ $(document).ready(function() {
      });
 
 
-    //  $(document).on('click', '#Save', function(e){
+     $(document).on('click', '#Save', function(e){
          
-    //     e.preventDefault();
+        e.preventDefault();
 
-    //     if(!actualBtn.files.length>0){
-    //         if (!$("#file-chosen").attr('data-uploded')){
-    //             fileChosen.innerHTML = 'Please select images';
-    //             $('#file-chosen').attr("style", "color:red");
-    //         }
-    //     }
+        if(!actualBtn.files.length>0){
+            if (!$("#file-chosen").attr('data-uploded')){
+                fileChosen.innerHTML = 'Please select images';
+                $('#file-chosen').attr("style", "color:red");
+            }
+        }
 
-    //     $(this).next('button').trigger('click');
+        $(this).next('button').trigger('click');
 
-    //  });
+     });
 } );
 
 

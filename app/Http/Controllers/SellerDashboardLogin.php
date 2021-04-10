@@ -61,7 +61,7 @@ class SellerDashboardLogin extends Controller
             if (!$seller->password == $password) {
                 return redirect()->back()->with(session()->flash('invalidEmail', 'The email or password you entered is incorrect.'));
             } else {
-                $req->session()->put('seller', $seller);
+                $req->session()->put('seller', $seller->id);
                 return redirect('seller/dashboard');
             }
         }

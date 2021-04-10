@@ -75,7 +75,7 @@
                 <span class="brand-text font-weight-light">Lak Market</span>
             </a>
 
-
+            <span id="seller-name" data-name='{{Session::get('sellerName')}}' data-image='{{Session::get('sellerImage')}}'></span>
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
@@ -101,8 +101,8 @@
                             </a>
                         </li>
 
-                        <li class="nav-item" id="sidebarMenu2">
-                            <a href="/seller/dashboard/profile" class="nav-link">
+                        <li class="nav-item">
+                            <a href="/seller/dashboard/profile" class="nav-link" id="sidebarMenuProfile">
                                 <i class="nav-icon fas fa-store"></i>
                                 <p>Profile</p>
                             </a>

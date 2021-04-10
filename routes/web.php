@@ -49,6 +49,11 @@ Route::post('/seller/dashboard/products-delete', [SellerDashboardProducts::class
 Route::post('/seller/dashboard/products/add-new', [SellerDashboardProducts::class, 'addNewProduct'])->name('product.add');
 
 Route::get('/seller/dashboard/profile', [SellerDashboardProfile::class, 'sellerProfile'])->name('seller.profile');
+Route::post('/seller/dashboard/profile/change-profile-image', [SellerDashboardProfile::class, 'sellerProfileChange']);
+Route::post('/seller/dashboard/profile/change-store-image', [SellerDashboardProfile::class, 'sellerStoreChange']);
+Route::post('/seller/dashboard/profile/clear-session', [SellerDashboardProfile::class, 'clearSession'])->name('seller.profile_clear_session');
+
+Route::get('/seller/dashboard/categories', [SellerDashboardProfile::class, 'sellerProfile'])->name('seller.profile');
 
 Route::get('/seller/login', function () {
     return view('seller.dashboard_login');
@@ -59,6 +64,6 @@ Route::post('/seller/login',  [SellerDashboardLogin::class, 'login'])->name('sel
 
 
 Route::get('/seller/logout', function () {
-    Session::forget(['seller', 'sellerName', 'sellerImage', 'message']);
+    Session::flush();
     return redirect('/seller/login');
 });

@@ -12,7 +12,7 @@ class SellerDashboardProducts extends Controller
 {
     public function manageProducts(Request $request)
     {
-        $sellerId = Session::get('seller')['id'];
+        $sellerId = Session::get('seller');
 
         $data = DB::table('products')
             ->join('product_categories', 'product_categories.id', '=', 'products.product_catrgory_id')
@@ -89,7 +89,7 @@ class SellerDashboardProducts extends Controller
     public function addNewProduct(Request $request)
     {
         $product = new SellerProducts();
-        $sellerId = Session::get('seller')['id'];
+        $sellerId = Session::get('seller');
         $status = 0;
 
         $productDetails = DB::table('products')
@@ -148,7 +148,7 @@ class SellerDashboardProducts extends Controller
             $status = 3;
         }
 
-        return redirect()->route('seller.profile')->with(session()->now('addNewStatus', $status));
+        return redirect()->route('product.list')->with(session()->now('addNewStatus', $status));
     }
 
     public static function slug($text)
@@ -201,7 +201,7 @@ class SellerDashboardProducts extends Controller
     {
 
         $pid = $request->get('pid');
-        $sellerId = Session::get('seller')['id'];
+        $sellerId = Session::get('seller');
         $status = 0;
 
         $cato_id = DB::table('product_categories')
