@@ -95,26 +95,26 @@
                     <ul class="nav nav-pills nav-sidebar flex-column">
 
                         <li class="nav-item">
-                            <a href="/seller/dashboard" class="nav-link" id="sidebarMenuDashboard">
+                            <a href="{{route('seller.dashboard')}}" class="nav-link" id="sidebarMenuDashboard">
                                 <i class=" nav-icon fas fa-tachometer-alt"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="/seller/dashboard/profile" class="nav-link" id="sidebarMenuProfile">
+                            <a href="{{route('seller.profile')}}" class="nav-link" id="sidebarMenuProfile">
                                 <i class="nav-icon fas fa-store"></i>
                                 <p>Profile</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/seller/dashboard/products" class="nav-link" id="sidebarMenuProducts">
+                            <a href="{{route('product.list')}}" class="nav-link" id="sidebarMenuProducts">
                                 <i class="nav-icon fas fa-shopping-basket"></i>
                                 <p>Products</p>
                             </a>
                         </li>
-                        <li class="nav-item" id="sidebarMenuCatagories">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item">
+                            <a href="{{route('category.list')}}" class="nav-link" id="sidebarMenuCatagories">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>Catagories</p>
                             </a>

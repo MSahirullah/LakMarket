@@ -31,7 +31,6 @@ class SellerDashboardProfile extends Controller
     {
         $sellerId = Session::get('seller');
         $file = $request->file('profile_photo');
-        $status = 0;
         $uploadedFiles = "";
 
         $destinationPath = 'sellers/images/' . $sellerId . '/profile';
@@ -42,17 +41,16 @@ class SellerDashboardProfile extends Controller
             ->update(['profile_photo' => $uploadedFiles]);
 
         if ($affected) {
-            $status = 1;
+            $request->session()->put('sellerImage', '/' . $uploadedFiles);
+            return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Profile picture updated!']));
         }
-
-        return redirect()->back()->with(session()->put('updateStatus', $status));
+        return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
     }
 
     public function sellerStoreChange(Request $request)
     {
         $sellerId = Session::get('seller');
         $file = $request->file('store_image');
-        $status = 10;
         $uploadedFiles = "";
 
         $destinationPath = 'sellers/images/' . $sellerId . '/store';
@@ -63,14 +61,25 @@ class SellerDashboardProfile extends Controller
             ->update(['store_image' => $uploadedFiles]);
 
         if ($affected) {
-            $status = 11;
+            return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Store image updated!']));
         }
-
-        return redirect()->back()->with(session()->put('updateStatus', $status));
+        return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
     }
 
-    public function clearSession(Request $request)
+
+    public function sellerHotlineChange(Request $request)
     {
-        $request->session()->forget('updateStatus');
+        $sellerId = Session::get('seller');
+        $hotline = $request->hotline;
+
+        $hotline = "+94$hotline";
+
+        $affected = DB::table('sellers')->where('id', $sellerId)
+            ->update(['hotline' => $hotline]);
+
+        if ($affected) {
+            return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Hotline updated!']));
+        }
+        return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
     }
 }

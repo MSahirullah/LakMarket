@@ -25,9 +25,19 @@ class SellerDashboard extends Controller
             $request->session()->put('sellerImage', $data[0]->profile_photo);
 
             return (view('seller.dashboard_home'));
-        }
-        else{
+        } else {
             abort(404, '/seller/login');
         }
+    }
+
+    public function clearSession(Request $request)
+    {
+        print_r($request->session());
+
+        $request->session()->forget('message');
+        $request->session()->forget(['0', '1']);
+        $request->session()->forget('alert');
+
+        
     }
 }

@@ -56,6 +56,15 @@
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+    <script>
+        var post_token = "{{ csrf_token() }}";
+    </script>
+
+
+
+
+
+
 
 </head>
 
@@ -71,6 +80,6 @@
 
 
 <script src="{{ asset('js/sellerjs/dashboard.js') }}" defer></script>
-
+<script src="{{ asset('js/sellerjs/common.js') }}" defer></script>
 
 </html>

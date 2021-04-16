@@ -1,0 +1,29 @@
+.dataTable td:last-child {
+    text-align: center;
+    width: 80px !important;
+}
+
+.dataTable td:last-child span {
+    margin: 0px 8px;
+}
+.note {
+    color: red;
+    margin-top: 8px;
+    margin-bottom: 2px;
+    font-style: italic;
+    font-size: 14px;
+    margin-left: -10px;
+}
+
+.dataTable td:nth-child(1) {
+    text-align: left !important;
+    width: 50px;
+}
+
+.dataTable td:nth-child(2) {
+    text-align: left !important;
+}
+
+.dataTable td:nth-child(3) {
+    text-align: center !important;
+}

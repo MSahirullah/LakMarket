@@ -17,6 +17,7 @@ class CreateProductCategoriesTable extends Migration
             $table->id();
             $table->foreignId('seller_id')->constrained('sellers')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
+            $table->string('url');
             $table->string('image')->nullable;
             $table->boolean('blacklisted')->default(0);
             $table->boolean('delete_status')->default(0);

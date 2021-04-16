@@ -1,14 +1,7 @@
 $(document).ready(function() {
 
-    $("#sidebarMenuProducts").addClass('disabled');
 
-    $("#sidebarMenuProducts").addClass('highlighted-title');
-    
-    $('#sidebarMenuProducts').hover( function(){ 
-        $('#sidebarMenuProducts').addClass('highlighted-title:h');
-    });
-
-    $("#imgShow").hide();
+    selectTitle('#sidebarMenuProducts');
     
     const actualBtn = document.getElementById('images');
 
@@ -26,6 +19,9 @@ $(document).ready(function() {
             
         } else if (this.files.length == 1 ){
             fileChosen.innerHTML = this.files.length + ' image chosen.';
+        }
+        else{
+            fileChosen.innerHTML = 'No file chosen.';
         }
     })
 
@@ -65,32 +61,11 @@ $(document).ready(function() {
         $('#code').removeAttr('disabled');
     });
 
-     $(document).on('click', '.editBtn, .createBtn', function(){
-        var ModalLabel= $(this).attr('data-title');
-        var BtnLabel= $(this).attr('data-button');
-        $("#file-chosen").removeAttr('data-uploded');
-        $('#file-chosen').attr("style", "color:black");
+    setBtnId();
 
-        $("#ModalLabel").html(ModalLabel);
-        $(".btnSubmit").html(BtnLabel);
-        $('.btnSubmit').attr('id', BtnLabel);
-     });
+    clickSubmit(actualBtn);
 
 
-     $(document).on('click', '#Save', function(e){
-         
-        e.preventDefault();
-
-        if(!actualBtn.files.length>0){
-            if (!$("#file-chosen").attr('data-uploded')){
-                fileChosen.innerHTML = 'Please select images';
-                $('#file-chosen').attr("style", "color:red");
-            }
-        }
-
-        $(this).next('button').trigger('click');
-
-     });
 } );
 
 

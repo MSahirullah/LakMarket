@@ -127,7 +127,8 @@
     padding-top: 5px;
 }
 
-.change_store_img {
+.change_store_img,
+.hotline-edit {
     position: absolute;
     font-size: 1.4rem;
     padding-top: 3px;
@@ -136,7 +137,8 @@
     transition: all 0.3s;
 }
 
-.change_store_img:hover {
+.change_store_img:hover,
+.hotline-edit:hover {
     transition: all 0.3s;
     color: rgba(0, 0, 0, 0.7);
 }
@@ -155,4 +157,63 @@
 .more-desc span {
     font-size: 14px;
     color: red;
+}
+
+.hotline-edit {
+    font-size: 1rem;
+    padding-top: 5px;
+}
+
+.button-1,
+.button-2 {
+    font-size: 14px;
+}
+
+.button-2 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.p-input {
+    border-radius: 5px;
+    font-size: 16px;
+    height: 34px;
+    margin-bottom: 15px;
+}
+
+.modal-footer {
+    background-color: #f4f6f9;
+}
+.modal-header {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.mob-contry-code {
+    position: absolute;
+    margin-top: -44px;
+    margin-left: 10px;
+    color: #495057;
+    font-size: 16px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+#store_location {
+    height: 250px;
+}
+
+#map {
+    height: 95%;
+    width: 95%;
 }

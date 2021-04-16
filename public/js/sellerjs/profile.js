@@ -1,34 +1,12 @@
 $(document).ready(function(){
 
-
-    $("#sidebarMenuProfile").addClass('disabled');
-
-    $("#sidebarMenuProfile").addClass('highlighted-title');
+    selectTitle('#sidebarMenuProfile');
     
-    $('#sidebarMenuProfile').hover( function(){ 
-        $('#sidebarMenuProfile').addClass('highlighted-title:h');
-     });
-    
-    var readURL = function(input, imgSrc) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $(imgSrc).attr('src', e.target.result);
-            }
-    
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    
-
     $(".file-upload").on('change', function(e){
-        readURL(this, '.profile-pic');
         e.preventDefault();
         $('#profile_submit').trigger('click');
-        
-
     });
+
     
     $(".upload-button").on('click', function() {
         $(".file-upload").click();
@@ -36,17 +14,30 @@ $(document).ready(function(){
     
 
     $(".store-img-input").on('change', function(e){
-        readURL(this, '.store-image');
         e.preventDefault();
         $('#store_submit').trigger('click');
     });
+
     
     $(".change_store_img").on('click', function() {
         $(".store-img-input").click();
     });
 
 
-    
-    
-  
+    $('.hotline-edit').on('click', function(){
+        $('#edit-hotline').trigger('click');
+    });
+
+    $('#hotline_submit-temp').on('click', function(e){
+
+        e.preventDefault();
+        var hotline = $('#hotline').val();
+
+        if(hotline){
+            if(hotline.length<9){
+                $('#hotline').val('');
+            }
+        }
+        $('#hotline_submit').trigger('click');
+    });
 });

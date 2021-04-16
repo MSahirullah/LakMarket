@@ -21,9 +21,8 @@ class SellerDashboardProducts extends Controller
                 ['products.blacklisted', '=', 0],
                 ['products.delete_status', '=', 0]
             ])
-            ->select('products.*', 'product_categories.name as category_name')
+            ->select('products.id', 'products.images', 'products.code',  'products.name', 'products.colors', 'products.sizes', 'products.discount', 'products.tax', 'products.short_desc', 'products.unit_price', 'product_categories.name as category_name')
             ->get();
-
 
         $cato = DB::table('product_categories')
             ->join('sellers', 'sellers.id', '=', 'product_categories.seller_id')
@@ -37,12 +36,21 @@ class SellerDashboardProducts extends Controller
 
         if ($request->ajax()) {
 
+            $num = 0;
+
+            function numIncrement()
+            {
+                global $num;
+                $num++;
+                return $num;
+            }
+
             return DataTables::of($data)
 
                 ->addIndexColumn()
                 ->addColumn('action', function ($product) {
                     $productName = $product->name;
-                    $btn = '<span class="fas fa-edit editBtn" data-id="' . $product->id . '" data-toggle="modal" data-target=".bd-AddEdit-modal-lg" class="btn btn-success successBtn" target="modalAddEdit" data-button = "Update" data-title="Edit ' . $productName . ' Details"></span></br>';
+                    $btn = '<span class="fas fa-edit editBtn" data-id="' . $product->id . '" data-toggle="modal" data-target=".bd-AddEdit-modal-lg" class="btn btn-success createBtn" target="modalAddEdit" data-button = "Update" data-title="Edit ' . $productName . ' Details"></span></br>';
 
                     $btn = $btn . '<span class="fas fa-trash removeBtn" data-id="' . $product->id . '"></span>';
                     return $btn;
@@ -73,11 +81,17 @@ class SellerDashboardProducts extends Controller
                 })
 
                 ->addColumn('name', function ($product) {
-                    $txt = "<strong>" . $product->name . "</strong> <br> <small>" . $product->short_desc . "</small> <br><br> <i>-" . $product->code . "-</i>";
+                    $txt = "<strong>" . $product->name . "</strong> <br> <small>" . $product->short_desc . "</small> <br><br><i>-" . $product->code . "-</i>";
                     return $txt;
                 })
 
-                ->rawColumns(['action', 'images', 'name'])
+                ->addColumn('ids', function () {
+
+                    $value = numIncrement();
+                    return $value;
+                })
+
+                ->rawColumns(['action', 'images', 'name', 'ids'])
                 ->setRowId('{{$id}}')
 
                 ->make(true);
@@ -90,20 +104,18 @@ class SellerDashboardProducts extends Controller
     {
         $product = new SellerProducts();
         $sellerId = Session::get('seller');
-        $status = 0;
+
 
         $productDetails = DB::table('products')
-            ->where([['seller_id', "=",  $sellerId], ['code', '=', $request->code]])
+            ->where([
+                ['seller_id', "=",  $sellerId],
+                ['code', '=', $request->code],
+                ['delete_status', '=', 0],
+            ])
             ->select('*')
             ->get()->first();
 
-        if ($productDetails) {
-            if ($productDetails->blacklisted) {
-                $status = 1;
-            } else if ($productDetails->code == $request->code) {
-                $status = 2;
-            }
-        } else {
+        if (!$productDetails) {
             $cato_id = DB::table('product_categories')
                 ->where([
                     ['seller_id', "=",  $sellerId],
@@ -145,10 +157,16 @@ class SellerDashboardProducts extends Controller
 
             $product->images = $uploadedFiles;
             $product->save();
-            $status = 3;
-        }
 
-        return redirect()->route('product.list')->with(session()->now('addNewStatus', $status));
+            return redirect()->route('product.list')->with(session()->put(['alert' => 'success', 'message' => 'Product has been successfully added to the store!']));
+        } else {
+            if ($productDetails->blacklisted) {
+                return redirect()->route('product.list')->with(session()->put(['alert' => 'error', 'message' => 'This product has been blacklisted!']));
+            } else if ($productDetails->code == $request->code) {
+                return redirect()->route('product.list')->with(session()->put(['alert' => 'warning', 'message' => 'This product already exists!']));
+            }
+        }
+        return redirect()->route('product.list')->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
     }
 
     public static function slug($text)
@@ -199,7 +217,6 @@ class SellerDashboardProducts extends Controller
 
     public function updateProduct(Request $request)
     {
-
         $pid = $request->get('pid');
         $sellerId = Session::get('seller');
         $status = 0;

@@ -2,15 +2,15 @@
 
 namespace App\DataTables;
 
-use App\Models\SellerProducts;
+
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use App\Models\SellerCategories;
 
-
-class SellerProductsDataTable extends DataTable
+class SellerCategoriesDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -25,18 +25,13 @@ class SellerProductsDataTable extends DataTable
             ->toJson();
     }
 
-
-
-
-
-
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\SellerProduct $model
+     * @param \App\Models\SellerCategory $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(SellerProducts $model)
+    public function query(SellerCategories $model)
     {
         return $model->newQuery();
     }
@@ -49,10 +44,10 @@ class SellerProductsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('sellerproducts-table')
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->orderBy(1);
+                    ->setTableId('sellercategories-table')
+                    ->columns($this->getColumns())
+                    ->minifiedAjax()
+                    ->orderBy(1);
     }
 
     /**
@@ -64,17 +59,8 @@ class SellerProductsDataTable extends DataTable
     {
         return [
             'id',
-            'product_catrgory_id',
-            'code',
             'name',
-            'short_desc',
-            'long_desc',
-            'unit_price',
-            'tax',
-            'images',
-            'discount',
-            'colors',
-            'sizes'
+            'image',
         ];
     }
 
@@ -85,6 +71,6 @@ class SellerProductsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'SellerProducts_' . date('YmdHis');
+        return 'SellerCategories_' . date('YmdHis');
     }
 }
