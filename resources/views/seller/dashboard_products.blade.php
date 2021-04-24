@@ -43,6 +43,7 @@
                 </div>
             </div>
         </div>
+
     </section>
 </div>
 
@@ -64,7 +65,7 @@
                     <div class="col-md-12 modelAddEdit">
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="product_category" class="col-form-label">Category</label>
                                 <span class="required"></span>
                                 <select name="product_category" class="form-control btn-input" data-live-search="true" id="product_category">
@@ -73,10 +74,20 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="code" class="col-form-label">Code</label>
                                 <span class="required"></span>
                                 <input type="text" name="code" class="form-control p-input" id="code" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="type" class="col-form-label">Product Type</label>
+                                <span class="required"></span>
+                                <select name="type" class="form-control btn-input" id="type">
+                                    <option selected>Local Product</option>
+                                    <option>Imported Product</option>
+                                </select>
+
+                                <!-- <input type="text" name="type" class="form-control p-input" id="type" required /> -->
                             </div>
                         </div>
                         <div class="row">
@@ -99,7 +110,7 @@
                                 <input type="text" oninvalid="this.setCustomValidity('Please select the images.')" oninput="setCustomValidity('')" class="checkImg" value="0" name="0">
 
                             </div>
-                            <div class="col-md-9 imgShow">
+                            <div class="col-md-9 imgShow p-input">
                             </div>
 
                         </div>
@@ -157,6 +168,8 @@
 
         $("#product_category").selectpicker();
 
+        $("#type").selectpicker();
+
         var table = $('.data-table').DataTable({
             processing: true,
             serverSide: true,
@@ -207,8 +220,6 @@
             ]
         });
 
-        pageReload();
-        sweetPull();
 
         //Sweet alert for remove record
         $(document).on('click', '.removeBtn', function() {
@@ -230,6 +241,9 @@
             }, function(data) {
                 $('#product_category').selectpicker('val', data[0].category_name);
                 $('#product_category').selectpicker('refresh');
+
+                $('#type').selectpicker('val', data[0].type);
+                $('#type').selectpicker('refresh');
 
                 $('#code').val(data[0].code);
                 $('#code').attr('disabled', 'disabled');
@@ -323,6 +337,9 @@
                 return false;
             }
         });
+
+        pageReload();
+        sweetPull();
     });
 </script>
 <script src="{{ asset('js/sellerjs/products.js') }}" defer></script>

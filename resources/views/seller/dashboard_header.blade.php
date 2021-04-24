@@ -1,11 +1,12 @@
 <div class="wrapper">
     <div id="bodyContent">
+        <span id="collapseStatus"></span>
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light navbar-custom">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button" onclick="ocMiniSideMenu()"><i class="fas fa-bars"></i></a>
+                    <a class="nav-link" id="sideBarToggle" data-widget="pushmenu" href="#" role="button" data-toggle-status = {{request()->cookie('valSideBar')}} onclick="ocMiniSideMenu()"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/seller/dashboard" class="nav-link">Home</a>
@@ -68,7 +69,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar elevation-4" id="sideMenu">
+        <aside class="main-sidebar elevation-4 {{ request()->cookie('valSideBar')==0 ? '' : 'menu-collapse' }}" id="sideMenu">
             <!-- Brand Logo -->
             <a href="/seller/dashboard" class="brand-link">
                 <img src="/img/dashboard-logo.png" alt="LAK MARKETLogo" class="brand-image" style="opacity: 0.8" />
@@ -97,38 +98,50 @@
                         <li class="nav-item">
                             <a href="{{route('seller.dashboard')}}" class="nav-link" id="sidebarMenuDashboard">
                                 <i class=" nav-icon fas fa-tachometer-alt"></i>
-                                <p>Dashboard</p>
+                                <span>Dashboard</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="{{route('seller.profile')}}" class="nav-link" id="sidebarMenuProfile">
                                 <i class="nav-icon fas fa-store"></i>
-                                <p>Profile</p>
+                                <span>Profile</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('product.list')}}" class="nav-link" id="sidebarMenuProducts">
                                 <i class="nav-icon fas fa-shopping-basket"></i>
-                                <p>Products</p>
+                                <span>Products</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('category.list')}}" class="nav-link" id="sidebarMenuCatagories">
                                 <i class="nav-icon fas fa-copy"></i>
-                                <p>Catagories</p>
+                                <span>Catagories</span>
                             </a>
                         </li>
-                        <li class="nav-item" id="sidebarMenu5">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item">
+                            <a href="{{route('stock.list')}}" class="nav-link" id="sidebarMenuStocks">
+                                <i class="nav-icon fas fa-cart-arrow-down"></i>
+                                <span>Stock</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('orders.list')}}" class="nav-link" id="sidebarMenuOrders">
+                                <i class="fas fa-shipping-fast"></i>
+                                <span>Orders</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('discounts.list')}}" class="nav-link" id="sidebarMenuDiscounts">
                                 <i class="nav-icon fas fa-percent"></i>
-                                <p>Discounts</p>
+                                <span>Discounts</span>
                             </a>
                         </li>
-                        <li class="nav-item" id="sidebarMenu6">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item">
+                            <a href="{{route('newsletter.requests')}}" class="nav-link" id="sidebarMenuNewsLetters">
                                 <i class="nav-icon fas fa-envelope-open-text"></i>
-                                <p>News Letters</p>
+                                <span>News Letters</span>
                             </a>
                         </li>
                     </ul>
@@ -137,3 +150,5 @@
             </div>
             <!-- /.sidebar -->
         </aside>
+    </div>
+</div>

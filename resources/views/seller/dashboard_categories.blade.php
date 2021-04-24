@@ -11,8 +11,7 @@
 
     <div class="content-header">
         <div class="container-fluid">
-            <h1 class="m-0">Seller Categories</h1>
-            <span>{{Session::has('alert')}}</span>
+            <h1 class="m-0">Manage Categories</h1>
         </div>
     </div>
 

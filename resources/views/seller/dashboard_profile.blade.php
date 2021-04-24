@@ -50,12 +50,14 @@
                                 <td id="store_category">{{$sellerData->shop_category_name}}</td>
                             </tr>
                             <tr>
-                                <th>City</th>
-                                <td id="store_city">{{$sellerData->city}}</td>
+                                <th>Birthday</th>
+                                <td id="seller_birthday">{{$sellerData->birthday}}</td>
                             </tr>
                             <tr>
-                                <th>District</th>
-                                <td id="store_district">{{$sellerData->district}}</td>
+                                <th>Delivering Districts</th>
+                                <td id="seller_birthday">{{$sellerData->delivering_districts}}
+                                    <i class="fas fa-edit dd-edit"></i>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Store Image</th>
@@ -100,6 +102,14 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th>City</th>
+                                <td id="store_city">{{$sellerData->city}}</td>
+                            </tr>
+                            <tr>
+                                <th>District</th>
+                                <td id="store_district">{{$sellerData->district}}</td>
+                            </tr>
+                            <tr>
                                 <th>Address</th>
                                 <td>{{$sellerData->address}}</td>
                             </tr>
@@ -126,33 +136,46 @@
 
 
 <!-- Button trigger modal -->
-<button type="button" id="edit-hotline" data-toggle="modal" data-target="#editHotline" style="display: none;">
+<button type="button" id="edit_profile_details" data-toggle="modal" data-target="#editProfileDetails" style="display: none;">
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="editHotline" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="editProfileDetails" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Hotline</h5>
+                <h5 class="modal-title"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="profile/change-hotline" enctype="multipart/form-data" method="post" id="hotline_form">
+            <form action="" enctype="multipart/form-data" method="post" id="sellerDetailForm">
                 @csrf
                 <div class="modal-body">
-                    <div class="col">
-
-                        <label for="hotline" class="col-form-label">Hotline</label>
-                        <input name="hotline" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" class="form-control p-input" id="hotline" pattern="{0-9}{1}[0-8]{1}[0-9]{7}" style="padding-left: 40px;" maxlength="9">
-                        <span class="mob-contry-code">+94</span>
+                    <div class="row delivery-districts-row">
+                        <div class="col">
+                            <label for="delivery_districts" class="col-form-label">Category</label>
+                            <span class="required"></span>
+                            <select name="delivery_districts[]" class="form-control btn-input" data-live-search="true" id="delivery_districts" multiple>
+                                <option class="all-island" selected>All Island</option>
+                                @foreach($districtsData as $district)
+                                <option class="{{$district->name_en}}">{{$district->name_en}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row hotline-row">
+                        <div class="col">
+                            <label for="hotline" class="col-form-label">Hotline</label>
+                            <input name="hotline" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" class="form-control p-input" id="hotline" pattern="{0-9}{1}[0-8]{1}[0-9]{7}" style="padding-left: 40px;" maxlength="9">
+                            <span class="mob-contry-code">+94</span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary button-1" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary button-2" id="hotline_submit-temp">Update</button>
-                    <button type="submit" style="display:none;" id="hotline_submit"></button>
+                    <button type="button" class="btn btn-primary button-2" id="_submit-temp">Update</button>
+                    <button type="submit" style="display:none;" id="_submit"></button>
             </form>
         </div>
     </div>
@@ -160,13 +183,111 @@
 </div>
 
 <script type="text/javascript">
-    //Sweet alert for profile picture update record
     $(document).ready(function() {
+
+        $("#delivery_districts").selectpicker();
 
         pageReload();
 
         sweetPull();
 
+        $('.hotline-edit').on('click', function() {
+
+            var hotline = "<?php echo $sellerData->hotline; ?>"
+            $('#hotline').val(hotline.slice(3, ));
+
+            $('.delivery-districts-row').hide();
+            $('.hotline-row').show();
+            $('.modal-title').text('Edit Hotline');
+            $('#edit_profile_details').trigger('click');
+        });
+
+        $('.dd-edit').on('click', function() {
+
+            var district = "<?php echo $sellerData->delivering_districts; ?>"
+
+            district = district.split(", ");
+
+            $('#delivery_districts').selectpicker('val', district);
+            $('#delivery_districts').selectpicker('refresh');
+
+            $('.hotline-row').hide();
+            $('.delivery-districts-row').show();
+            $('.modal-title').text('Edit Delivering Districts');
+            $('#edit_profile_details').trigger('click')
+            $('#_submit-temp').addClass('district-submit')
+        });
+    });
+
+    $('#_submit-temp').on('click', function(e) {
+
+        e.preventDefault();
+
+        if ($(this).hasClass('district-submit')) {
+
+            var district = $('#delivery_districts').val();
+            var sdd = "<?php echo $sellerData->delivering_districts; ?>";
+
+            $('#hotline').removeAttr('required');
+
+            if (district != sdd) {
+                $('#sellerDetailForm').attr('action', 'profile/change-delivery-districts');
+                $('#_submit').trigger('click');
+            } else {
+                alert("Please make any changes.");
+                $('select').val('');
+            }
+
+        } else {
+
+            $('#sellerDetailForm').attr('action', 'profile/change-hotline');
+            var hotline = '+94' + $('#hotline').val();
+            var ht = "<?php echo $sellerData->hotline; ?>";
+            $('#hotline').attr('required', 'required');
+
+            if (hotline) {
+                if (hotline.length <= 9) {
+                    $('#hotline').val('');
+                } else if (hotline == ht) {
+                    alert("Please make any changes.");
+                    $('#hotline').val('');
+                }
+                $('#_submit').trigger('click');
+            }
+        }
+    });
+
+    $('select').on('change', function() {
+
+        var check = 0;
+
+        if ($('#bs-select-1-0').hasClass('selected')) {
+
+            $('#delivery_districts').selectpicker('val', 'All Island');
+            $('#delivery_districts').selectpicker('refresh');
+        }
+
+        $("#delivery_districts option").each(function() {
+            if ($(this).is(':selected') && $('#bs-select-1-0').hasClass('selected')) {
+                check++;
+            }
+        })
+
+
+        $("#delivery_districts option").each(function() {
+
+            var id = $('option').attr('class');
+
+            if ($(this).is(':selected') && !$('#bs-select-1-0').hasClass('selected')) {
+                check++;
+            }
+        });
+
+
+        if (check == 25) {
+            $('#delivery_districts').selectpicker('val', 'All Island');
+            $('#delivery_districts').selectpicker('refresh');
+        }
     });
 
     var marker = false;

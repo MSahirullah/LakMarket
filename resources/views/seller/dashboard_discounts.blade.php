@@ -6,7 +6,7 @@
 
     <div class="content-header">
         <div class="container-fluid">
-            <h1 class="m-0">Seller Categories</h1>
+            <h1 class="m-0">Manage Discounts</h1>
         </div>
     </div>
 
@@ -17,5 +17,5 @@
         </div>
     </section>
 </div>
-<script src="{{ asset('js/sellerjs/profile.js') }}" defer></script>
+<script src="{{ asset('js/sellerjs/discounts.js') }}" defer></script>
 @endsection

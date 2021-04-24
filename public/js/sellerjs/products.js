@@ -58,6 +58,8 @@ $(document).ready(function() {
         $('#tax, #discount').val('0.00');
         $('#file-chosen').html('No file chosen');
         $(".imgShow").empty();
+        $('#sizes').val('-');
+        $('#colors').val('-');
         $('#code').removeAttr('disabled');
     });
 

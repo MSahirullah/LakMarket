@@ -7,6 +7,7 @@ use App\Models\Lkdistricts;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Session;
 
 class CommonController extends Controller
 {
@@ -25,5 +26,10 @@ class CommonController extends Controller
             ->get();
 
         return $cities;
+    }
+
+    public static function checkSeller($url)
+    {
+        abort(404, $url);
     }
 }

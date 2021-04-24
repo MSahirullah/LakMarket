@@ -36,6 +36,10 @@ function pageReload(){
         },
         method: 'post',
         success: function() {
+            
+            $('#actionStatus').removeAttr('data-status');
+            $('#actionStatus').val('data-status-alert', '');
+            $('#actionStatus').val('data-status-message', '');
         
         }
     });

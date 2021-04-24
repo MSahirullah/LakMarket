@@ -11,13 +11,13 @@ use App\Http\Controllers\SellerDashboardProducts;
 
 class SellerDashboardCategories extends Controller
 {
-    public function sellerCategories(Request $request)
+    public function manageCategories(Request $request)
     {
-
-
-
         $sellerId = Session::get('seller');
 
+        if (!$sellerId) {
+            CommonController::checkSeller('/seller/login');
+        }
         $data = DB::table('product_categories')
             ->where([
                 ['seller_id', "=",  $sellerId],
@@ -26,9 +26,6 @@ class SellerDashboardCategories extends Controller
             ])
             ->select('id', 'name', 'image')
             ->get();
-
-
-
 
         if ($request->ajax()) {
 
@@ -82,6 +79,8 @@ class SellerDashboardCategories extends Controller
 
                 ->make(true);
         }
+
+        
 
         return view('seller.dashboard_categories', ['categories' => $data]);
     }

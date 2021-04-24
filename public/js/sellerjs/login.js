@@ -1,3 +1,14 @@
+$(document).ready(function(){
+    $.ajax({
+        url: "/seller/dashboard/clear-session",
+        data: {
+            _token: post_token
+        },
+        method: 'post',
+        success: function() {
+        
+        }
+    });
 
     $(".toggle-password").click(function() {
 
@@ -9,3 +20,5 @@
             input.attr("type", "password");
         }
     });
+}); 
+

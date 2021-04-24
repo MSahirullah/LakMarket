@@ -80,7 +80,7 @@ a {
     margin-top: 2px !important;
     max-height: 27px !important;
     width: auto !important;
-    box-shadow: 0 10px 10px rgb(0 0 0 / 15%), 0 6px 6px rgb(0 0 0 / 15%) !important;
+    box-shadow: 0 3px 3px rgb(0 0 0 / 15%), 0 6px 6px rgb(0 0 0 / 15%) !important;
 }
 
 .brand-text {
@@ -238,6 +238,7 @@ a {
     color: #869099;
     padding: 12px 16px;
     margin-left: 250px;
+    transition: 0.5s;
 }
 
 .sidebar-collapse {
@@ -247,7 +248,9 @@ a {
 #sideMenu .nav-link {
     width: 234px;
     padding-left: 12px !important;
+    overflow: hidden;
 }
+
 #sideMenu .nav-item {
     height: 35px;
     margin: 7px 0;
@@ -267,8 +270,17 @@ a {
 #sideMenu .nav-link i {
     width: 30px !important;
     text-align: center;
-    margin-right: 5px;
+    margin-right: 8px;
+    float: left;
+    margin-top: 3px;
 }
+
+#sideMenu .nav-link span {
+    float: left;
+    position: absolute;
+    margin-top: -1px;
+}
+
 #sideMenu .nav-sidebar .nav-link p {
     padding-bottom: 0 !important;
 }
@@ -295,3 +307,83 @@ body {
         "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
+
+#sideMenu {
+    width: 250px;
+}
+
+#bodyContent .main-header,
+#bodyContent .content-wrapper,
+#bodyContent .main-footer,
+.content-wrapper {
+    margin-left: 250px;
+}
+
+.menu-collapse {
+    width: 4.6rem !important;
+}
+
+.menu-collapse-state .brand-text,
+.menu-collapse-state .online-seller-name,
+.menu-collapse-state .online-status,
+.menu-collapse-state .online-status-seller {
+    display: none !important;
+}
+
+.menu-collapse-state .highlighted-title span {
+    color: #007bff !important;
+}
+
+.menu-collapse-state .nav-link span {
+    color: #343a4000;
+}
+
+.menu-collapse-width-status #bodyContent .main-header,
+.menu-collapse-width-status #bodyContent .content-wrapper,
+.menu-collapse-width-status #bodyContent .main-footer,
+.menu-collapse-width-status .content-wrapper {
+    margin-left: 4.6rem;
+}
+
+.menu-collapse-width-status #sideMenu .nav-link {
+    width: 56px !important;
+}
+
+.menu-collapse-width-status .main-footer {
+    margin-left: 4.6rem !important;
+}
+
+/* .menu-collapse .nav-link p,
+.menu-collapse .brand-text,
+.menu-collapse .online-seller-name,
+.menu-collapse .online-status,
+.menu-collapse .online-status-seller {
+    transition-property: display;
+    transition-duration: 5s;
+    transition-delay: 0.3s;
+    display: none !important;
+} */
+/* 
+.menu-collapse .nav-link {
+    width: 56px !important;
+} */
+
+/* .menu-collapse #sideMenu .nav-link {
+    width: 56px;
+}
+.menu-collapse nav .nav-item p {
+    display: none;
+}
+
+.menu-collapse #bodyContent .main-header,
+.menu-collapse #bodyContent .content-wrapper,
+.menu-collapse #bodyContent .main-footer {
+    margin-left: 4.6rem !important;
+}
+
+.collapse-width {
+    width: 4.6rem;
+}
+.collapse-width .nav-item {
+    width: 56px;
+} */

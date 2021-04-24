@@ -21,6 +21,7 @@ div.dataTables_wrapper div.dataTables_length select {
 
 .dataTable td:last-child .removeBtn:hover {
     color: #b22222;
+    cursor: pointer;
 }
 
 .dataTable td:last-child .editBtn {
@@ -29,6 +30,7 @@ div.dataTables_wrapper div.dataTables_length select {
 
 .dataTable td:last-child .editBtn:hover {
     color: #0000cd;
+    cursor: pointer;
 }
 
 .fa-trash {
@@ -103,6 +105,7 @@ div.dataTables_wrapper div.dataTables_length select {
     border-radius: 5px;
     font-size: 14px;
     height: 34px;
+    margin-bottom: 10px !important;
 }
 
 .btn-input button {
@@ -127,10 +130,6 @@ div.dataTables_wrapper div.dataTables_length select {
     padding-left: 25px;
     padding-right: 25px;
     margin-right: 18px;
-}
-
-.row {
-    padding-bottom: 12px !important;
 }
 
 .select-input button {
@@ -178,7 +177,7 @@ textarea {
 
 .money-sign {
     position: absolute;
-    margin-top: -27px;
+    margin-top: -37px;
     margin-left: 10px;
     font-size: 14px;
 }
@@ -226,6 +225,10 @@ input[type="number"] {
     border: 0;
 }
 
+.bootstrap-select .dropdown-menu li a span.text {
+    font-size: 14px;
+}
+
 .swal2-actions {
     font-size: 14px;
 }
@@ -254,4 +257,13 @@ input[type="number"] {
 
 .checkImg:hover {
     pointer-events: none;
+}
+
+.checkbox-input-span {
+    margin-right: 40px;
+}
+
+.form-check {
+    margin-top: 5px;
+    margin-left: 2px;
 }

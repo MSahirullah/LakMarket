@@ -14,6 +14,10 @@ class SellerDashboardProducts extends Controller
     {
         $sellerId = Session::get('seller');
 
+        if (!$sellerId) {
+            CommonController::checkSeller('/seller/login');
+        }
+
         $data = DB::table('products')
             ->join('product_categories', 'product_categories.id', '=', 'products.product_catrgory_id')
             ->where([
@@ -21,7 +25,7 @@ class SellerDashboardProducts extends Controller
                 ['products.blacklisted', '=', 0],
                 ['products.delete_status', '=', 0]
             ])
-            ->select('products.id', 'products.images', 'products.code',  'products.name', 'products.colors', 'products.sizes', 'products.discount', 'products.tax', 'products.short_desc', 'products.unit_price', 'product_categories.name as category_name')
+            ->select('products.id', 'products.images', 'products.code',  'products.name', 'products.type', 'products.colors', 'products.sizes', 'products.discount', 'products.tax', 'products.short_desc', 'products.unit_price', 'product_categories.name as category_name')
             ->get();
 
         $cato = DB::table('product_categories')
@@ -56,10 +60,13 @@ class SellerDashboardProducts extends Controller
                     return $btn;
                 })
 
-                ->addColumn('product_catrgory_id', function ($product) {
+                ->addColumn('category_name', function ($product) {
                     $cat_name = $product->category_name;
-                    return $cat_name;
+
+                    $txt = '<span>' . $cat_name . '</span><br><span><small><i>(' . $product->type . ')<//i></small></span>';
+                    return $txt;
                 })
+
 
                 ->addColumn('images', function ($product) {
                     $txt = '';
@@ -91,7 +98,7 @@ class SellerDashboardProducts extends Controller
                     return $value;
                 })
 
-                ->rawColumns(['action', 'images', 'name', 'ids'])
+                ->rawColumns(['action', 'images', 'name', 'ids', 'category_name'])
                 ->setRowId('{{$id}}')
 
                 ->make(true);
@@ -128,6 +135,7 @@ class SellerDashboardProducts extends Controller
             $product->product_catrgory_id = json_decode($cato_id, true)[0]['id'];
             $product->code = $request->code;
             $product->name = $request->name;
+            $product->type = $request->type;
             $product->url = "test";
             $product->images = "test";
             $product->short_desc = $request->short_desc;
@@ -242,7 +250,8 @@ class SellerDashboardProducts extends Controller
             'tax' => $request->get('tax'),
             'discount' => $request->get('discount'),
             'colors' => $request->get('colors'),
-            'sizes' => $request->get('sizes')
+            'sizes' => $request->get('sizes'),
+            'type' => $request->get('type')
         ];
 
         $files = $request->file('images');

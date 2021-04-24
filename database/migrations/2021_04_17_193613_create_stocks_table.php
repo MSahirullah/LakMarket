@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStokcksTable extends Migration
+class CreateStocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateStokcksTable extends Migration
      */
     public function up()
     {
-        Schema::create('stokcks', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('added_stock');
             $table->integer('stock_usage');
             $table->boolean('outof_stock')->default(0);
+            $table->boolean('delete_status')->default(0);
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateStokcksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stokcks');
+        Schema::dropIfExists('stocks');
     }
 }

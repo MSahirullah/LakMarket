@@ -128,7 +128,8 @@
 }
 
 .change_store_img,
-.hotline-edit {
+.hotline-edit,
+.dd-edit {
     position: absolute;
     font-size: 1.4rem;
     padding-top: 3px;
@@ -138,7 +139,8 @@
 }
 
 .change_store_img:hover,
-.hotline-edit:hover {
+.hotline-edit:hover,
+.dd-edit:hover {
     transition: all 0.3s;
     color: rgba(0, 0, 0, 0.7);
 }
@@ -159,7 +161,8 @@
     color: red;
 }
 
-.hotline-edit {
+.hotline-edit,
+.dd-edit {
     font-size: 1rem;
     padding-top: 5px;
 }
@@ -216,4 +219,17 @@ input[type="number"] {
 #map {
     height: 95%;
     width: 95%;
+}
+
+.btn-input button {
+    border-radius: 5px;
+    font-size: 14px;
+    height: 34px;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    margin-bottom: 12px;
+}
+
+.dropdown-menu {
+    max-height: 150px;
 }

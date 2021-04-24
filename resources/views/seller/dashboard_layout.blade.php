@@ -13,6 +13,9 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
+    <!-- ===== Font Awosome ===== -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
 
     <!-- IonIcons -->
@@ -30,6 +33,7 @@
 
     <link href="{{ URL::asset('css/sellercss/dashboard.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/sellercss/dashboard-home.css') }}" rel="stylesheet">
+
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -68,7 +72,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini {{ request()->cookie('valSideBar')==0 ? '' : 'menu-collapse-width-status menu-collapse-state' }}">
 
     {{View::make('seller.dashboard_header')}}
     <main>

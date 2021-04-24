@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 
 class SellerDashboardLogin extends Controller
@@ -43,29 +44,26 @@ class SellerDashboardLogin extends Controller
 
     public function login(Request $req)
     {
-
         $email = $req['d-email'];
         $password = $req['d-password'];
 
-        $seller = Seller::where(['business_email' => $email])->first();
+        $seller = Seller::where(['business_email' => $email, 'delete_status' => '0'])->first();
 
-        if ($seller != null) {
+        if ($seller) {
             if ($seller->blacklisted) {
-                return redirect()->back()->with(session()->flash('invalidEmail', "Sorry you can't login with this email address. (RSN : Blacklisted)"));
+                return redirect()->back()->with(session()->put('invalidEmail', "Sorry you can't login with this email address. (RSN : Blacklisted)"));
             }
+            if ($seller->password != $password) {
 
-            if ($seller->delete_status) {
-                return redirect()->back()->with(session()->flash('invalidEmail', 'This seller account has been deleted.'));
-            }
-
-            if (!$seller->password == $password) {
-                return redirect()->back()->with(session()->flash('invalidEmail', 'The email or password you entered is incorrect.'));
+                return redirect()->back()->with(session()->put('invalidEmail', 'The email or password you entered is incorrect.'));
             } else {
+
+                Cookie::queue(Cookie::make('valSideBar', '0'));
                 $req->session()->put('seller', $seller->id);
                 return redirect('seller/dashboard');
             }
         }
-        return redirect()->back()->with(session()->flash('invalidEmail', 'The email or password you entered is incorrect.'));
+        return redirect()->back()->with(session()->put('invalidEmail', 'The email or password you entered is incorrect.'));
     }
 }
 

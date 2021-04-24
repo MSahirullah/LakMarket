@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\DB;
+// use App\Http\Controllers\CommonController;
 
 class SellerDashboardProfile extends Controller
 {
@@ -13,18 +14,30 @@ class SellerDashboardProfile extends Controller
 
         $sellerId = Session::get('seller');
 
+        if (!$sellerId) {
+            CommonController::checkSeller('/seller/login');
+        }
+
         $data = DB::table('sellers')
             ->join('shop_categories', 'shop_categories.id', '=', 'sellers.shop_category_id')
             ->join('lkcities', 'lkcities.id', '=', 'sellers.city_id')
             ->join('lkdistricts', 'lkdistricts.id', '=', 'sellers.district_id')
             ->where('sellers.id', "=",  $sellerId)
             ->select('sellers.*', 'shop_categories.name as shop_category_name', 'lkcities.name_en as city', 'lkdistricts.name_en as district')
+            ->get()
+            ->first();
+
+        // dd($data);
+
+
+        $data->profile_photo = "/" . $data->profile_photo;
+        $data->store_image = "/" . $data->store_image;
+
+        $districts = DB::table('lkdistricts')
+            ->select('name_en')
             ->get();
 
-        $data[0]->profile_photo = "/" . $data[0]->profile_photo;
-        $data[0]->store_image = "/" . $data[0]->store_image;
-
-        return view('seller.dashboard_profile')->with('sellerData', $data[0]);
+        return view('seller.dashboard_profile')->with(['sellerData' => $data, 'districtsData' => $districts]);
     }
 
     public function sellerProfileChange(Request $request)
@@ -79,6 +92,22 @@ class SellerDashboardProfile extends Controller
 
         if ($affected) {
             return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Hotline updated!']));
+        }
+        return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
+    }
+
+    public function sellerDDChange(Request $request)
+    {
+        $sellerId = Session::get('seller');
+        $deliveringDistricts = $request->get('delivery_districts');
+
+        $districts = implode(", ", $deliveringDistricts);
+
+        $affected = DB::table('sellers')->where('id', $sellerId)
+            ->update(['delivering_districts' => $districts]);
+
+        if ($affected) {
+            return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Delivering districts updated!']));
         }
         return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
     }
