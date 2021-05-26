@@ -1,0 +1,38 @@
+.filter-related-cato .selected-c,
+.filter-related-cato .selected-sc {
+    color: red;
+    pointer-events: none;
+}
+
+.filter-related-cato .selected-sc {
+    text-decoration: underline;
+}
+
+.category-shops {
+    height: 300px;
+}
+
+.category-shops:hover {
+    box-shadow: rgb(0 0 0 / 15%) 0px 6px 8px 2px;
+}
+
+.category-shops .search-tile-get-direction {
+    position: unset !important;
+    right: 0;
+}
+
+.owl-c-5 .owl-stage-outer {
+    height: 265px !important;
+}
+
+.category-tile {
+    padding: 0px;
+    margin-right: 10px;
+    flex: 0 0 32.19% !important;
+    max-width: 32.19% !important;
+    margin-bottom: 22px;
+}
+
+.category-tile .home-tile-shop-img {
+    height: 200px;
+}

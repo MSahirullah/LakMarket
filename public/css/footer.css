@@ -1,9 +1,5 @@
 /* Footer Css */
 
-.footer {
-    margin-top: 35px;
-}
-
 .fbg-grey {
     background: #292929;
 }
@@ -62,8 +58,9 @@ a {
     border-radius: 16px 0 0 16px;
     outline: none;
     padding-left: 13px;
-    font-size: 14px;
+    font-size: 12px;
     padding: 3px 10px;
+    width: 175px;
 }
 
 .footer-form-input::placeholder {

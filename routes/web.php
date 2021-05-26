@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CommonController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SearchContrller;
 use App\Http\Controllers\SellerDashboard;
 use App\Http\Controllers\SellerDashboardLogin;
 use App\Http\Controllers\SellerDashboardProducts;
@@ -26,23 +28,39 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
 Route::post('/register', [RegisterController::class, 'register']);
+
 
 Route::post('/register-district', [CommonController::class, 'getDistricts']);
 
 Route::post('/register-cities', [CommonController::class, 'getCities']);
 
 
-Route::get('customer-care', function () {
+Route::get('/customer-care', function () {
     return view('customer_care');
+})->name('customer-care');
+
+Route::get('/search', function () {
+    return view('search');
+})->name('search');
+
+Route::get('/c', function () {
+    return view('categories');
 });
+
+Route::get('/sc', function () {
+    return view('sub-categories');
+});
+
+Route::get('/seller', function () {
+    return view('store-home');
+});
+
 
 Route::get('/seller/dashboard', [SellerDashboard::class, 'index'])->name('seller.dashboard');
 
