@@ -57,8 +57,11 @@ Route::get('/sc', function () {
     return view('sub-categories');
 });
 
-Route::get('/seller', function () {
+Route::get('/store', function () {
     return view('store-home');
+});
+Route::get('/p', function () {
+    return view('products');
 });
 
 

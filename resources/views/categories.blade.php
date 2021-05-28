@@ -6,7 +6,7 @@
     <div class="container c-p">
         <a href="#">Home</a>
         <i class="fas fa-chevron-right"></i>
-        <a class="selected" href="#">Stationary Shops</a>
+        <a class="selected" href="#">Book Shops</a>
     </div>
     <div class="site-container container">
 
@@ -51,14 +51,14 @@
                 <div class="result-col">
                     <div class="result-count">
                         <div>
-                            <h5> <b><span>3550</span></b> Shops found in <b>"<span>Stationary Shops</span>"</b></h5>
+                            <h5> <b><span>3550</span></b> Shops found in <b>"<span>Book Shops</span>"</b></h5>
                         </div>
                     </div>
                     <div class="h-line">
                     </div>
 
                     <div class="search-tile-title">
-                        <h4>Shops for "<span>Stationary Shops</span>"</h4>
+                        <h4>Shops for "<span>Book Shops</span>"</h4>
                     </div>
                     <div class="search-tile-product-div">
                         @for ($i = 0; $i <21; $i++) <div class="category-tile">

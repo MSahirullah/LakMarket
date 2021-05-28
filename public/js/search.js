@@ -23,7 +23,7 @@ $(document).ready(function(){
         $(this).addClass('active').siblings().removeClass('active');
       });
 
-    $('.owl-c-4').owlCarousel(configOwl(2, 4, 7000, 2200));
+    $('.owl-c-4').owlCarousel(configOwl(2, 4, 4000, 2200));
 
     $('.search-tile-product-div-hr').hide();
 
@@ -43,8 +43,6 @@ $(document).ready(function(){
         $('.search-tile-product-div-hr').hide();
         $('.list-view-btn i').removeClass('view-button-selected');
         $('.tile-view-btn i').addClass('view-button-selected');
-
-        console.log(1);
       }
     });
 

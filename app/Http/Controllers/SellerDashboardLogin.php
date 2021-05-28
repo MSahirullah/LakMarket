@@ -47,7 +47,7 @@ class SellerDashboardLogin extends Controller
         $email = $req['d-email'];
         $password = $req['d-password'];
 
-        $seller = Seller::where([business_em'ail' => $email, 'delete_status' => '0'])->first();
+        $seller = Seller::where(['business_email' => $email, 'delete_status' => '0'])->first();
 
         if ($seller) {
             if ($seller->blacklisted) {

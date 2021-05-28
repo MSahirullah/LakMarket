@@ -292,7 +292,7 @@ input::-webkit-inner-spin-button {
 }
 
 .search-tile-title h4 {
-    font-weight: 700;
+    font-weight: 500;
     font-size: 16px;
     padding-top: 10px;
     color: #042863;
@@ -435,7 +435,7 @@ input::-webkit-inner-spin-button {
     color: white;
 }
 
-.buy-now-btn button {
+.by-now-btn button {
     font-family: "Roboto", sans-serif;
     font-size: 13px;
     padding: 3px 20px;
@@ -446,8 +446,7 @@ input::-webkit-inner-spin-button {
     background: transparent;
 }
 
-.buy-now-btn button:hover,
-.buy-now-btn button:focus {
+.by-now-btn button:hover {
     text-decoration: none;
     transition: 0.3s;
     box-shadow: inset 0 100px 0 0 #f6be00;
@@ -536,7 +535,7 @@ input::-webkit-inner-spin-button {
     margin-top: 15px;
 }
 
-.search-tile-hr .buy-now-btn {
+.search-tile-hr .by-now-btn {
     position: absolute;
     bottom: 10px;
     left: 20px;
@@ -545,6 +544,7 @@ input::-webkit-inner-spin-button {
 
 .search-tile-hr .option-btn {
     margin-top: 100px;
+    margin-left: 24px;
 }
 
 .option-btn .option-btn-2 {
@@ -568,6 +568,20 @@ input::-webkit-inner-spin-button {
     color: #717275;
     background: transparent;
 }
+.home-tile .option-btn-1,
+.home-tile .option-btn-2 {
+    margin: 1.5px 10px !important;
+}
+.p-h-i-r .option-btn-1,
+.p-h-i-r .option-btn-2 {
+    margin: 0.5px 10px !important;
+}
+
+.t-r-p-tile .option-btn-1,
+.t-r-p-tile .option-btn-2 {
+    margin: 1px 10px !important;
+}
+
 .t-r-p-tile .option-btn-2 {
     left: 125px;
 }
@@ -575,7 +589,7 @@ input::-webkit-inner-spin-button {
     padding: 2px 6px;
 }
 
-.t-r-p-tile .buy-now-btn button {
+.t-r-p-tile .by-now-btn button {
     padding: 3px 10px;
 }
 

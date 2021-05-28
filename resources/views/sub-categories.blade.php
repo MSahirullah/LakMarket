@@ -6,7 +6,7 @@
     <div class="container c-p">
         <a href="#">Home</a>
         <i class="fas fa-chevron-right"></i>
-        <a href="#">Stationary Shops</a>
+        <a href="#">Book Shops</a>
         <i class="fas fa-chevron-right"></i>
         <a class="selected" href="#">Novels</a>
     </div>
@@ -150,7 +150,7 @@
                                     <button class="option-btn-1"><i class="fas fa-heart"></i></button>
                                     <button class="option-btn-2"><i class="fas fa-cart-plus"></i></button>
                                 </div>
-                                <div class="buy-now-btn">
+                                <div class="by-now-btn">
                                     <button>Buy Now</button>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
             </div>
 
 
-            <div class="search-tile-product-div-hr">
+            <div class="search-tile-product-div-hr" style="display:none;">
                 @for ($i = 0; $i < 6; $i++) <div class="search-tile-hr">
                     <div class="row search-tile-body search-product">
                         <div class="col-md-c-3">
@@ -200,10 +200,10 @@
                                 <p class="home-tile-d-price-rs mb-8">Rs. <span class="home-tile-d-price">10500.00</span></p>
                             </div>
                             <div class="option-btn" style="display:none;">
-                                <button style="margin:0px 5px"><i class="fas fa-heart"></i></button>
-                                <button style="margin:0px 5px"><i class="fas fa-cart-plus"></i></button>
+                                <button style="margin: 0px 8px 0px 6px;"><i class="fas fa-heart"></i></button>
+                                <button style="margin: 0px 5px 0px 7px"><i class="fas fa-cart-plus"></i></button>
                             </div>
-                            <div class="buy-now-btn">
+                            <div class="by-now-btn">
                                 <button>Buy Now</button>
                             </div>
                         </div>

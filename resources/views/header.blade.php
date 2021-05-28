@@ -85,7 +85,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link a-link-2" href="#">HOME <span class="sr-only">(current)</span></a>
+                        <a class="nav-link a-link-2" href="/">HOME <span class="sr-only">(current)</span></a>
                     </li>
                     @if (Request::route()->getName())
                     <li class="nav-item cato-link">
@@ -98,7 +98,7 @@
                                     <a href="#" class="card-link cato-card-catos"><i class="fas fa-pills cato-card-item-icon"></i> Pharmacies</a>
                                 </div>
                                 <div class="cato-item">
-                                    <a href="#" class="card-link cato-card-catos"><i class="fas fa-pencil-ruler cato-card-item-icon"></i> Stationary Shops</a>
+                                    <a href="#" class="card-link cato-card-catos"><i class="fas fa-pencil-ruler cato-card-item-icon"></i> Book Shops</a>
                                 </div>
                                 <div class="cato-item">
                                     <a href="#" class="card-link cato-card-catos"><i class="fas fa-laptop cato-card-item-icon"></i> Computer Shops</a>

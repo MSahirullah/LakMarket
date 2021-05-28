@@ -16,7 +16,7 @@
                             <a href="#" class="card-link cato-card-catos"><i class="fas fa-pills cato-card-item-icon"></i> Pharmacies</a>
                         </div>
                         <div class="cato-item">
-                            <a href="#" class="card-link cato-card-catos"><i class="fas fa-pencil-ruler cato-card-item-icon"></i> Stationary Shops</a>
+                            <a href="#" class="card-link cato-card-catos"><i class="fas fa-pencil-ruler cato-card-item-icon"></i> Book Shops</a>
                         </div>
                         <div class="cato-item">
                             <a href="#" class="card-link cato-card-catos"><i class="fas fa-laptop cato-card-item-icon"></i> Computer Shops</a>
@@ -138,7 +138,7 @@
                                     <button class="option-btn-1"><i class="fas fa-heart"></i></button>
                                     <button class="option-btn-2"><i class="fas fa-cart-plus"></i></button>
                                 </div>
-                                <div class="buy-now-btn">
+                                <div class="by-now-btn">
                                     <button>Buy Now</button>
                                 </div>
                             </div>
@@ -217,7 +217,7 @@
                                     <button class="option-btn-1"><i class="fas fa-heart"></i></button>
                                     <button class="option-btn-2"><i class="fas fa-cart-plus"></i></button>
                                 </div>
-                                <div class="buy-now-btn">
+                                <div class="by-now-btn">
                                     <button>Buy Now</button>
                                 </div>
                             </div>
@@ -249,7 +249,7 @@
                                 <button class="option-btn-1"><i class="fas fa-heart"></i></button>
                                 <button class="option-btn-2"><i class="fas fa-cart-plus"></i></button>
                             </div>
-                            <div class="buy-now-btn">
+                            <div class="by-now-btn">
                                 <button>Buy Now</button>
                             </div>
                         </div>
@@ -343,7 +343,7 @@
                         <button class="option-btn-1"><i class="fas fa-heart"></i></button>
                         <button class="option-btn-2"><i class="fas fa-cart-plus"></i></button>
                     </div>
-                    <div class="buy-now-btn">
+                    <div class="by-now-btn">
                         <button>Buy Now</button>
                     </div>
                 </div>
