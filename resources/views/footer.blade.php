@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-md-6 ">
                         <div class="logo-part">
-                            <img src="img/name-logo.png" class="logo-footer">
+                            <img src="/img/name-logo.png" class="logo-footer">
                             <p>Our LAK MARKET provide next level of online<br> shopping experience to our valueable <br>customer.</p>
                         </div>
                     </div>

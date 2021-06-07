@@ -82,8 +82,7 @@
     border-bottom-right-radius: 5px;
 }
 
-.title button:hover,
-.title button:focus {
+.title button:hover {
     transition: 0.3s;
     outline: none;
 }

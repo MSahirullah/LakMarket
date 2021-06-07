@@ -1,5 +1,11 @@
 $(document).ready(function(){
 
+    alertMSG = $('#status').attr('dataMSG');
+    alertID = $('#status').attr('dataID');
+    if(alertMSG){
+        vanillaAlert(alertID, alertMSG);
+    }
+
     $(window).scroll(function(){
         if ($(window).scrollTop() >= 36) {
             $('#fixed-header').addClass('fixed-header');

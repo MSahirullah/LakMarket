@@ -5,6 +5,8 @@
         <i class="fas fa-chevron-right"></i>
         <a href="#">Lak Market Shops</a>
         <i class="fas fa-chevron-right"></i>
+        <a href="#">Book Shops</a>
+        <i class="fas fa-chevron-right"></i>
         <a class="selected" href="#">Jayanthi Bookshop</a>
 
     </div>
@@ -17,7 +19,7 @@
                 <div class="col-md-c-1 store-logo">
                     <img src="https://picsum.photos/200" alt="store-logo">
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-7 store-info">
                     <div class="store-name">
                         <h2>Jayanthi bookshop</h2>
                     </div>
@@ -64,7 +66,9 @@
                         <div class=" col-sm pl-0 pr-0 contact-details">
                             <div class="item">B/12, Owaththa, Hingula.</div>
                             <div class="location">
-                                <a href="#"><i class="fas fa-location-arrow location-icon"> </i> Get Direction</a>
+                                <div class="by-now-btn">
+                                    <a href="#"><button><i class="fas fa-location-arrow location-icon"> </i> Get Direction</button></a>
+                                </div>
                             </div>
                         </div>
                     </div>

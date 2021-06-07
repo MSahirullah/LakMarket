@@ -12,13 +12,15 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
+
 
     <!-- Styles -->
 
@@ -27,7 +29,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillatoasts@1.4.0/vanillatoasts.min.css">
+    <link rel="stylesheet" href="/css/corner-popup/corner-popup.css">
 
+    <link href="{{ URL::asset('css/common.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/header.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/home.css') }}" rel="stylesheet">
@@ -38,13 +43,15 @@
     <link href="{{ URL::asset('css/search.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/categories.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/store.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/products.css') }}" rel="stylesheet">
+
 
     @yield('css')
 
 </head>
 
 <body class="home" id="body">
-
+    <div id="app"></div>
     {{View::make('header')}}
     <main class="py-3 main-py">
         @yield('content')
@@ -62,13 +69,17 @@
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanillatoasts@1.4.0/vanillatoasts.min.js"></script>
+<script src="/js/corner-popup/corner-popup.min.js"></script>
 
-<script src="{{ asset('js/app.js') }}" defer></script>
-<script src="{{ asset('js/login.js') }}" defer></script>
-<script src="{{ asset('js/register.js') }}" defer></script>
+<!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 <script src="{{ asset('js/header.js') }}" defer></script>
 <script src="{{ asset('js/common.js') }}" defer></script>
 
+<script>
+    var post_token = "{{ csrf_token() }}";
+
+</script>
 @yield('scripts')
 
 </html>

@@ -3,8 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\CustomerModel;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Hash;
+
+
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -36,5 +44,37 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+
+    public function login(Request $req)
+    {
+        $email = $req['email'];
+        $password = $req['password'];
+
+        // $user = CustomerModel::where(['email' => $email, 'blacklisted' => '0', 'delete_status' => '0'])->first();
+        $customer = CustomerModel::where(['email' => $email, 'blacklisted' => '0', 'delete_status' => '0', 'is_verified' => 1])->first();
+
+        if ($customer) {
+
+            if (Hash::check($password, $customer->password)) {
+                FacadesAuth::login($customer);
+                $req->session()->put('customer', $customer);
+                return redirect()->route('home');
+            }
+            Session::flash('loginStatus', 'The passowrd is incorrect.');
+            return redirect()->back();
+        }
+        
+        Session::flash('loginStatus', "The email doen't have a Lak Market account. Please Register.");
+        return redirect()->back();
+    }
+
+    public function logout()
+    {
+        FacadesAuth::logout();
+        Session::flush();
+        return redirect('/');
+        // return redirect()->route('home');
     }
 }

@@ -9,8 +9,8 @@
 
 .sign-field-icon {
     float: right;
-    margin-right: 8px;
-    margin-top: -45px;
+    margin-right: 12px;
+    margin-top: -46px;
     position: relative;
     z-index: 2;
 }
@@ -38,8 +38,8 @@
     overflow-y: auto;
     box-shadow: 0px 0px 1px 0px #b5b5b5;
     margin-right: 0;
-    width: 206px;
-    margin-left: 5px;
+    width: 225px;
+    margin-left: 4px;
     border-radius: 0 0px 10px 10px;
 }
 
@@ -84,6 +84,7 @@
     height: 38px;
     border-radius: 7px;
     margin-top: 12px;
+    font-size: 14px;
 }
 
 .button-reg-1 {
@@ -101,6 +102,10 @@
     background-color: #0347b6;
 }
 
+.button-reg-4 {
+    margin-bottom: 5px;
+}
+
 .button-reg-3 {
     background-color: #39374e;
     margin-bottom: 25px;
@@ -109,6 +114,7 @@
     position: absolute;
     margin-top: -30px;
     margin-left: 13px;
+    font-size: 15px;
 }
 
 .reg-image {
@@ -116,3 +122,103 @@
     width: 90%;
     margin-right: -30px;
 }
+
+.col-title {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #150378;
+}
+
+.welcome-window .form-check-label {
+    font-size: 13px;
+}
+
+.eralert-2 {
+    margin: -15px 0px;
+    padding: 3px 54px 3px 10px;
+    font-size: 13px;
+    position: absolute;
+    background-color: white !important;
+    color: red;
+    font-family: "Open Sans", sans-serif;
+}
+
+.check-form {
+    margin-top: -3px;
+    margin-bottom: 3px;
+}
+
+.success-img {
+    width: 155px;
+    height: 150px;
+    background-size: 150px;
+    background-repeat: no-repeat;
+    margin: auto;
+    margin-bottom: 12px;
+}
+
+.button-3,
+.button-4 {
+    background-color: green;
+}
+
+.button-3:hover,
+.button-4:hover {
+    background-color: rgb(2, 187, 2);
+}
+
+.timer {
+    color: yellow;
+}
+
+.button-3.disabled,
+.button-3:disabled,
+.button-4.disabled,
+.button-4:disabled,
+.button-3.disabled:hover,
+.button-3:disabled,
+.button-4.disabled:hover,
+.button-4:disabled {
+    color: #fff;
+    background-color: #20a056;
+    border-color: #20a056;
+}
+
+#corner-popup {
+    bottom: 25px;
+    right: 25px;
+    width: 300px !important;
+}
+
+.pop-up-img-div {
+    width: 100% !important;
+    margin: auto;
+}
+
+.pop-up-img {
+    width: 50%;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: -25px;
+}
+
+.corner-head {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    line-height: 25px !important;
+}
+
+#corner-popup .p-col {
+    padding: 0px 0px 0px 0px !important;
+}
+
+.corner-btn-close {
+    margin-bottom: -20px !important;
+}
+
+#corner-popup .corner-container {
+    margin-bottom: -30px !important;
+}
+
+

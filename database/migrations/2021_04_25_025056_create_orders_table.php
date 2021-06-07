@@ -17,7 +17,6 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignId('customer_id')->constrained('customers')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('order_date');
-
             $table->timestamps();
         });
     }

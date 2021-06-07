@@ -211,5 +211,6 @@
 @endsection
 
 @section('scripts')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHQxriVKFmURanWzX7-k-WG1gdN30drD4&callback=initMap&libraries=&v=weekly" async></script>
 <script src="{{ asset('js/store.js') }}" defer></script>
 @endsection

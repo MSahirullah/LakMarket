@@ -1,0 +1,201 @@
+.store-details {
+    width: 96%;
+    font-family: "Poppins", sans-serif;
+    background-color: white;
+    margin: auto;
+    margin-top: -75px;
+    z-index: 1;
+    position: relative;
+    box-shadow: rgb(0 0 0 / 24%) 0px 0px 9px 2px;
+}
+
+.store-logo img {
+    padding: 12px;
+    width: 180px;
+    height: 180px;
+    margin: auto;
+}
+
+.col-md-c-1 {
+    flex: 0 0 15.75% !important;
+    max-width: 15.75% !important;
+}
+
+.col-md-c-4 {
+    flex: 0 0 25.9% !important;
+    max-width: 25.9% !important;
+}
+
+.store-name h2 {
+    padding: 20px 0px 0px 0px;
+    font-size: 22px;
+    text-transform: capitalize;
+}
+.store-follow {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.store-follow .followers {
+    margin-bottom: 5px;
+}
+
+.store-follow i {
+    color: #f6b400;
+    padding-right: 5px;
+}
+
+.store-desc {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.store-contact {
+    padding: 18px 12px 0px 0px;
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+}
+
+.store-contact .contact .icon {
+    font-size: 25px;
+    padding-left: 10px;
+    color: #ff5757;
+}
+
+.store-contact .contact .location-icon {
+    padding-right: 5px;
+}
+
+.store-contact .contact .location {
+    margin-top: 6px;
+}
+
+.store-contact .contact .item {
+    color: #404040;
+}
+
+.store-contact .contact .location a {
+    font-size: 14px;
+    color: darkblue;
+    transition: 0.3s;
+}
+
+.store-contact .contact .location a:hover {
+    color: #ff9900;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.store-contact .contact-details:hover {
+    overflow: auto;
+}
+
+.store-contact .contact {
+    display: flex;
+}
+
+.store-since {
+    font-size: 14px;
+}
+.store-contact .contact-details {
+    padding-left: 10px;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.hr-line {
+    width: 100%;
+    border-bottom: 1px solid #ced4da;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+/* Scroll Bar 1 */
+
+.contact-details::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+
+.contact-details::-webkit-scrollbar {
+    height: 6px;
+    background-color: #f5f5f5;
+}
+
+.contact-details::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+    background-color: #ffce47;
+}
+
+.store-info .by-now-btn button {
+    float: right;
+    margin-top: -37px;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.location .by-now-btn button {
+    font-size: 12px;
+    border: 1px solid #fb3939;
+}
+
+.location .by-now-btn button:hover {
+    letter-spacing: 0px;
+    background-color: #fb3939 !important;
+    box-shadow: none;
+}
+
+.store-info .by-now-btn button:hover {
+    letter-spacing: 0px;
+}
+
+.mb-15 {
+    margin-bottom: 15px !important;
+}
+
+.c-c-s-2 {
+    background: white;
+    padding-bottom: 30px;
+}
+
+.store-search input,
+.store-search button {
+    font-size: 13px;
+}
+
+.store-search {
+    float: left;
+    font-family: "Poppins", sans-serif;
+    margin-top: 25px;
+    margin-left: -175px;
+}
+
+.store-search input:focus {
+    box-shadow: none;
+    border-color: #ff9900;
+}
+
+.store-search button {
+    box-shadow: none !important;
+    background-color: #ffce47 !important;
+    border: 1px solid#ffce47;
+    color: black;
+    transition: 0.3s;
+}
+
+.store-search button:hover {
+    box-shadow: none !important;
+    background-color: #ff9900 !important;
+    border: 1px solid#ff9900;
+    color: white;
+    transition: 0.3s;
+}
+
+#map {
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    height: 300px;
+}

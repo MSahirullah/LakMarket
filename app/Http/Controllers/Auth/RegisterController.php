@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customers;
+use App\Http\Controllers\MailController;
+use App\Models\CustomerModel;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\MailController;
-use DateTime;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Carbon\Carbon;
+
+use function Complex\exp;
 
 class RegisterController extends Controller
 {
@@ -54,9 +59,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'reg-name' => ['required', 'string', 'max:255'],
-            'reg-email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'reg-password' => ['required', 'string', 'min:8'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -66,73 +71,102 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
+    protected function create(array $data)
+    {
+        return CustomerModel::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+    }
+
 
     public function register(Request $request)
     {
+        $customer = new CustomerModel();
 
-        $validate_date = $request->validate([
-            "password" => 'required|min:8'
+        //check customer email already exists
+        $valid_email = CustomerModel::where(['email' => $request['email'], 'blacklisted' => '0', 'delete_status' => '0'])->first();
 
-        ]);
 
-        $customer = new Customers();
-        $dt = new DateTime();
-
-        // $customer->full_name = $request->{'reg-name'};
-
-        //Check Email already exists
-        $valid_email_data = Customers::where(['email' => $request->{"reg-email"}])->first();
-
-        if ($valid_email_data != null) {
-
-            if ($valid_email_data->blacklisted) {
-                return redirect()->back()->with(session()->flash('invalidEmail', "Sorry you can't register with this email address. (RSN : Blacklisted)"));
-            }
-
-            if ($valid_email_data->delete_status) {
-                $customer = $valid_email_data;
-            } else {
-                return redirect()->back()->with(session()->flash('invalidEmail', 'This email address already exists. Please Sign-in.'));
-            }
+        if ($valid_email != null) {
+            Session::flash('regStatus', ['1', 'This Email Address already exists.']);
+            return redirect()->back();
         }
 
-        $customer->full_name = $request->{"reg-name"};
-        $customer->email = $request->{"reg-email"};
-        $customer->mobile_no = $request->{"reg-phoneno"};
-        $customer->hometown = $request->{"reg-hometown"};
-        $customer->district = $request->{"reg-district"};
-        $customer->password = Hash::make($request->{"password"});
-        $customer->verification_code = sha1(time());
-        $customer->delete_status = 0;
-        $customer->last_logged_at = $dt->format('Y-m-d H:i:s');
+        $districtId = DB::table('lkdistricts')
+            ->select('id')
+            ->where('name_en', $request['reg-district'])
+            ->get();
+
+        $districtId = json_decode($districtId, true)[0]['id'];
+
+        $cityID = DB::table('lkcities')
+            ->select('id')
+            ->where(['name_en' => $request['reg-district'], 'district_id' => $districtId])
+            ->get();
+
+        $cityID = json_decode($cityID, true)[0]['id'];
+
+        // dd($request);
+        $newsletterStatus = 0;
+        if ($request['newletters']) {
+            $newsletterStatus = $request['newletters'];
+        }
+
+        $customer->first_name = ucfirst($request['first-name']);
+        $customer->last_name = ucfirst($request['last-name']);
+        $customer->email  = $request['email'];
+        $customer->verification_code = bin2hex(random_bytes(32));
+        $customer->password = Hash::make($request->password);
+        $customer->newsletters = $newsletterStatus;
+        $customer->district_id  = $districtId;
+        $customer->city_id   = $cityID;
         $customer->save();
 
         if ($customer != null) {
+            $name = $customer->first_name . ' ' . $customer->last_name;
+            MailController::sendRegisterMail($name, $customer->email, $customer->verification_code);
 
-            MailController::sendRegisterMail(
-                $customer->full_name,
-                $customer->email,
-                $customer->verification_code,
-                $customer->last_logged_at
-            );
-            return redirect()->back()->with(session()->flash('regMailStatus', ['cls' => 'alert-success', 'message' => 'Your account has been created. Please check your inbox for verification link.']));
+            Session::flash('status', ['0', 'Your account has been created. Please check email for verification link.', $customer->id]);
+            return view('auth.verify');
         }
-        return redirect()->back()->with(session()->flash('regMailStatus', ['cls' => 'alert-danger', 'message' => 'Something went wrong. Please try again later.']));
+        Session::flash('regStatus', ['1', 'Something went wrong. Please try again later.']);
+        return redirect()->back();
     }
 
-    
-    public function verifyUser(Request $request)
+    public function resendVerification(Request $req)
     {
-        $verfication_code = $request['code'];
-        $user = User::where(['verification_code' => $verfication_code])->first();
+        $customer = CustomerModel::where(['id' => $req['cus_id']])->first();
 
-        if ($user != null) {
-            $user->is_verified = 1;
-            $user->save();
+        if ($customer->is_verified == 0) {
+            $name = $customer->first_name . ' ' . $customer->last_name;
+            MailController::sendRegisterMail($name, $customer->email, $customer->verification_code);
 
-            return redirect()->route('login')->with(session()->flash('alert-success', 'Your account is verified. Please Login.'));
+            Session::flash('status', ['0', 'Your account has been created. Please check email for verification link.', $customer->id]);
+            return view('auth.verify');
         }
-        return redirect()->route('login')->with(session()->flash('alert-danger', 'Your Verification is invalid'));
+        Session::flash('regStatus', ['1', 'Something went wrong. Please try again later.']);
+        return redirect()->route('register');
     }
 
+    public function verifyCustomer(Request $request)
+    {
+        $verfication_code = $request->query('code');
+        $customer = CustomerModel::where(['verification_code' => $verfication_code])->first();
+
+        if ($customer != null) {
+            $customer->is_verified = 1;
+            $customer->email_verified_at = Carbon::now();
+            $customer->save();
+
+            FacadesAuth::login($customer);
+            Session::flash('status', ['0', 'Your account is verified  successfully.']);
+            $request->session()->put('customer', $customer);
+
+            return redirect()->route('home');
+        }
+        Session::flash('status', ['1', 'Your Verification is invalid.']);
+        return redirect()->route('register');
+    }
 }

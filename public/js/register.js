@@ -1,7 +1,24 @@
-function autocomplete(inp, tmpParam ,arr) {
+
+$(document).ready(function(){
+
+    alertMSG = $('#regStatus').attr('dataMSG');
+    alertID = $('#regStatus').attr('dataID');
+    if(alertMSG){
+        vanillaAlert(alertID, alertMSG);
+    }
+
+    for(var i=60; i>=0; i--){
+        $('#timer').val(i);
+    }
+    
+    $('body:not(#corner-popup)').click(function(){
+        $('#corner-popup').hide(); 
+    });
+
 
     
-    
+
+function autocomplete(inp, tmpParam ,arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
@@ -303,6 +320,7 @@ $.post('/register-district',{"_token": post_token},function(data){
         districts_ids[value['name_en']] = value['id'];
         districts.push(value['name_en']);
     }
+    
 });
 
 function getDistrictCities(dis_name){
@@ -321,6 +339,8 @@ function getDistrictCities(dis_name){
 
 autocomplete(document.getElementById("reg-district"),0, districts);
 autocomplete(document.getElementById("reg-hometown"),1, cities );
+
+
 
 
 
@@ -361,3 +381,44 @@ $.each(districts, function(index, value) {
   $("#reg-district").next('div').addClass('sign-input bg-white');
 
 $('select').selectpicker();*/
+
+
+$('.button-reg-1').click(function() {
+
+    var password1 = $('#password').val();
+    var password2 = $('#confirm-password').val();
+
+    if (password1 != password2) {
+
+        $('#confirm-password').attr('type', 'text');
+        $('#confirm-password').val('');
+        $('#confirm-password').attr('type', 'text');
+    }
+    $('#form-submit').trigger("click");
+});
+
+var input = document.getElementById('confirm-password');
+input.oninvalid = function(event) {
+    event.target.setCustomValidity('Please make sure your passwords match.');
+}
+
+
+
+$(".toggle-password").click(function() {
+
+    var input = $($(this).attr("toggle"));
+    if ($(input).val()){
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    }
+});
+
+});
+
+function loginCall(){
+    window.location.href='/login';
+}

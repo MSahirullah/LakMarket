@@ -14,16 +14,35 @@
 }
 
 .a-nav-link {
-    font-weight: 400;
+    font-weight: 600;
     font-size: 13px;
-    color: #999999;
+    color: #909090;
     transition: 0.3s;
     margin-right: 8px;
+    text-transform: uppercase;
 }
 
 .a-nav-link:hover {
-    color: #808080 !important;
+    color: #042863 !important;
     text-decoration: underline;
+    transition: 0.3s;
+}
+
+.nav-dropdown .dropdown-menu {
+    margin-top: -8px;
+}
+
+.a-nav-link-2 {
+    font-weight: 600;
+    font-size: 13px;
+    color: #909090;
+    transition: 0.3s;
+    margin-right: 8px;
+    text-transform: uppercase;
+}
+
+.a-nav-link-2:hover {
+    color: #042863 !important;
     transition: 0.3s;
 }
 
@@ -80,7 +99,7 @@
     position: absolute;
     color: white;
     border-radius: 100%;
-    padding: 0px 5px;
+    padding: 1px 5px 0px 5px;
     font-size: 11px;
     margin-left: -38px;
     margin-top: -6px;
@@ -148,7 +167,7 @@
 /*the container must be positioned relative:*/
 
 .city-wapper {
-    margin-right: -10px;
+    margin-right: -25px;
 }
 
 .city-wapper .autocomplete {
@@ -246,6 +265,9 @@
     border: 0px;
     padding-left: 15px;
     padding-right: 234px;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+
 }
 
 .search-bar input[type="text"]:focus {
@@ -339,6 +361,7 @@
     margin-left: 242px !important;
     width: 177px !important;
     border-left: 1px solid rgb(248, 248, 248);
+
 }
 
 .select-cato button {
@@ -346,8 +369,8 @@
     border: none;
     height: 34px;
     font-size: 13px;
-
-    color: #8d8d8d;
+    font-family: "Open Sans", sans-serif;
+    color: #444444;
     border-radius: unset;
 }
 .filter-option-inner-inner {
@@ -359,9 +382,8 @@
     background: #858585;
 }
 
-.select-cato button:focus,
 .select-cato button:hover {
-    color: #8d8d8d;
+    color: #444444;
     border: none;
     box-shadow: none !important;
     outline: 0px;
@@ -460,4 +482,5 @@
 .nav-item {
     padding-top: 7px;
     padding-bottom: 7px;
+    text-transform: uppercase;
 }

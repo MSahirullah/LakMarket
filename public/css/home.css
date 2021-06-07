@@ -38,7 +38,7 @@
 }
 
 .cato-card-catos {
-    font-size: 13px;
+    font-size: 14px;
     color: #585858;
     transition: 0.2s;
 }
@@ -57,10 +57,17 @@
     font-weight: 700;
 }
 
+.cato-drop-down .cato-item {
+    padding-bottom: 3px;
+}
+.cato-drop-down .cato-card-catos {
+    text-transform: uppercase;
+}
+
 .cato-item {
     margin: 5px 0px;
     transition: 0.2s;
-    padding-bottom: 5px;
+    padding-bottom: 6px;
 }
 
 .cato-item-hover {
@@ -476,7 +483,7 @@ a.shop-now-btn {
 }
 
 .product-rating-div {
-    margin: -19.2px 2px 0px 0px;
+    margin: -21px 0px 0px 0px;
     padding: 1px 4px 2px 5px;
     position: relative;
     float: right;
@@ -575,62 +582,6 @@ a.shop-now-btn {
 
 .r-f-body {
     padding: 0px 5px;
-}
-
-.f-w-0 {
-    font-weight: unset;
-}
-
-.mb-8 {
-    margin-bottom: 8px;
-}
-
-.p-0 {
-    padding: 0px;
-}
-
-.pr-0 {
-    padding-right: 0px !important;
-}
-
-.pl-0 {
-    padding-left: 0px !important;
-}
-
-.m-0 {
-    margin: 0px !important;
-}
-
-.ml-0 {
-    margin-left: 0px !important;
-}
-
-.mt-0 {
-    margin-top: 0px !important;
-}
-
-.mb-0 {
-    margin-bottom: 0px !important;
-}
-
-.mr-0 {
-    margin-right: 0px !important;
-}
-
-.pl-0 {
-    padding-left: 0px !important;
-}
-
-.pr-0 {
-    padding-right: 0px !important;
-}
-
-.mb-25 {
-    margin-bottom: 25px;
-}
-
-.mt-20 {
-    margin-top: 20px;
 }
 
 .owl-c-4 .owl-stage-outer,

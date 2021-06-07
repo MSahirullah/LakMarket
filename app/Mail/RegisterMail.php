@@ -29,7 +29,7 @@ class RegisterMail extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_USERNAME'), env('APP_NAME'))
-            ->subject('LAK MARKET Confirmation Email - CA')
+            ->subject('Lak Market Confirmation Email')
             ->view('mail.regmail', ['email_data' => $this->email_data]);
     }
 }

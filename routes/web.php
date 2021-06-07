@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CommonController;
+use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SearchContrller;
 use App\Http\Controllers\SellerDashboard;
 use App\Http\Controllers\SellerDashboardLogin;
@@ -13,6 +17,7 @@ use App\Http\Controllers\SellerDashboardDiscounts;
 use App\Http\Controllers\SellerDashboardNewsletters;
 use App\Http\Controllers\SellerDashboardOrders;
 use App\Http\Controllers\SellerDashboardStock;
+use App\Http\Controllers\SellerRegister;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,21 +34,32 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Auth::routes();
 
+
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/register', [RegisterController::class, 'register']);
 
 
 Route::post('/register-district', [CommonController::class, 'getDistricts']);
 
 Route::post('/register-cities', [CommonController::class, 'getCities']);
+Route::post('/register/verification-resend', [RegisterController::class, 'resendVerification'])->name('verification.resend');
+
+Route::post('/forget-password', [ForgotPasswordController::class, 'postEmail'])->name('reset.password');
+Route::get('/password-reset', [ResetPasswordController::class, 'getPassword']);
+Route::post('/password-reset', [ResetPasswordController::class, 'updatePassword'])->name('update.password');
 
 
-Route::get('/customer-care', function () {
-    return view('customer_care');
-})->name('customer-care');
+Route::get('/verify', [RegisterController::class, 'verifyCustomer']);
+Route::get('/seller/register', [SellerRegister::class, 'index'])->name('seller.register');
+
+
+Route::get('/customer-care', [EnquiryController::class, 'index'])->name('customer-care');
+Route::post('/customer-care', [EnquiryController::class, 'sendEnquiry'])->name('send-enquiry');
 
 Route::get('/search', function () {
     return view('search');
@@ -62,6 +78,9 @@ Route::get('/store', function () {
 });
 Route::get('/p', function () {
     return view('products');
+});
+Route::get('/a', function () {
+    return view('auth.login_register');
 });
 
 
@@ -114,3 +133,7 @@ Route::get('/seller/logout', function () {
     Session::flush();
     return redirect('/seller/login');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
