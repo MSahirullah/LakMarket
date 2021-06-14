@@ -35,6 +35,9 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
+
+//  =========================== SELLER ===========================
+
 Route::get('/', function () {
     return view('home');
 })->name('home');
@@ -102,6 +105,10 @@ Route::get('/a', function () {
 });
 
 
+//  =========================== SELLER ===========================
+
+
+
 Route::get('/seller/dashboard', [SellerDashboard::class, 'index'])->name('seller.dashboard');
 
 Route::get('/seller/dashboard/profile', [SellerDashboardProfile::class, 'sellerProfile'])->name('seller.profile');
@@ -154,3 +161,37 @@ Route::get('/seller/logout', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+
+//  =========================== ADMIN ===========================
+
+
+Route::get('/admin/login', function () {
+    return view('admin.dashboard_login');
+});
+
+Route::post('/admin/login',  [AdminDashboardLogin::class, 'login'])->name('admin.login');
+
+Route::get('/admin/logout', function() {
+    Session::flush();
+    return redirect('/admin/login');
+});
+
+Route::get('/admin/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
+
+Route::get('/admin/dashboard/profile', [AdminDashboardProfile::class, 'adminProfile'])->name('admin.profile');
+Route::post('/admin/dashboard/profile/change-profile-image', [AdminDashboardProfile::class, 'adminProfileChange']);
+
+Route::get('/admin/dashboard/admins',  [AdminDashboardAdmins::class, 'index'])->name('admin.list');
+
+Route::post('/admin/dashboard/change-sidebar-status', [AdminDashboard::class, 'changeSideBarStatus']);
+
+Route::post('/admin/dashboard/clear-session', [AdminDashboard::class, 'clearSession']);
+
+/* Route::get('/admin/dashboard/admins', [AdminDashboardAdmins::class, 'adminAdmins'])->name('admin.admins'); */
+Route::get('/admin/dashboard/sellers', [AdminDashboardSellers::class, 'adminSellers'])->name('admin.sellers');
+Route::get('/admin/dashboard/products', [AdminDashboardProducts::class, 'adminProducts'])->name('admin.products');
+Route::get('/admin/dashboard/customers', [AdminDashboardCustomers::class, 'adminCustomers'])->name('admin.customers');
