@@ -15,7 +15,7 @@
 }
 
 .cato-card {
-    border-radius: 10px 0px 0px 10px !important;
+    /* border-radius: 10px 0px 0px 10px !important; */
     height: 340px;
 }
 
@@ -41,6 +41,7 @@
     font-size: 14px;
     color: #585858;
     transition: 0.2s;
+    margin-left: 5px;
 }
 
 .cato-card-item-icon {
@@ -82,11 +83,11 @@
 .slider-img {
     height: 340px !important;
     width: 100% !important;
-    border-radius: 0px 10px 10px 0px;
+    border-radius: 0px 3px 3px 0px;
 }
 
 .carousel-inner {
-    border-radius: 0px 10px 10px 0px;
+    border-radius: 0px 3px 3px 0px;
 }
 
 .carousel-indicators li {
@@ -170,7 +171,7 @@ a.shop-now-btn {
 
 .item-div-icon {
     font-size: 14px;
-    margin-top: 8px;
+    margin-top: 5px;
     position: absolute;
     padding: 0px 5px;
 }

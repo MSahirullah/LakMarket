@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper header-wrapper">
     <div id="bodyContent">
         <span id="collapseStatus"></span>
         <!-- Navbar -->
@@ -18,22 +18,7 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
-                <li class="nav-item dashboard-home-search">
-                    <div class="navbar-search-block">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control shadow-none input-search-box" type="text" placeholder="Search" aria-label="Search" />
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar home-search-submit" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>
-
+               
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -55,8 +40,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
+                    <a class="nav-link" id="btnFullscreen" href="#" role="button">
+                        <i id="fullScreenIcon" class="fas fa-expand-arrows-alt"></i>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -76,7 +61,7 @@
                 <span class="brand-text font-weight-light">Lak Market</span>
             </a>
 
-            <span id="seller-name" data-name='{{Session::get('sellerName')}}' data-image='{{Session::get('sellerImage')}}'></span>
+            <span id="seller-name" data-name='{{Session::get('storeName')}}' data-image='{{Session::get('sellerImage')}}'></span>
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->

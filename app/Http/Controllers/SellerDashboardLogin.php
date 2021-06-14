@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class SellerDashboardLogin extends Controller
 {
@@ -51,11 +52,14 @@ class SellerDashboardLogin extends Controller
 
         if ($seller) {
             if ($seller->blacklisted) {
-                return redirect()->back()->with(session()->put('invalidEmail', "Sorry you can't login with this email address. (RSN : Blacklisted)"));
-            }
-            if ($seller->password != $password) {
-
-                return redirect()->back()->with(session()->put('invalidEmail', 'The email or password you entered is incorrect.'));
+                Session::flash('status', ['1', "Sorry you can't login with this email address. (RSN : Blacklisted)"]);
+                return redirect()->back();
+            } elseif (!$seller->verified_seller) {
+                Session::flash('status', ['2', "Your details have not yet been confirmed. Please login back in once the details are confirmed."]);
+                return redirect()->back();
+            } else if ($seller->password != $password) {
+                Session::flash('status', ['1', "The password you entered is incorrect."]);
+                return redirect()->back();
             } else {
 
                 Cookie::queue(Cookie::make('valSideBar', '0'));
@@ -63,7 +67,8 @@ class SellerDashboardLogin extends Controller
                 return redirect('seller/dashboard');
             }
         }
-        return redirect()->back()->with(session()->put('invalidEmail', 'The email or password you entered is incorrect.'));
+        Session::flash('status', ['1', "The email doen't have a Lak Market Seller account. Please Register."]);
+        return redirect()->back();
     }
 }
 

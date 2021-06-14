@@ -13,6 +13,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillatoasts@1.4.0/vanillatoasts.min.css">
 
     <link rel="stylesheet" href="{{ URL::asset('css/sellercss/login.css') }}">
 
@@ -26,7 +27,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanillatoasts@1.4.0/vanillatoasts.min.js"></script>
     <script src="{{ asset('js/sellerjs/login.js') }}" defer></script>
+    <script src="{{ asset('js/sellerjs/common.js') }}" defer></script>
 
 
 
@@ -35,23 +38,23 @@
 <body>
     <div class="login-body">
         <div class="card d-login-window">
-            <p class="card-header text-center">
-                <span class="d-login-t1">LAK MARKET</span>
+            @if(Session::has('status'))
+            <div id="status" dataMSG="{{Session::get('status')[1]}}" dataID="{{Session::get('status')[0]}}"></div>
+            @endif
+
+            <div class="card-header text-center">
+                <div class="card-login-logo">
+
+                    <img src="/img/weblogo_1.png" class="header-img" alt="LAK MARKET LOGO">
+
+                </div>
                 <br>
                 <span class="d-login-t2">Seller Login</span>
-            </p>
+            </div>
             <form method="POST" action="{{route('seller.login')}}" class='d-login-form'>
                 @csrf
                 <p class="d-login-desc">Please login to continue.</p>
 
-
-                @if (session('status'))
-                <p>{{Session::get('status')}}</p>
-                @endif
-
-                @if(Session::has('invalidEmail'))
-                <p class="alert alert-danger bsalert">{{ Session::get('invalidEmail') }}</p>
-                @endif
 
                 <div class="mb-3">
                     <label for="d-email">{{ __('Email') }} <span class="required"></span> </label>

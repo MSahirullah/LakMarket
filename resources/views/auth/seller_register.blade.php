@@ -1,107 +1,192 @@
 @extends('layouts.app')
 
-@section('content')
+@section('css')
+<link href="{{ URL::asset('/css/sellerRegister.css') }}" rel="stylesheet">
+@endsection
 
-<div class="content" style="background-image:url('/img/sign-bg.png');background-size: contain; padding-bottom: 150px;">
-    @if(Session::has('regStatus'))
-    <div id="regStatus" dataMSG="{{Session::get('regStatus')[1]}}" dataID="{{Session::get('regStatus')[0]}}"></div>
-    @endif
+@section('content')
+<div class="content site-container" style="background-image:url('/img/sign-bg.png');background-size: contain;">
     <div class="form-content">
         <div class="container">
-            <!-- <div class="col-md-12"> -->
             <div class="row jc-c">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="welcome-window pb-15">
+
                         <div>
                             <p class="fw-bold welcome-msg text-center">Welcome to Lak Market!</p>
+                            <p class="fw-bold welcome-seller text-center">Create Your Business Account...</p>
                         </div>
                         <hr>
-                        <div>
-                            <p class="welcome-desc lg">Already have an account? <a href="{{route('login')}}">Sign In</a> here.</p>
-                        </div>
+                        <!-- progressbar -->
+                        <ul id="progressbar">
+                            <li class="active" id="account"><strong>Account</strong></li>
+                            <li id="personal"><strong>Personal</strong></li>
+                            <li id="confirm"><strong>Finish</strong></li>
+                        </ul>
+                        <hr>
 
-                        <form method="POST" action="{{ route('register') }}" id="reg-form">
-                            @csrf
-                            <div class="row">
+                        <div id="accountTab">
+                            <form method="POST" action="{{route('register.seller')}}" id="verifySellerForm">
+                                @csrf
+                                <div class="row">
+                                    <div class=" col-md-12 pr-25">
+                                        <p class="col-title-seller">Account Inforamtion : </p>
 
-                                <div class="col-md-6 pr-25">
-                                    <p class="text-center col-title">Personal Inforamtion</p>
-                                    <hr>
+                                        <label id="dataEmail" data-email="" for="sellerEmail">{{ __('Business Email') }} <span class="required"></span> </label>
+                                        <input type="email" class="form-control sign-input mb-15" name="email" value="{{ old('email') }}" required autocomplete="email" id="sellerEmail" autofocus placeholder="Enter your email address" />
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <label for="first-name">{{ __('First Name') }} <span class="required"></span> </label>
-                                            <input type="text" class="form-control sign-input" name="first-name" required autocomplete="first-name" autofocus id="first-name" onkeypress="return /[a-z]/i.test(event.key)" placeholder="Enter your first name ">
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col">
-                                            <label for="last-name">{{ __('Last Name') }} <span class="required"></span> </label>
-                                            <input type="text" class="form-control sign-input" name="last-name" value="{{ old('name') }}" required autocomplete="last-name" autofocus id="last-name" onkeypress="return /[a-z]/i.test(event.key)" placeholder="Enter your last name"><br>
-                                        </div>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col autocomplete">
-                                            <label for="reg-district">{{ __('District') }} <span class="required"></span> </label>
-
-                                            <input type="text" class="form-control sign-input" onClick="this.select();" autocomplete="off" name="reg-district" id="reg-district" placeholder="Select your district" />
-                                            <i class="fa fa-angle-down reg-angle-icon" id="reg-district-icon" aria-hidden="true"></i>
-                                            <br>
-                                        </div>
-
-                                        <div class="col">
-                                            <label for="reg-hometown">{{ __('Home Town') }} <span class="required"></span> </label>
-                                            <input type="text" class="form-control sign-input" onClick="this.select();" autocomplete="off" name="reg-hometown" id="reg-hometown" placeholder="Select your home town" />
-                                            <i class="fa fa-angle-down reg-angle-icon" id="reg-hometown-icon" aria-hidden="true"></i><br>
-                                        </div>
+                                        <button type="button" id="sellerRegSub" class="btn btn-primary reg-button-2 button-reg-1">
+                                            Send Verification Code
+                                        </button>
+                                        <button type="button" id="sellerRegResend" class="reg-button-2 button-reg-1 btn btn-success submit-button button-3" disabled style="display: none;">
+                                            Click Here to Resend <span class="timer">(<span id="timer">60</span>)</span>
+                                        </button>
+                                        <button type="submit" class="seller-submit" style='display:none;' disabled></button>
 
                                     </div>
-
-                                    <!-- <div class="row">
-                                        <div class="col">
-                                            <label for="reg-phoneno">{{ __('Phone Number') }} <span class="required"></span> </label>
-                                            <input type="tel" maxlength="9" pattern="[7]{1}[0-8]{1}[0-9]{7}" class="form-control sign-input" style="padding-left: 40px;" name="reg-phoneno" id="reg-phoneno" />
-                                            <span class="mob-contry-code">+94</span>
-                                            <br>
-                                        </div>
-                                    </div> -->
-
                                 </div>
-                                <div class="col-md-6 pl-25">
-                                    <p class="text-center col-title">Sign-In Inforamtion</p>
-                                    <hr>
-                                    <label for="email">{{ __('Email') }} <span class="required"></span> </label>
-                                    <input type="email" class="form-control sign-input" name="email" value="{{ old('email') }}" required autocomplete="email" id="email" placeholder="Enter your email address" /><br />
-                                    <div class="row">
-                                        <div class="col">
-                                            <label for="password">{{ __('Password') }} <span class="required"></span> </label>
-                                            <input type="password" class="form-control sign-input pr-30" name="password" required autocomplete="current-password" id="password" placeholder="Enter your password" required autocomplete="current-password" pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"><br>
-                                            <span toggle="#password" class="far fa-fw fa-eye sign-field-icon toggle-password"></span>
-                                        </div>
+                            </form>
+                            <div id="verifyCode" style="display:none;">
+                                <form method="POST" action="{{route('verify.seller')}}" id="VerifyCodeSellerForm" class="digit-group mb-100" data-group-name="digits" data-autosubmit="false" autocomplete="off">
 
-                                        <div class="col">
-                                            <label for="confirm-password">{{ __('Confirm Password') }} <span class="required"></span> </label>
-                                            <input type="password" class="form-control sign-input pr-30" required autocomplete="current-password" id="confirm-password" placeholder="Enter your password" required autocomplete="current-password" /><br>
-                                            <span toggle="#confirm-password" class="far fa-fw fa-eye sign-field-icon toggle-password"></span>
+                                    <div class="row jc-c">
+                                        <div class="col-md-12 pr-25">
+                                            <hr>
+                                            <div class="success-img" style="background-image:url('/img/check-mark.png');"> </div>
+                                            <p class="mb-8 text-center ">{{ __('Before proceeding, please check your email for a verification code.') }}
+                                            <div class="done_text text-center mt-20">
+
+                                                <input type="text" id="digit-1" name="digit-1" data-next="digit-2" autofocus/>
+                                                <input type="text" id="digit-2" name="digit-2" data-next="digit-3" data-previous="digit-1" />
+                                                <input type="text" id="digit-3" name="digit-3" data-next="digit-4" data-previous="digit-2" />
+                                                <span class="splitter">&ndash;</span>
+                                                <input type="text" id="digit-4" name="digit-4" data-next="digit-5" data-previous="digit-3" />
+                                                <input type="text" id="digit-5" name="digit-5" data-next="digit-6" data-previous="digit-4" />
+                                                <input type="text" id="digit-6" name="digit-6" data-previous="digit-5" />
+
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-check check-form">
-                                        <input class="form-check-input" name="newletters" type="checkbox" value="1" id="newletters" checked>
-                                        <label class="form-check-label " for="newletters">
-                                            Sign Up for Newsletter
-                                        </label>
-                                    </div>
-                                    <button type="button" class="btn btn-primary reg-button button-reg-1">
-                                        Register
+                                    <button type="button" id="sellerVerifSub" class="btn btn-primary reg-button-3 button-reg-1 mt-35">
+                                        Verify Account
                                     </button>
-                                    <input type="submit" value="" id="form-submit" style="display: none;">
+                                </form>
+
+                            </div>
+
+
+                        </div>
+                        <div id="businessTab" style="display:none">
+                            <form method="POST" action="{{route('submit.seller')}}" id="submitSellerDetails">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="first-name">{{ __('Seller Full Name') }} <span class="required"></span> </label>
+                                        <input type="text" class="form-control sign-input" name="full-name" required autocomplete="full-name" autofocus id="full-name" onkeypress="return /^[a-zA-Z\s]*$/i.test(event.key)" pattern="([A-zÀ-ž\s]){2,}" placeholder="Enter your full name ">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="business-name">{{ __('Business Name') }} <span class="required"></span> </label>
+                                        <input type="text" class="form-control sign-input" name="business-name" value="{{ old('name') }}" required autocomplete="business-name" pattern="([A-z0-9À-ž\s]){2,}" id="business-name" placeholder="Enter your business name"><br>
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="selectCategory">{{ __('Business Category') }} <span class="required"></span> </label>
+                                        <select class="selectpicker form-control sign-input" id="selectCategory">
+
+                                            @foreach($shopC as $shop)
+                                            <option value="{{$shop->id}}">{{$shop->name}}</option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="bMobile">{{ __('Business Mobile Number') }} <span class="required"></span> </label>
+                                        <input type="text" class="form-control sign-input" name="bMobile" id="bMobile" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" pattern="[0]{1}[0-9]{9}" placeholder="Enter your business mobile number" /><br>
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="bHotline">{{ __('Business Hotline') }} <span class="required"></span> </label>
+                                        <input type="text" class="form-control sign-input" name="bHotline" id="bHotline" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" pattern="[0]{1}[0-9]{9}" placeholder="Enter your business hotline" /><br>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="address">{{ __('Business Address') }} <span class="required"></span> </label>
+                                        <input type="text" class="form-control sign-input" name="address" required autocomplete="address" id="address" pattern="([A-z0-9À-ž\s]){2,}" placeholder="Enter your business address ">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col autocomplete">
+                                        <label for="reg-district">{{ __('District') }} <span class="required"></span> </label>
+
+                                        <input type="text" class="form-control sign-input" onClick="this.select();" autocomplete="off" name="reg-district" id="reg-district" placeholder="Select your district" />
+                                        <i class="fa fa-angle-down reg-angle-icon" id="reg-district-icon" aria-hidden="true"></i>
+                                        <br>
+                                    </div>
+
+                                    <div class="col">
+                                        <label for="reg-hometown">{{ __('City') }} <span class="required"></span> </label>
+                                        <input type="text" class="form-control sign-input" onClick="this.select();" autocomplete="off" name="reg-hometown" id="reg-hometown" placeholder="Select your city" />
+                                        <i class="fa fa-angle-down reg-angle-icon" id="reg-hometown-icon" aria-hidden="true"></i><br>
+                                    </div>
 
                                 </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="storeLocation">{{ __('Store Location') }} <span class="required"></span> </label>
+                                        <div class="map-span">
+                                            <span><i class="fas fa-search-location"></i> Click here to get your current location</span>
+                                        </div>
+                                        <div id="storeLocation" class="form-control text-center align-middle" data-la="79.8612" data-lo="6.9271">
+                                        </div>
+                                    </div>
+                                </div>
+                                </br>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input mt-9" name="cashOnDelivery" checked type="checkbox" value="1" id="cashOnDel">
+                                            <label class="form-check-label" for="cashOnDel">
+                                                Cash On Delivery Available
+                                                <span class="required"></span> </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row text-right">
+                                    <div class="col">
+                                        <button type="button" id="sellerDeailsSubmit" class="btn btn-primary reg-button-4 button-reg-1">
+                                            Submit
+                                        </button>
+                                        <button type="submit" class="sellerDeailsSubmitBtn" style='display:none;' disabled></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="confirmTab" style="display: none;">
+                            <div class="row jc-fe confirmTab-div">
+
+                                <div class='success-text'>
+                                    <div class="logo"></div>
+                                    <span class="text1">Thank You. <br> We are verifying your <br> information.</span><br>
+                                    <br>
+                                    <span class="text2">We will notify you of your <br> verfication status via email in 24 to 36 hours.</span><br><br>
+                                    <a href="/"><button>Go to Home</button></a>
+                                </div>
+
+                                <div class="success-bg"></div>
+
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,15 +198,6 @@
 @endsection
 
 @section('scripts')
-
-<script>
-    $.fn.cornerpopup({
-        variant: 10,
-        slide: 1,
-        escClose: 1,
-        content: "<div class='hide-mobile p-sm-8 pop-up-img-div'><img src='/img/img-3.png' align='center' class='responsive pop-up-img'></div> <div> <div class='corner-container'><p class='corner-head'> BECOME A SELLER ON <br> LAK MARKET </p><a href='{{route('login')}}' onclick='loginCall();' class='corner-btn-close'>Create Your Business Account</a></div></div>",
-    });
-</script>
-
-<script src="{{ asset('js/register.js') }}" defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHQxriVKFmURanWzX7-k-WG1gdN30drD4&callback=initMap&libraries=&v=weekly" async></script>
+<script src="{{ asset('/js/sellerRegister.js') }}" defer></script>
 @endsection

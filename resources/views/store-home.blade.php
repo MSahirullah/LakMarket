@@ -211,6 +211,43 @@
 @endsection
 
 @section('scripts')
+<script>
+    var marker = false;
+
+    function initMap() {
+        var lo = "7.8731";
+        var la = "80.7718";
+
+        var centerOfMap = new google.maps.LatLng(lo, la);
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: centerOfMap,
+            zoom: 15,
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                position: google.maps.ControlPosition.TOP_CENTER,
+            },
+            zoomControl: true,
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.LEFT_CENTER,
+            },
+            scaleControl: true,
+            streetViewControl: true,
+            streetViewControlOptions: {
+                position: google.maps.ControlPosition.LEFT_TOP,
+            },
+            fullscreenControl: true,
+        });
+
+        var _marker = new google.maps.Marker({
+            position: centerOfMap,
+            map: map,
+            title: ''
+        });
+
+        _marker.setMap(map);
+    }
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHQxriVKFmURanWzX7-k-WG1gdN30drD4&callback=initMap&libraries=&v=weekly" async></script>
 <script src="{{ asset('js/store.js') }}" defer></script>
 @endsection

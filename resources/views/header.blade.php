@@ -35,19 +35,19 @@
                         @if((Session::has('customer')))
                         <form id=" logout-form" action="{{route('logout')}}" method="POST">
                             @csrf
-                            <li class="nav-item dropdown p-0">
-                                <a class="nav-link dropdown-toggle a-nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{Session::get('customer')['first_name']}}'s Account
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item f-upp" href="#">My Account</a>
-                                    <div class="dropdown-divider"></div>
-                                    <button type="submit" class="dropdown-item " href="#">Logout</button>
+                    <li class="nav-item dropdown p-0">
+                        <a class="nav-link dropdown-toggle a-nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{Session::get('customer')['first_name']}}'s Account
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item f-upp" href="#">My Account</a>
+                            <div class="dropdown-divider"></div>
+                            <button type="submit" class="dropdown-item " href="#">Logout</button>
 
-                                </div>
-                            </li>
-                        </form>
-                        @endif
+                        </div>
+                    </li>
+                    </form>
+                    @endif
                     </li>
                     @endguest
                     <li class=" nav-item">
@@ -87,14 +87,59 @@
                     </form>
                 </div>
 
+                <div class="cart-div">
+                    @if ((Session::has('customer')))
 
-                <div class="cart">
-                    <span class="left-border"></span>
-                    <img src="/img/cart-icon.png" alt="Cart Icon" class="cart-icon">
-                    <span class="cart-count">0</span>
-                </div>
-
-            </div>
+                    <a href="{{route('cart')}}" class="customer-cart ">
+                        @endif
+                        <div class="cart">
+                            <span class="left-border"></span>
+                            <img src="/img/cart-icon.png" alt="Cart Icon" class="cart-icon">
+                            <span class="cart-count">0</span>
+                        </div>
+                        @if ((Session::has('customer')))
+                    </a>
+                    <div class="cart-block ">
+                        <div class="cart-block-content">
+                            <div class="cart-title">
+                                <h5><span>2</span> items in my cart </h5>
+                            </div>
+                            <div class="cart-list">
+                                <ul class="my_cart_summery">
+                                    <li class="product-info">
+                                        <div class="p-left">
+                                            <a href="#">
+                                                <img class="img-responsive" src="https://bigdeals.lk/uploads/thumbs/appip12mgjg3zpalarge.jpg" alt="p10">
+                                            </a>
+                                        </div>
+                                        <div class="p-right">
+                                            <p class="p-name">iPhone 12 - Black 256GB</p>
+                                            <p class="p-price">Rs 270,999</p>
+                                            <p class="p-qty">Qty: 1<span><a href="#" onclick="deleteItem(101745)" class="product-delete" data-id="64"><i class="fa fa-trash-o pull-right cart-delete"></i></a></span></p>
+                                        </div>
+                                    </li>
+                                    <li class="product-info">
+                                        <div class="p-left"><a href="#"><img class="img-responsive" src="https://bigdeals.lk/uploads/thumbs/appip12pmgd83zpalarge.jpg" alt="p10"></a></div>
+                                        <div class="p-right">
+                                            <p class="p-name">Apple Iphone 12 Max Silver 128GB</p>
+                                            <p class="p-price">Rs 309,999</p>
+                                            <p class="p-qty">Qty: 1<span><a href="#" onclick="deleteItem(101744)" class="product-delete" data-id="64"><i class="fa fa-trash-o pull-right cart-delete"></i></a></span></p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="total-cart">
+                                <span class="total-price">Total</span>
+                                <span class="total-price pull-right total-price-span">Rs <span id="my_cart_total_price">580,998</span></span>
+                            </div>
+                            <div class="cart-buttons">
+                                <a href="https://bigdeals.lk/cart/order/summery" class="btn-check-out"><button> Checkout </button></a>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    <div>
+                    </div>
         </nav>
         <nav class="navbar navbar-expand-lg navbar-light bg-light header-1 header-3">
             <div class="container pl-0">

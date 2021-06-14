@@ -2,9 +2,9 @@
 
 @section('content')
 
-<div class="content" style="background-image:url('/img/sign-bg.png');background-size: contain; ">
+<div class="content site-container" style="background-image:url('/img/sign-bg.png');background-size: contain; ">
     <div class="form-content">
-        <div class="container">
+        <div class="container ">
             <div class="col-md-12">
                 <div class="row jc-c">
                     <div class="col-md-5">

@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-        <div class="container-fluid">
+        <div class="container-fluid content-wrapper-title">
             <h1 class="m-0">Seller Dashboard</h1>
             <!-- /.row -->
         </div>

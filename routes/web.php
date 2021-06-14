@@ -3,9 +3,11 @@
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SearchContrller;
 use App\Http\Controllers\SellerDashboard;
@@ -20,6 +22,7 @@ use App\Http\Controllers\SellerDashboardStock;
 use App\Http\Controllers\SellerRegister;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,32 +41,45 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/register', [RegisterController::class, 'register']);
-
-
-Route::post('/register-district', [CommonController::class, 'getDistricts']);
-
+Route::get('/verify', [RegisterController::class, 'verifyCustomer']);
 Route::post('/register-cities', [CommonController::class, 'getCities']);
+Route::post('/register-district', [CommonController::class, 'getDistricts']);
 Route::post('/register/verification-resend', [RegisterController::class, 'resendVerification'])->name('verification.resend');
 
 Route::post('/forget-password', [ForgotPasswordController::class, 'postEmail'])->name('reset.password');
 Route::get('/password-reset', [ResetPasswordController::class, 'getPassword']);
 Route::post('/password-reset', [ResetPasswordController::class, 'updatePassword'])->name('update.password');
 
-
-Route::get('/verify', [RegisterController::class, 'verifyCustomer']);
 Route::get('/seller/register', [SellerRegister::class, 'index'])->name('seller.register');
-
+Route::post('/seller/registration', [RegisterController::class, 'sellerRegister'])->name('register.seller');
+Route::post('/seller/verification', [RegisterController::class, 'sellerVerify'])->name('verify.seller');
+Route::post('/seller/details-submit', [RegisterController::class, 'sellerSubmit'])->name('submit.seller');
 
 Route::get('/customer-care', [EnquiryController::class, 'index'])->name('customer-care');
 Route::post('/customer-care', [EnquiryController::class, 'sendEnquiry'])->name('send-enquiry');
 
+Route::post('/newsletter-add', [NewsletterController::class, 'addNewsletter'])->name('add.newsletter');
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+});
+
+
+
+
+
 Route::get('/search', function () {
     return view('search');
 })->name('search');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 
 Route::get('/c', function () {
     return view('categories');
@@ -76,16 +92,17 @@ Route::get('/sc', function () {
 Route::get('/store', function () {
     return view('store-home');
 });
+
 Route::get('/p', function () {
     return view('products');
 });
+
 Route::get('/a', function () {
     return view('auth.login_register');
 });
 
 
 Route::get('/seller/dashboard', [SellerDashboard::class, 'index'])->name('seller.dashboard');
-
 
 Route::get('/seller/dashboard/profile', [SellerDashboardProfile::class, 'sellerProfile'])->name('seller.profile');
 Route::post('/seller/dashboard/profile/change-profile-image', [SellerDashboardProfile::class, 'sellerProfileChange']);

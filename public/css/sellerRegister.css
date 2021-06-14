@@ -1,144 +1,43 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    height: 100%;
-}
-
-p {
-    color: grey;
-}
-
-#heading {
+.welcome-seller {
+    font-size: 20px;
     text-transform: uppercase;
-    color: #673ab7;
-    font-weight: normal;
+    font-weight: 700;
+    font-family: "Nunito", sans-serif;
+    color: #4d04c2;
+    margin-right: 10px;
 }
 
-#msform {
-    text-align: center;
-    position: relative;
-    margin-top: 20px;
+.reg-button-2,
+.reg-button-3 {
+    width: 50%;
+    height: 38px;
+    border-radius: 7px;
+    margin-top: 12px;
+    font-size: 14px;
+    float: right;
 }
 
-#msform fieldset {
-    background: white;
-    border: 0 none;
-    border-radius: 0.5rem;
-    box-sizing: border-box;
-    width: 100%;
-    margin: 0;
-    padding-bottom: 20px;
-    position: relative;
+.reg-button-4 {
+    width: 50%;
+    height: 38px;
+    border-radius: 7px;
+    margin-top: 12px;
+    font-size: 14px;
 }
 
-.form-card {
-    text-align: left;
-}
-
-#msform fieldset:not(:first-of-type) {
-    display: none;
-}
-
-#msform input,
-#msform textarea {
-    padding: 8px 15px 8px 15px;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-    margin-bottom: 25px;
-    margin-top: 2px;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: montserrat;
-    color: #2c3e50;
-    background-color: #eceff1;
+.col-title-seller {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #150378;
     font-size: 16px;
-    letter-spacing: 1px;
-}
-
-#msform input:focus,
-#msform textarea:focus {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    border: 1px solid #673ab7;
-    outline-width: 0;
-}
-
-#msform .action-button {
-    width: 100px;
-    background: #673ab7;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 0px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 0px 10px 5px;
-    float: right;
-}
-
-#msform .action-button:hover,
-#msform .action-button:focus {
-    background-color: #311b92;
-}
-
-#msform .action-button-previous {
-    width: 100px;
-    background: #616161;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 0px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px 10px 0px;
-    float: right;
-}
-
-#msform .action-button-previous:hover,
-#msform .action-button-previous:focus {
-    background-color: #000000;
-}
-
-.card {
-    z-index: 0;
-    border: none;
-    position: relative;
-}
-
-.fs-title {
-    font-size: 25px;
-    color: #673ab7;
-    margin-bottom: 15px;
-    font-weight: normal;
-    text-align: left;
-}
-
-.purple-text {
-    color: #673ab7;
-    font-weight: normal;
-}
-
-.steps {
-    font-size: 25px;
-    color: gray;
-    margin-bottom: 10px;
-    font-weight: normal;
-    text-align: right;
-}
-
-.fieldlabels {
-    color: gray;
-    text-align: left;
 }
 
 #progressbar {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     overflow: hidden;
     color: lightgrey;
+    padding: 0px 40px;
+    margin-top: 25px;
 }
 
 #progressbar .active {
@@ -148,30 +47,36 @@ p {
 #progressbar li {
     list-style-type: none;
     font-size: 15px;
-    width: 25%;
+    width: 33.3%;
     float: left;
     position: relative;
     font-weight: 400;
+    text-align: center;
+    z-index: 2;
 }
 
 #progressbar #account:before {
     font-family: FontAwesome;
     content: "\f13e";
+    padding: 2px 16px;
 }
 
 #progressbar #personal:before {
     font-family: FontAwesome;
     content: "\f007";
+    padding: 2px 16px;
 }
 
 #progressbar #payment:before {
     font-family: FontAwesome;
-    content: "\f030";
+    content: "\f2f7";
+    padding: 2px 16px;
 }
 
 #progressbar #confirm:before {
     font-family: FontAwesome;
     content: "\f00c";
+    padding: 4px 15px;
 }
 
 #progressbar li:before {
@@ -190,7 +95,7 @@ p {
 #progressbar li:after {
     content: "";
     width: 100%;
-    height: 2px;
+    height: 4px;
     background: lightgray;
     position: absolute;
     left: 0;
@@ -201,17 +106,177 @@ p {
 #progressbar li.active:before,
 #progressbar li.active:after {
     background: #673ab7;
+    padding: 2px 16px;
 }
 
-.progress {
-    height: 20px;
+.digit-group input {
+    width: 35px;
+    height: 50px;
+    background-color: #e1e8ff;
+    border: none;
+    line-height: 50px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 200;
+    color: black;
+    margin: 0 2px;
+    outline: none;
+}
+.digit-group .splitter {
+    padding: 0 5px;
+    color: black;
+    font-size: 24px;
 }
 
-.progress-bar {
-    background-color: #673ab7;
+.prompt {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: white;
 }
 
-.fit-image {
-    width: 100%;
-    object-fit: cover;
+#businessTab .bootstrap-select button {
+    border: 1px solid #ced4da;
+    background: #fff;
+    border-radius: 5px;
+    font-size: 14px;
+    height: 38px;
+    color: black !important;
+}
+
+#businessTab .bootstrap-select .text {
+    font-size: 13px;
+}
+
+#storeLocation {
+    height: 250px;
+}
+
+.map-span i {
+    color: red;
+    font-size: 18px;
+}
+
+.map-span {
+    color: rgb(116, 116, 116) !important;
+    border-radius: 5px;
+    float: right;
+    font-size: 13.5px;
+    margin-top: 8px;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.map-span:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: rgb(30, 30, 30) !important;
+}
+
+.sel-reg-address {
+    height: 60px !important;
+    margin-bottom: 10px;
+    resize: none;
+}
+
+/*the container must be positioned relative:*/
+#businessTab .autocomplete {
+    position: relative;
+    display: inline-block;
+}
+
+#businessTab .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    margin-top: -21px;
+    background-color: #dfdede;
+    max-height: 150px;
+    overflow: auto !important;
+    overflow-x: auto;
+    overflow-y: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+    box-shadow: 0px 0px 1px 0px #b5b5b5;
+    margin-right: 0;
+    width: 313px;
+    margin-left: 4px;
+    border-radius: 0 0px 10px 10px;
+}
+
+#businessTab .autocomplete-items div {
+    padding: 4px 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+#businessTab .autocomplete-items div:hover {
+    background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+#businessTab .autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+.success-bg {
+    background-image: url(/img/success-bg.png);
+    height: 300px;
+    width: 300px;
+    background-size: 300px 300px;
+    background-repeat: no-repeat;
+    position: absolute;
+    margin-left: 300px;
+}
+
+.confirmTab-div {
+    padding: 40px 60px;
+}
+
+.success-text {
+    font-family: "Nunito", sans-serif;
+}
+
+.success-text .logo {
+    background-image: url(/img/weblogo_1.png);
+    height: 110px;
+    width: 225px;
+    background-repeat: no-repeat;
+    background-size: 225px;
+    
+}
+
+.success-text .text1 {
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 35px;
+}
+
+.success-text .text2 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 25px;
+}
+
+
+#confirmTab button {
+    font-size: 14px;
+    padding: 2px 10px;
+    border: 1px solid #4e00f6;
+    border-radius: 3px;
+    transition: 0.3s;
+    color: #323232;
+    background: transparent;
+}
+
+#confirmTab button:hover {
+    text-decoration: none;
+    transition: 0.3s;
+    box-shadow: inset 0 100px 0 0 #4e00f6;
+    color: white;
 }

@@ -29,6 +29,7 @@ class CreateSellersTable extends Migration
             $table->string('verification_code')->nullable;
             $table->integer('visitors')->default(0);
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('verified_seller')->default(0);
             $table->date('date_of_birth');
             $table->string('latitude');
             $table->string('longitude');

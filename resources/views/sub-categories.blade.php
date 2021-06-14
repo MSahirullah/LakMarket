@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="site-wrapper">
+<div class="site-wrapper pt-16">
     <!-- //Breadcrumb -->
     <div class="container c-p">
         <a href="#">Home</a>

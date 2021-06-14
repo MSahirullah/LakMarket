@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="content" style="background-image:url('/img/sign-bg.png');background-size: contain; ">
+<div class="content pt-16" style="background-image:url('/img/sign-bg.png');background-size: contain; ">
     <div class="container c-p mt--30">
         <a href="/">Home</a>
         <i class="fas fa-chevron-right"></i>

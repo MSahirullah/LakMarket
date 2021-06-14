@@ -8,7 +8,7 @@
     <div id="status" data="{{ Session::get('loginStatus') }}"></div>
     @endif
     <div class="form-content">
-        <div class="container">
+        <div class="container site-container">
             <div class="col-md-12">
                 <div class="row jc-c">
                     <div class="col-md-5">

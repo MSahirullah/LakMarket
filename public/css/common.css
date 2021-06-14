@@ -91,6 +91,10 @@
     margin-top: 10px;
 }
 
+.mt-35 {
+    margin-top: 35px !important;
+}
+
 .prlt-15 {
     padding: 15px 15px;
 }
@@ -114,6 +118,10 @@
     margin-bottom: 20px !important;
 }
 
+.mb-100 {
+    margin-bottom: 100px !important;
+}
+
 .jc-c {
     justify-content: center;
 }
@@ -128,6 +136,10 @@
 
 .pb-15 {
     padding-bottom: 15px !important;
+}
+
+.mt-9 {
+    margin-top: 9px !important;
 }
 
 .toasts-top-right {
@@ -167,4 +179,16 @@
 
 .f-cpt {
     text-transform: capitalize !important;
+}
+
+.jc-fe {
+    justify-content: space-between;
+}
+
+.pt-16{
+    padding-top: 16px !important;
+}
+
+.mt-22{
+    margin-top: -22px;
 }

@@ -13,4 +13,9 @@ class SellerCategories extends Model
     protected $table = 'product_categories';
 
     protected $fillable = ['id', 'name', 'image', 'blacklisted', 'delete_status'];
+
+    public function sellers()
+    {
+        return $this->belongsToMany(Seller::class);
+    }
 }

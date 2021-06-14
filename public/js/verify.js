@@ -13,6 +13,7 @@ $(document).ready(function(){
         delay(i, x);
     }
 
+
     function delay(i, x) {
         setTimeout(() => {
             $('#timer').text(i);
@@ -25,7 +26,7 @@ $(document).ready(function(){
 
     }, 62000);
 
-    $('.button-3').click(function() {
+    $('#verifyBtn').click(function() {
         if($('#timer').text() == 0){
             $('#verifyForm').submit();
         }

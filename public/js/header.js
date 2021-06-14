@@ -23,8 +23,6 @@ $(document).ready(function(){
         $('.cato-list').show();
     });
 
-    
-
     $('.cato-link').mouseout(function(){
         
         $('.cato-link .fa-chevron-up').hide();
@@ -36,5 +34,6 @@ $(document).ready(function(){
     $('.cato-list').mouseout(function(){
         $('.cato-list').hide();
     });
+
 
 });

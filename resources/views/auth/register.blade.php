@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="content" style="background-image:url('/img/sign-bg.png');background-size: contain; padding-bottom: 150px;">
+<div class="content site-container" style="background-image:url('/img/sign-bg.png');background-size: contain; padding-bottom: 150px;">
     @if(Session::has('regStatus'))
     <div id="regStatus" dataMSG="{{Session::get('regStatus')[1]}}" dataID="{{Session::get('regStatus')[0]}}"></div>
     @endif
@@ -31,14 +31,14 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="first-name">{{ __('First Name') }} <span class="required"></span> </label>
-                                            <input type="text" class="form-control sign-input" name="first-name" required autocomplete="first-name" autofocus id="first-name" onkeypress="return /[a-z]/i.test(event.key)" placeholder="Enter your first name ">
+                                            <input type="text" class="form-control sign-input" name="first-name" required autocomplete="first-name" autofocus id="first-name" onkeypress="return /[a-z]/i.test(event.key)" placeholder="Enter your first name " pattern="([A-z]){2,}">
                                         </div>
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="col">
                                             <label for="last-name">{{ __('Last Name') }} <span class="required"></span> </label>
-                                            <input type="text" class="form-control sign-input" name="last-name" value="{{ old('name') }}" required autocomplete="last-name" autofocus id="last-name" onkeypress="return /[a-z]/i.test(event.key)" placeholder="Enter your last name"><br>
+                                            <input type="text" class="form-control sign-input" name="last-name" value="{{ old('name') }}" required autocomplete="last-name" autofocus id="last-name" onkeypress="return /[a-z]/i.test(event.key)" placeholder="Enter your last name" pattern="([A-zÀ-ž\s]){2,}"><br>
                                         </div>
                                     </div>
 

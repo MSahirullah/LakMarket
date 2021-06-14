@@ -387,3 +387,12 @@ body {
 .collapse-width .nav-item {
     width: 56px;
 } */
+
+.header-wrapper {
+    position: fixed;
+    width: 100%;
+}
+
+.content-wrapper-title {
+    margin-top: 60px;
+}

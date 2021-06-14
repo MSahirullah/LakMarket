@@ -16,7 +16,6 @@ $(document).ready(function(){
     });
 
 
-    
 
 function autocomplete(inp, tmpParam ,arr) {
     /*the autocomplete function takes two arguments,
@@ -392,16 +391,13 @@ $('.button-reg-1').click(function() {
 
         $('#confirm-password').attr('type', 'text');
         $('#confirm-password').val('');
-        $('#confirm-password').attr('type', 'text');
+        $('#confirm-password').attr('type', 'password');
+    }
+    else{
+        
     }
     $('#form-submit').trigger("click");
 });
-
-var input = document.getElementById('confirm-password');
-input.oninvalid = function(event) {
-    event.target.setCustomValidity('Please make sure your passwords match.');
-}
-
 
 
 $(".toggle-password").click(function() {

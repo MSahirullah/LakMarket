@@ -4,7 +4,7 @@
       padding: 0;
       background-color: #f5f7f9;" width="100%" cellpadding="0" cellspacing="0">
         <tr>
-            <td align ="center">
+            <td align="center">
                 <table style="        width: 100%;
                margin: 0;
                padding: 0;" width="100%" cellpadding="0" cellspacing="0">
@@ -36,10 +36,17 @@
                                         <b>
                                             <p style="        margin-top: 0;
                                     color: #292e31;
+                                    font-size: 17px;
+                                    line-height: 1.5em;
+                                    text-align: center;">
+                                                Verify Your New Lak Market Seller Account
+                                            </p>
+                                            <p style="        margin-top: 0;
+                                    color: #292e31;
                                     font-size: 16px;
                                     line-height: 1.5em;
                                     text-align: left;">
-                                                Hello {{$email_data['name']}},
+                                                Hello Seller,
                                             </p>
                                         </b>
                                         <p style="margin-top: 0;
@@ -47,19 +54,19 @@
                                  font-size: 14px;
                                  line-height: 1.5em;
                                  text-align: left;">
-                                            Thanks for signing up for Lak Market! We just need to verify your email address.
+                                            To verify your email address, please use the following One Time Password (OTP):
                                         </p>
                                         <!-- Action -->
                                         <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <td align="center">
                                                     <div>
-                                                        <a href="http://127.0.0.1:8000/verify?code={{$email_data['verification_code']}}" style="display: inline-block;
+                                                        <span style="display: inline-block;
                                              width: 200px;
                                              background-color: #414ef9;
                                              border-radius: 3px;
                                              color: #ffffff;
-                                             font-size: 16px;
+                                             font-size: 18px;
                                              margin-top:0px;
                                              line-height: 45px;
                                              text-align: center;
@@ -67,36 +74,24 @@
                                              -webkit-text-size-adjust: none;
                                              mso-hide: all;
                                              background-color: #414ef9;
-                                             border-radius: 40px;">Verify Email</a>
+                                             border-radius: 40px;">{{substr($email_data['verification_code'], 0, 3)}} - {{substr($email_data['verification_code'], -3)}}</span>
                                                     </div>
                                                 </td>
                                             </tr>
                                         </table>
+                                        <br><br>
                                         <p style="margin-top: 0;
                                  color: #839197;
                                  font-size: 14px;
                                  line-height: 1.5em;
-                                 text-align: left;">Happy Shopping!<br />The Lak Market Team</p>
+                                 text-align: left;">Do not share this OTP with anyone. Lak Market takes your account security very seriously. Lak Market Customer Service will never ask you to disclose or verify your Lak Market password, OTP, credit card, or banking account number. If you receive a suspicious email with a link to update your account information, do not click on the link—instead, report the email to Lak Market for investigation.
+                                            <br>
+                                            <br>Thank You!<br />The Lak Market Team
+                                        </p>
                                         <!-- Sub copy -->
-                                        <table class="body-sub">
+                                        <table style="width:100%;">
                                             <tr>
                                                 <td>
-                                                    <p style="margin-top: 0;
-                                          color: #839197;
-                                          font-size: 14px;
-                                          line-height: 1.5em;
-                                          text-align: left;
-                                          " class="sub">
-                                                        If you’re having trouble clicking the button, copy
-                                                        and paste the URL below into your web browser.
-                                                    </p>
-                                                    <p style="margin-top: 0;
-                                          color: #839197;
-                                          font-size: 14px;
-                                          line-height: 1.5em;
-                                          text-align: left;
-                                          " class="sub">
-                                                        <a href="http://127.0.0.1:8000/verify?code={{$email_data['verification_code']}}">http://127.0.0.1:8000/verify</a>
                                                     </p>
                                                 </td>
                                             </tr>
@@ -119,7 +114,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <table style="width: 570px;
+                            <table style="        width: 570px;
                         margin: 0 auto;
                         padding: 0;
                         text-align: center;" align="center" width="570" cellpadding="0" cellspacing="0">
@@ -133,7 +128,7 @@
                                  ">
                                             Lak Market
                                             <br />Department of Information Communications
-                                            Technology, <br />Faculty of Technology, University of
+                                            Technology <br />Faculty of Technology, University of
                                             Colombo.
                                         </p>
                                     </td>

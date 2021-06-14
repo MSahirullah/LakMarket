@@ -21,12 +21,12 @@ class SellerDashboard extends Controller
 
         $data = DB::table('sellers')
             ->where('id', "=",  $sellerId)
-            ->select('full_name', 'profile_photo')
+            ->select('store_name', 'profile_photo')
             ->get();
 
         $data[0]->profile_photo = "/" . $data[0]->profile_photo;
 
-        $request->session()->put('sellerName', $data[0]->full_name);
+        $request->session()->put('storeName', $data[0]->store_name);
         $request->session()->put('sellerImage', $data[0]->profile_photo);
 
         return (view('seller.dashboard_home'));

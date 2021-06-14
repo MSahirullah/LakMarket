@@ -8,7 +8,7 @@
 
 <div class="content-wrapper">
     <div class="content-header">
-        <div class="container-fluid">
+        <div class="container-fluid content-wrapper-title">
             <h1 class="m-0">Manage Products</h1>
         </div>
     </div>

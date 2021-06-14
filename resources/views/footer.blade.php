@@ -12,8 +12,8 @@
                     <div class="col-md-6 px-4">
                         <h6> About LAK MARKET</h6>
                         <p>For more details about our LAK MARKET, </p>
-                        <a href="#" class="btn-footer">About</a>
-                        <a href="#" class="btn-footer"> Contact Us</a>
+                        <a href="{{route('about')}}" class="btn-footer">About</a>
+                        <a href="{{route('customer-care')}}" class="btn-footer"> Contact Us</a>
                     </div>
                 </div>
             </div>
@@ -30,9 +30,10 @@
                     <div class="col-md-7 ">
                         <h6>Get Newsletters</h6>
 
-                        <form class="my-3 footer-form-newsletter">
-                            <input type="text" placeholder="Enter your email" name="get-email" class="footer-form-input">
-                            <button class="footer-form-submit">Submit</button>
+                        <form action="{{route('add.newsletter')}}" method="POST" class="my-3 footer-form-newsletter">
+                            @csrf
+                            <input type="email" placeholder="Enter your email" name="email" class="footer-form-input" required>
+                            <button class="footer-form-submit">Subscribe</button>
                         </form>
                         <p>Subscribe for get newsletter alerts.</p>
                     </div>

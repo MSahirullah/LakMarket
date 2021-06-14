@@ -67,7 +67,11 @@
 
 .cart {
     margin-left: 23px;
-    margin-right: 5px;
+    margin-right: 20px;
+}
+
+.cart:hover {
+    cursor: pointer;
 }
 
 .wishlist-icon {
@@ -267,7 +271,6 @@
     padding-right: 234px;
     font-size: 14px;
     font-family: "Open Sans", sans-serif;
-
 }
 
 .search-bar input[type="text"]:focus {
@@ -361,7 +364,6 @@
     margin-left: 242px !important;
     width: 177px !important;
     border-left: 1px solid rgb(248, 248, 248);
-
 }
 
 .select-cato button {
@@ -457,7 +459,7 @@
     margin-top: 12px;
     box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px,
         rgb(60 64 67 / 15%) 0px 1px 3px 1px;
-    z-index: 2;
+    z-index: 2000;
     padding: 5px 15px;
     font-family: Roboto, sans-serif;
     transition: 0.3s;
@@ -476,11 +478,185 @@
 
 .main-py {
     background-color: #f2f2f2;
-    padding-bottom: 0px !important;
+    padding: 0px !important;
 }
 
 .nav-item {
     padding-top: 7px;
     padding-bottom: 7px;
     text-transform: uppercase;
+}
+
+.cart-block {
+    position: absolute;
+    top: 32%;
+    right: 226px;
+    z-index: 1002;
+    max-height: 500px;
+    overflow-y: auto;
+    background: #fff;
+    color: #666;
+    width: 300px;
+    box-shadow: 0 6px 11px 2px rgb(50 50 50 / 20%);
+    transition: opacity 0.5s, transform 0.5s;
+    transform: translate(0, 40px);
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    animation-delay: 2s;
+}
+
+.cart-block .cart-block-content {
+    padding: 20px;
+    overflow: hidden;
+}
+
+.cart-block ul,
+.cart-block ol {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.cart-block .cart-block-content .cart-title h5 {
+    font-family: Roboto, sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: center;
+    background: #fcb813;
+    color: #000;
+    font-weight: 700;
+    padding: 3px;
+}
+
+.cart-block .cart-block-content .product-info {
+    margin-top: 10px;
+    border-bottom: 1px dotted #fcb813;
+    display: block;
+    overflow: hidden;
+    padding-bottom: 5px;
+}
+
+.cart-block .cart-block-content .product-info .p-left {
+    width: 100px;
+    float: left;
+    position: relative;
+}
+
+.cart-block a {
+    font-size: 16px;
+    color: #414042;
+    font-family: Roboto, sans-serif;
+}
+
+.cart-block .p-left img {
+    width: 80%;
+    height: auto;
+}
+
+.cart-block .cart-block-content .product-info .p-right {
+    margin-left: 20px;
+    line-height: 16px;
+    overflow: hidden;
+}
+
+.p-right p {
+    margin: 0 !important;
+    line-height: 16px;
+}
+.p-name {
+    font-size: 13px;
+    margin: 0;
+    line-height: 14px;
+    text-transform: none;
+    color: black;
+}
+.cart-block .cart-block-content .product-info .p-right .p-price {
+    color: #e74c3c;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cart-block .cart-block-content .product-info .p-right .p-qty {
+    color: #292929;
+    font-size: 12px;
+}
+
+.cart-delete:hover {
+    background: red;
+    border: 1px solid red;
+    color: #fff !important;
+}
+
+.cart-block .fa.pull-right {
+    float: right;
+}
+
+.cart-delete {
+    font-size: 13px;
+    padding: 4px 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #666 !important;
+}
+
+.cart-block .cart-block-content .total-cart {
+    margin-top: -5px;
+    margin-bottom: 10px;
+    color: #666;
+    height: 32px;
+    padding: 0 10px;
+    border-bottom: 1px dotted #fcb813;
+}
+
+.cart-block .cart-block-content .total-cart .total-price {
+    font-size: 15px;
+    color: #333;
+    font-family: Roboto, sans-serif;
+    font-weight: 600;
+}
+
+.cart-block .pull-right {
+    float: right;
+    color: red;
+}
+
+.cart-block .cart-block-content .cart-buttons {
+    overflow: hidden;
+    width: 100%;
+}
+
+.cart-block .cart-block-content .cart-buttons a {
+    margin-top: 5px;
+    float: right;
+}
+
+.cart-block .cart-block-content .cart-buttons button {
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    padding: 2px 10px;
+    border: 1px solid #ff4848;
+    border-radius: 3px;
+
+    color: #58595b;
+    background: transparent;
+}
+
+.cart-block .cart-block-content .cart-buttons button:hover {
+    text-decoration: none;
+
+    box-shadow: inset 0 100px 0 0 #ff4848;
+    color: white;
+}
+
+.cart-div {
+    padding: 20px 0px;
+}
+
+.cart-block .cart-block-content .total-price-span {
+    color: red !important;
+}
+
+.cart-div:hover .cart-block {
+    visibility: visible !important;
+    opacity: 1 !important;
 }

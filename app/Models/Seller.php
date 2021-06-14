@@ -9,4 +9,9 @@ class Seller extends Model
 {
     use HasFactory;
     protected $table = 'sellers';
+
+    public function product_categories()
+    {
+        return $this->belongsToMany(SellerCategories::class);
+    }
 }

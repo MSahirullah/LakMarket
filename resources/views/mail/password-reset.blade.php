@@ -1,4 +1,4 @@
-<body>
+<body style="font-family:Sans-serif;">
     <table style="        width: 100%;
     margin: 0;
     padding: 0;
@@ -34,7 +34,7 @@
                                 <tr>
                                     <td style=" padding: 35px;">
                                         <b>
-                                            <p stye="        margin-top: 0;
+                                            <p style="        margin-top: 0;
                                             color: #292e31;
         font-size: 16px;
         line-height: 1.5em;
@@ -42,9 +42,9 @@
                                                 Password Reset
                                             </p>
                                         </b>
-                                        <p stye="margin-top: 0;
+                                        <p style="margin-top: 0;
         color: #839197;
-        font-size: 16px;
+        font-size: 14px;
         line-height: 1.5em;
         text-align: left;">
                                             If you have lost your password or wish to reset it, use the link below to get started.
@@ -59,7 +59,7 @@
         background-color: #414ef9;
         border-radius: 3px;
         color: #ffffff;
-        font-size: 15px;
+        font-size: 14px;
         margin-top:0px;
         line-height: 45px;
         text-align: center;
@@ -72,26 +72,31 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <p>If you did not request a password reset, you can safely ignore this email. Only a person with access to your email can reset your account password. <br /><br />The Lak Market Team</p>
+                                        <br>
+                                        <p style="margin-top: 0;
+        color: #839197;
+        font-size: 14px;
+        line-height: 1.5em;
+        text-align: left;">If you did not request a password reset, you can safely ignore this email. Only a person with access to your email can reset your account password. <br /><br />The Lak Market Team</p>
                                         <!-- Sub copy -->
                                         <table class="body-sub">
                                             <tr>
                                                 <td>
-                                                    <p stye="margin-top: 0;
+                                                    <p style="margin-top: 0;
         color: #839197;
-        font-size: 16px;
+        font-size: 14px;
         line-height: 1.5em;
         text-align: left;
-        font-size:12px" class="sub">
+        " class="sub">
                                                         If you’re having trouble clicking the button, copy
                                                         and paste the URL below into your web browser.
                                                     </p>
-                                                    <p stye="margin-top: 0;
+                                                    <p style="margin-top: 0;
         color: #839197;
-        font-size: 16px;
+        
         line-height: 1.5em;
         text-align: left;
-        font-size:12px;" class="sub">
+        font-size:14px;" class="sub">
                                                         <a href="http://127.0.0.1:8000/password-reset?token={{$email_data['resetLink']}}">http://127.0.0.1:8000/password-reset</a>
                                                     </p>
                                                 </td>
@@ -123,15 +128,15 @@
                             text-align: center;" align="center" width="570" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style=" padding: 35px;">
-                                        <p stye="margin-top: 0;
+                                        <p style="margin-top: 0;
                                         color: #839197;
-        font-size: 16px;
+        font-size: 13px;
         line-height: 1.5em;
-        text-align: left;
-        font-size:12px">
+        text-align: center;
+        ">
                                             Lak Market
                                             <br />Department of Information Communications
-                                            Technology <br />Faculty of Technology, University of
+                                            Technology, <br />Faculty of Technology, University of
                                             Colombo.
                                         </p>
                                     </td>
