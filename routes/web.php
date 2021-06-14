@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminDashboard;
+use App\Http\Controllers\AdminDashboardAdmins;
+use App\Http\Controllers\AdminDashboardCustomers;
+use App\Http\Controllers\AdminDashboardLogin;
+use App\Http\Controllers\AdminDashboardProducts;
+use App\Http\Controllers\AdminDashboardProfile;
+use App\Http\Controllers\AdminDashboardSellers;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -104,7 +111,6 @@ Route::get('/a', function () {
     return view('auth.login_register');
 });
 
-
 //  =========================== SELLER ===========================
 
 
@@ -174,8 +180,9 @@ Route::get('/admin/login', function () {
 });
 
 Route::post('/admin/login',  [AdminDashboardLogin::class, 'login'])->name('admin.login');
+Route::post('/admin/verification-resend', [AdminDashboardAdmins::class, 'resendVerification'])->name('admin.verification_resend');
 
-Route::get('/admin/logout', function() {
+Route::get('/admin/logout', function () {
     Session::flush();
     return redirect('/admin/login');
 });

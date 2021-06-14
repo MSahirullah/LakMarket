@@ -21,12 +21,15 @@ class CreateAdministratorsTable extends Migration
             $table->string('email')->unique();
             $table->string('phone_number')->nullable;
             $table->string('verification_code')->nullable;
+            $table->integer('is_verified')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->date('date_of_birth');
             $table->string('address');
             $table->rememberToken();  //to remember me option
             $table->string('password');
-            $table->string('user_type');
+            $table->string('role');
+            $table->boolean('blacklisted')->default(0);
+            $table->boolean('delete_status')->default(0);
             $table->string('last_logged_at');
             $table->timestamps();
         });

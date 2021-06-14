@@ -20,5 +20,12 @@ $(document).ready(function(){
             input.attr("type", "password");
         }
     });
+
+    
+    alertMSG = $('#status').attr('dataMSG');
+    alertID = $('#status').attr('dataID');
+    if(alertMSG){
+        vanillaAlert(alertID, alertMSG);
+    }
 }); 
 

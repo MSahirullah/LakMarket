@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MailController;
+use App\Models\Customer;
 use App\Models\CustomerModel;
 use App\Models\Seller;
 use App\Providers\RouteServiceProvider;
@@ -140,7 +141,13 @@ class RegisterController extends Controller
     {
         $customer = CustomerModel::where(['id' => $req['cus_id']])->first();
 
+        $verification_code = bin2hex(random_bytes(32));
+
         if ($customer->is_verified == 0) {
+
+            $customer = Customer::where('id', $req['cus_id'])
+            ->update(['verification_code' => $verification_code]);
+
             $name = $customer->first_name . ' ' . $customer->last_name;
             MailController::sendRegisterMail($name, $customer->email, $customer->verification_code);
 
@@ -157,6 +164,7 @@ class RegisterController extends Controller
         $customer = CustomerModel::where(['verification_code' => $verfication_code])->first();
 
         if ($customer != null) {
+
             $customer->is_verified = 1;
             $customer->email_verified_at = Carbon::now();
             $customer->save();

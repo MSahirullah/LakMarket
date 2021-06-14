@@ -58,7 +58,7 @@
 
     <script src="/vendor/datatables/buttons.server-side.js"></script>
 
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="/cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
         var post_token = "{{ csrf_token() }}";

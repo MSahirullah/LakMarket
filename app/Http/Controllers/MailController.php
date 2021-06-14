@@ -37,4 +37,14 @@ class MailController extends Controller
 
         Mail::to($email)->send(new SellerRegisterMail($data));
     }
+
+    public static function sendAdminVerificationMail($name, $email, $verification_code)
+    {
+        $data = [
+            'name' => $name,
+            'verification_code' => $verification_code,
+        ];
+
+        Mail::to($email)->send(new RegisterMail($data));
+    }
 }

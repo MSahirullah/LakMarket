@@ -143,7 +143,7 @@
 }
 
 .toasts-top-right {
-    top: 165px !important;
+    top: 165px;
     right: 0;
 }
 
@@ -185,10 +185,18 @@
     justify-content: space-between;
 }
 
-.pt-16{
+.pt-16 {
     padding-top: 16px !important;
 }
 
-.mt-22{
+.mt-22 {
     margin-top: -22px;
+}
+
+.mt-145 {
+    margin-top: 145px !important;
+}
+
+.bg-f8f8f8 {
+    background-color: #f8f8f8 !important;
 }

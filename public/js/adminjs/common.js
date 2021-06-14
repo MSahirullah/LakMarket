@@ -116,3 +116,22 @@ function selectTitle(idName){
         $(idName).addClass('highlighted-title:h');
     });
 }
+
+function vanillaAlert(inp, msg, time = 6000){
+
+    var title = ['Success!','Error!','Warning!','Information!'];
+    var type = ['success', 'error', 'warning','info'];
+    var icon = ['success.png', 'error.png', 'warning.png', 'info.png']
+    var path = '/img/alert-logo/';
+
+    VanillaToasts.create({
+        title: title[inp],
+        text: msg,
+        type: type[inp], 
+        icon: path + icon[inp], 
+        timeout: time
+        // callback: function() { ... } // executed when toast is clicked / optional parameter
+      });
+}
+
+

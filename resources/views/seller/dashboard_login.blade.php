@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillatoasts@1.4.0/vanillatoasts.min.css">
 
     <link rel="stylesheet" href="{{ URL::asset('css/sellercss/login.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/common.css') }}">
 
 
 
@@ -42,7 +43,7 @@
             <div id="status" dataMSG="{{Session::get('status')[1]}}" dataID="{{Session::get('status')[0]}}"></div>
             @endif
 
-            <div class="card-header text-center">
+            <div class="card-header text-center bg-f8f8f8">
                 <div class="card-login-logo">
 
                     <img src="/img/weblogo_1.png" class="header-img" alt="LAK MARKET LOGO">
@@ -51,7 +52,7 @@
                 <br>
                 <span class="d-login-t2">Seller Login</span>
             </div>
-            <form method="POST" action="{{route('seller.login')}}" class='d-login-form'>
+            <form method="POST" action="{{route('seller.login')}}" class='d-login-form bg-w'>
                 @csrf
                 <p class="d-login-desc">Please login to continue.</p>
 

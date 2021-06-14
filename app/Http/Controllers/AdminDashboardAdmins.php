@@ -7,11 +7,33 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use DataTables;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class AdminDashboardAdmins extends Controller
 {
     //
+
+    public function resendVerification(Request $request)
+    {
+        $admin = administrator::where(['id' => $request['admin_id']])->first();
+
+        $verification_code = bin2hex(random_bytes(32));
+
+        if ($admin->is_verified == 0) {
+
+            $admin = administrator::where('id', $request['admin_id'])
+                    ->update(['verification_code' => $verification_code]);
+
+            $name = $admin->first_name . ' ' . $admin->last_name;
+            MailController::sendAdminVerificationMail($name, $admin->email, $verification_code);
+
+            Session::flash('status', ['0', 'Please check email for verification link.', $admin->id]);
+            return view('auth.verify');
+        }
+        Session::flash('status', ['1', 'Something went wrong. Please try again later.']);
+        return redirect()->route('admin.login');
+    }
+
     public function index(Request $request)
     {
 
@@ -35,7 +57,7 @@ class AdminDashboardAdmins extends Controller
 
                 ->addIndexColumn()
                 ->addColumn('action', function ($admin) {
-                    $adminName = $admin->first_name ." ". $admin->last_name;
+                    $adminName = $admin->first_name . " " . $admin->last_name;
                     $btn = '<span class="fas fa-edit editBtn" data-id="' . $admin->id . '" data-toggle="modal" data-target=".bd-AddEdit-modal-lg" class="btn btn-success createBtn" target="modalAddEdit" data-button = "Update" data-title="Edit ' . $adminName . ' Details"></span></br>';
 
                     $btn = $btn . '<span class="fas fa-trash removeBtn" data-id="' . $admin->id . '"></span>';
@@ -44,8 +66,8 @@ class AdminDashboardAdmins extends Controller
 
 
                 ->addColumn('name', function ($admin) {
-                    $adminName = $admin->first_name ." ". $admin->last_name;
-                    $txt = "<span>" . $adminName . "</span> <br> <span><i>".$admin->role."</i></span>";
+                    $adminName = $admin->first_name . " " . $admin->last_name;
+                    $txt = "<span>" . $adminName . "</span> <br> <span><i>" . $admin->role . "</i></span>";
                     return $txt;
                 })
 
@@ -70,7 +92,7 @@ class AdminDashboardAdmins extends Controller
                             $txt .= '<img src=' . $img . ' width="100px" class="table-img">';
                         }
                     }
-                    
+
                     return $txt;
                 })
 
@@ -93,6 +115,4 @@ class AdminDashboardAdmins extends Controller
 
         return $data;
     }
-        
-    
 }
