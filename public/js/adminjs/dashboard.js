@@ -1,5 +1,11 @@
 $(document).ready(function(){
 
+  alertMSG = $('#status').attr('dataMSG');
+  alertID = $('#status').attr('dataID');
+  if(alertMSG){
+      vanillaAlert(alertID, alertMSG);
+  }
+
     adminName = $('#admin-name').attr('data-name');
     $('.online-admin-name').html(adminName);
   

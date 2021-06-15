@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 // use App\Http\Controllers\CommonController;
 
 class AdminDashboardProfile extends Controller
@@ -47,9 +47,12 @@ class AdminDashboardProfile extends Controller
 
         if ($affected) {
             $request->session()->put('adminImage', '/' . $uploadedFiles);
-            return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Profile picture updated!']));
+
+            Session::flash('status', ['0', "Profile picture updated!"]);
+            return redirect()->back();
         }
-        return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
+        Session::flash('status', ['1', "Something went wrong. Please try again later!"]);
+        return redirect()->back();
     }
 
     public function sellerStoreChange(Request $request)

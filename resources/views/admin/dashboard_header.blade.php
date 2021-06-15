@@ -3,6 +3,9 @@
     <div id="bodyContent">
         <span id="collapseStatus"></span>
         <!-- Navbar -->
+        @if(Session::has('status'))
+        <div id="status" dataMSG="{{Session::get('status')[1]}}" dataID="{{Session::get('status')[0]}}"></div>
+        @endif
         <nav class="main-header navbar navbar-expand navbar-white navbar-light navbar-custom">
             <!-- Left navbar links -->
             <ul class="navbar-nav">

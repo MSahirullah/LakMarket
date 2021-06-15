@@ -1,4 +1,3 @@
-
 body {
     margin: 0;
     font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont,
@@ -14,6 +13,11 @@ body {
 
 a {
     transition: 0.3s;
+}
+
+.toasts-top-right {
+    top: 165px;
+    right: 0;
 }
 
 .online-status {
@@ -358,7 +362,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100px;
-    border: 3px solid white; 
+    border: 3px solid white;
 }
 /* .menu-collapse .nav-link p,
 .menu-collapse .brand-text,
