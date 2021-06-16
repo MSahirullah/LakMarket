@@ -16,8 +16,13 @@ a {
 }
 
 .toasts-top-right {
-    top: 165px;
+    top: 50px;
     right: 0;
+    z-index: 2000;
+}
+
+.vanillatoasts-toast {
+    box-shadow: rgb(0 0 0 / 15%) 0px 4px 8px 0px;
 }
 
 .online-status {
@@ -398,3 +403,19 @@ body {
 .collapse-width .nav-item {
     width: 56px;
 } */
+
+.header-wrapper {
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    z-index: 1037;
+}
+
+.content-wrapper-title {
+    margin-top: 60px;
+}
+
+.modal-content {
+    border: 0px !important;
+    border-radius: 0.3rem 0.3rem 0 0 !important;
+}

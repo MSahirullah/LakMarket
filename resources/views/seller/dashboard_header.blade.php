@@ -2,11 +2,14 @@
     <div id="bodyContent">
         <span id="collapseStatus"></span>
         <!-- Navbar -->
+        @if(Session::has('status'))
+        <div id="status" dataMSG="{{Session::get('status')[1]}}" dataID="{{Session::get('status')[0]}}"></div>
+        @endif
         <nav class="main-header navbar navbar-expand navbar-white navbar-light navbar-custom">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" id="sideBarToggle" data-widget="pushmenu" href="#" role="button" data-toggle-status = {{request()->cookie('valSideBar')}} onclick="ocMiniSideMenu()"><i class="fas fa-bars"></i></a>
+                    <a class="nav-link" id="sideBarToggle" data-widget="pushmenu" href="#" role="button" data-toggle-status={{request()->cookie('valSideBar')}} onclick="ocMiniSideMenu()"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/seller/dashboard" class="nav-link">Home</a>
@@ -18,7 +21,7 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-               
+
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">

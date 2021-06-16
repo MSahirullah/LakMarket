@@ -357,5 +357,20 @@
 @section('scripts')
 
 <script src="{{ asset('js/home.js') }}" defer></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        var path = "{{ route('customer.search') }}";
+        $('input.typeahead').typeahead({
+            source: function(query, process) {
+                return $.get(path, {
+                    query: query
+                }, function(data) {
+                    return process(data);
+                });
+            }
+        });
+    });
+</script>
 
 @endsection

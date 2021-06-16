@@ -10,6 +10,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -66,12 +67,20 @@ class LoginController extends Controller
                 $name = $customer->first_name . ' ' . $customer->last_name;
                 MailController::sendRegisterMail($name, $customer->email, $customer->verification_code);
 
-                Session::flash('status', ['2', 'Please verify your email account.', $customer->id]);
+                Session::flash('status', ['3', 'Please verify your email account.', $customer->id]);
                 return view('auth.verify');
             } else if (Hash::check($password, $customer->password)) {
 
+                $city = DB::table('lkcities')
+                    ->select('name_en')
+                    ->where('id', $customer->city_id)
+                    ->get();
+
+                $city = json_decode($city, true)[0]['name_en'];
+
                 FacadesAuth::login($customer);
                 $req->session()->put('customer', $customer);
+                $req->session()->put('customer-city', $city);
                 return redirect()->route('home');
             }
             Session::flash('loginStatus', 'The passowrd is incorrect.');

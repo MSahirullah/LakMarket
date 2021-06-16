@@ -12,7 +12,7 @@ class SellerCategories extends Model
 
     protected $table = 'product_categories';
 
-    protected $fillable = ['id', 'name', 'image', 'blacklisted', 'delete_status'];
+    protected $fillable = ['id', 'name', 'delete_status'];
 
     public function sellers()
     {

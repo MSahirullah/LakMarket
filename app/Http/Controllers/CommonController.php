@@ -4,13 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\Lkcities;
 use App\Models\Lkdistricts;
-
+use App\Models\Lkprovinces;
+use App\Models\SellerProducts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
 
 class CommonController extends Controller
 {
+
+    public function getProvinces()
+    {
+        $provinces = DB::table('lkprovinces')
+            ->select('name_en', 'id')
+            ->orderBy('name_en')
+            ->get();
+
+        return $provinces;
+    }
+
+    public function getDistrictsbyID(Request $req)
+    {
+        $province_id = $req->get('pro_id');
+        $districts = DB::table('lkdistricts')
+            ->select('name_en', 'id')
+            ->where('province_id', $province_id)
+            ->orderBy('name_en')
+            ->get();
+
+        return $districts;
+    }
+
     public function getDistricts()
     {
         $districts = Lkdistricts::all('id', 'name_en');
@@ -31,5 +55,14 @@ class CommonController extends Controller
     public static function checkSeller($url)
     {
         abort(404, $url);
+    }
+
+    public function searchAutocomplete(Request $request)
+    {
+        $data = SellerProducts::select("name")
+                ->where("name","LIKE","%{$request->query}%")
+                ->get();
+   
+        return response()->json($data);
     }
 }

@@ -28,7 +28,7 @@ class AdminDashboardProfile extends Controller
 
 
         $data->profile_photo = "/" . $data->profile_photo;
-        
+
         return view('admin.dashboard_profile')->with(['AdminData' => $data]);
     }
 
@@ -73,28 +73,6 @@ class AdminDashboardProfile extends Controller
         }
         return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
     }
-
-    //for the check 
-
-    public function cehck(Request $request)
-    {
-        $sellerId = Session::get('seller');
-        $file = $request->file('store_image');
-        $uploadedFiles = "";
-
-        $destinationPath = 'sellers/images/' . $sellerId . '/store';
-        $file->move($destinationPath, $file->getClientOriginalName());
-        $uploadedFiles = $destinationPath . '/' . $file->getClientOriginalName();
-
-        $affected = DB::table('sellers')->where('id', $sellerId)
-            ->update(['store_image' => $uploadedFiles]);
-
-        if ($affected) {
-            return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Store image updated!']));
-        }
-        return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
-    }
-
 
     public function sellerHotlineChange(Request $request)
     {

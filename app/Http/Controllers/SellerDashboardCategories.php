@@ -7,6 +7,7 @@ use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\SellerDashboardProducts;
+use App\Models\SellerProductCategories;
 use Illuminate\Support\Facades\Session;
 
 class SellerDashboardCategories extends Controller
@@ -20,204 +21,183 @@ class SellerDashboardCategories extends Controller
         }
 
         $data = DB::table('seller_product_category')
+            ->join('product_categories', 'product_categories.id', '=', 'seller_product_category.product_category_id')
             ->where([
-                ['seller_id', "=",  $sellerId]
+                ['seller_id', "=",  $sellerId],
+                ['delete_status', '=', '0']
             ])
-            ->select('product_category_id')
+            ->select('product_categories.name as name', 'seller_product_category.id as id')
             ->get();
 
-        dd($data);
 
 
-        // if ($request->ajax()) {
+        $seller = DB::table('sellers')
+            ->where([
+                ['id', "=",  $sellerId]
+            ])
+            ->select('shop_category_id')
+            ->get();
 
-        //     $num = 0;
+        $seller = json_decode($seller, true)[0]['shop_category_id'];
 
-        //     function numIncrement()
-        //     {
-        //         global $num;
-        //         $num++;
-        //         return $num;
-        //     }
-
-        //     return DataTables::of($data)
-
-        //         ->addIndexColumn()
-        //         ->addColumn('action', function ($category) {
-        //             $categoryName = $category->name;
-        //             $btn = '<span class="fas fa-edit editBtn" data-id="' . $category->id . '" data-toggle="modal" data-target=".bd-AddEdit-modal-lg" class="btn btn-success createBtn" target="modalAddEdit" data-button = "Update" data-title="Edit ' . $categoryName . ' Details"></span>';
-
-        //             $btn = $btn . '<span class="fas fa-trash removeBtn" data-id="' . $category->id . '"> </span>';
-        //             return $btn;
-        //         })
+        $categories = DB::table('product_categories')
+            ->where([
+                ['shop_categories_id', "=",  $seller]
+            ])
+            ->select('name', 'id')
+            ->get();
 
 
-        //         ->addColumn('image', function ($category) {
-        //             $txt = '';
+        if ($request->ajax()) {
 
-        //             if ($category->image) {
-        //                 $img_arr1 = str_replace("[", '', $category->image);
-        //                 $img_arr2 = str_replace("]", '', $img_arr1);
-        //                 $img_arr = explode(",", $img_arr2);
+            $num = 0;
 
-        //                 foreach ($img_arr as $image) {
-        //                     $img = "/" . $image;
-        //                     $img = str_replace('"', '', $img);
-        //                     $img = str_replace('"', '', $img);
-        //                     $txt .= '<img src=' . $img . ' width="100px" class="table-img">';
-        //                 }
-        //             }
+            function numIncrement()
+            {
+                global $num;
+                $num++;
+                return $num;
+            }
 
-        //             return $txt;
-        //         })
-        //         ->addColumn('ids', function () {
+            return DataTables::of($data)
 
-        //             $value = numIncrement();
-        //             return $value;
-        //         })
+                ->addIndexColumn()
+                ->addColumn('action', function ($category) {
+                    $categoryName = $category->name;
+                    $btn = '<span class="fas fa-edit editBtn" data-id="' . $category->id . '" data-toggle="modal" data-target=".bd-AddEdit-modal" class="btn btn-success createBtn" target="modalAddEdit" data-button = "Update" data-title="Edit Category Details"></span>';
 
-        //         ->rawColumns(['ids', 'action', 'image'])
-        //         ->setRowId('{{$id}}')
-
-        //         ->make(true);
-        // }
+                    $btn = $btn . '<span class="fas fa-trash removeBtn" data-id="' . $category->id . '"> </span>';
+                    return $btn;
+                })
 
 
+                ->addColumn('ids', function () {
 
-        return view('seller.dashboard_categories', ['categories' => $data]);
+                    $value = numIncrement();
+                    return $value;
+                })
+
+                ->rawColumns(['ids', 'action'])
+                ->setRowId('{{$id}}')
+
+                ->make(true);
+        }
+
+        return view('seller.dashboard_categories', ['categories' => $categories]);
     }
 
     public function addNewCategory(Request $request)
     {
-        // $category = new sellerCategories();
-        // $sellerId = Session::get('seller');
-
-        // $categoryDetails = DB::table('product_categories')
-        //     ->where([
-        //         ['seller_id', "=",  $sellerId],
-        //         ['name', '=', $request->name],
-        //         ['delete_status', '=', 0],
-        //     ])
-        //     ->select('*')
-        //     ->get()->first();
-
-        // if (!$categoryDetails) {
-
-        //     $category->seller_id = $sellerId;
-        //     $category->name = $request->name;
-        //     $category->save();
-
-        //     $categoryUrl = SellerDashboardProducts::slug($request->name . '-' . json_decode($category, true)['id']);
-        //     $category->url = $categoryUrl;
-
-        //     $file = $request->file('image');
-
-        //     if ($file) {
-
-        //         $destinationPath = 'categories/images/' . $categoryUrl;
-        //         $file->move($destinationPath, $file->getClientOriginalName());
-        //         $uploadedFile = $destinationPath . '/' . $file->getClientOriginalName();
+        $newcategory = new SellerProductCategories();
+        $sellerId = Session::get('seller');
 
 
-        //         $category->image = $uploadedFile;
-        //         $category->save();
-        //     }
-        //     return redirect()->route('category.list')->with(session()->put(['alert' => 'success', 'message' => 'Category has been successfully added to the store!']));
-        // } else {
-        //     if ($categoryDetails->blacklisted) {
+        $category = DB::table('product_categories')
+            ->where([
+                ['name', "=",  $request->categoryName]
+            ])
+            ->select('id')
+            ->get();
 
-        //         return redirect()->route('category.list')->with(session()->put(['alert' => 'error', 'message' => 'This category has been blacklisted!']));
-        //     } else if ($categoryDetails->name == $request->name) {
+        $category = json_decode($category, true)[0]['id'];
 
-        //         return redirect()->route('category.list')->with(session()->put(['alert' => 'warning', 'message' => 'This category already exists!']));
-        //     }
-        // }
-        // return redirect()->route('category.list')->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
-    }
 
-    public function deleteCategory(Request $request)
-    {
-        // $cid = $request->get('rowid');
 
-        // $status = 0;
-        // $affected = DB::table('product_categories')->where('id', $cid)
-        //     ->update(['delete_status' => 1]);
+        $check = DB::table('seller_product_category')
+            ->where([
+                ['product_category_id', "=",  $category],
+                ['seller_id', "=",  $sellerId],
+            ])
+            ->select('id')
+            ->get();
 
-        // if ($affected) {
-        //     $status = 1;
-        // }
+        $check = json_decode($check, true);
 
-        // return $status;
+        if ($check == []) {
+
+            $newcategory->seller_id = $sellerId;
+            $newcategory->product_category_id = $category;
+            $newcategory->save();
+
+            Session::flash('status', ['0', 'Category has been successfully added to the store!']);
+            return redirect()->route('category.list');
+        }
+
+        Session::flash('status', ['1', 'This category already exists on your store.']);
+
+        return redirect()->route('category.list');
     }
 
     public function categoryDetails(Request $request)
     {
-        //     $cid = $request->get('rowid');
+        $cid = $request->get('rowid');
 
-        //     $data = DB::table('product_categories')
-        //         ->where('id', $cid)
-        //         ->select('id', 'name', 'image')
-        //         ->get();
+        $data = DB::table('seller_product_category')
+            ->join('product_categories', 'product_categories.id', '=', 'seller_product_category.product_category_id')
+            ->where([
+                ['seller_product_category.id', '=', $cid]
+            ])
+            ->select('product_categories.name as name', 'seller_product_category.id as id')
+            ->get();
+        return $data;
+    }
 
-        //     return $data;
+    public function deleteCategory(Request $request)
+    {
+        $cid = $request->get('rowid');
+        $sellerId = Session::get('seller');
+
+        $status = 0;
+
+        $affected = DB::table('seller_product_category')->where([['id', '=', $cid]])->delete();
+
+        if ($affected) {
+            $status = 1;
+        }
+
+        return $status;
     }
 
     public function updateCategory(Request $request)
     {
+        $cid = $request->get('cid');
+        $sellerId = Session::get('seller');
+        $status = 0;
 
-        // $cid = $request->get('cid');
-        // $status = 0;
+        $category = DB::table('product_categories')
+            ->where([
+                ['name', "=",  $request->categoryName]
+            ])
+            ->select('id')
+            ->get();
 
-        // // $cato_id = DB::table('product_categories')
-        // //     ->where([
-        // //         ['seller_id', "=",  $sellerId],
-        // //         ['name', "=",  $request->product_category]
-        // //     ])
-        // //     ->select('id')
-        // //     ->get();
+        $category = json_decode($category, true)[0]['id'];
 
-        // $categoryUrl = SellerDashboardProducts::slug($request->get('name') . '-' . $cid);
-
-        // $updateDetails = [
-        //     'name' => $request->get('name'),
-        //     'url' => $categoryUrl,
-        // ];
-
-        // $file = $request->file('image');
-
-
-
-        // // if ($file != null) {
-        // //     $k = 0;
-        // //     foreach ($files as $file) {
-        // //         if ($k < 3) {
-        // //             $destinationPath = 'products/images/' . $productUrl;
-        // //             $file->move($destinationPath, $file->getClientOriginalName());
-        // //             $uploadedFiles[] = $destinationPath . '/' . $file->getClientOriginalName();
-        // //             $k++;
-        // //         }
-        // //     }
-        // //     $updateDetails['images'] = $uploadedFiles;
-        // // }
+        $check = DB::table('seller_product_category')
+            ->where([
+                ['product_category_id', "=",  $category],
+                ['seller_id', "=",  $sellerId],
+            ])
+            ->select('id')
+            ->get();
 
 
-        // if ($file) {
+        $check = json_decode($check, true);
 
-        //     $destinationPath = 'categories/images/' . $categoryUrl;
-        //     $file->move($destinationPath, $file->getClientOriginalName());
-        //     $uploadedFile = $destinationPath . '/' . $file->getClientOriginalName();
 
-        //     $updateDetails['image'] = $uploadedFile;
-        // }
+        if ($check == []) {
 
-        // $affected = DB::table('product_categories')
-        //     ->where('id', $cid)
-        //     ->update($updateDetails);
+            $affected = DB::table('seller_product_category')
+                ->where([
+                    ['id', '=', $cid]
+                ])
+                ->update(['product_category_id' => $category]);
 
-        // if ($affected) {
-        //     $status = 1;
-        // }
+            if ($affected) {
+                $status = 1;
+            }
+        }
 
-        // return $status;
+        return $status;
     }
 }

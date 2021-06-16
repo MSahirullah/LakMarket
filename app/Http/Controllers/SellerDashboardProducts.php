@@ -21,7 +21,7 @@ class SellerDashboardProducts extends Controller
         $data = DB::table('products')
             ->join('product_categories', 'product_categories.id', '=', 'products.product_catrgory_id')
             ->where([
-                ['products.seller_id', "=",  $sellerId],
+                // ['products.seller_id', "=",  $sellerId],
                 ['products.blacklisted', '=', 0],
                 ['products.delete_status', '=', 0]
             ])
@@ -31,7 +31,7 @@ class SellerDashboardProducts extends Controller
         $cato = DB::table('product_categories')
             ->join('sellers', 'sellers.id', '=', 'product_categories.seller_id')
             ->where([
-                ['product_categories.seller_id', "=",  $sellerId],
+                // ['product_categories.seller_id', "=",  $sellerId],
                 ['product_categories.blacklisted', '=', 0],
                 ['product_categories.delete_status', '=', 0]
             ])
