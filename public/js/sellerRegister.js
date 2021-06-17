@@ -112,7 +112,7 @@ $(document).ready(function(){
 
             }
 
-            $(`#${inp.id}-icon`).removeClass('fa-angle-down').addClass('fa-angle-up');
+            $(`.${inp.id}-icon`).removeClass('fa-angle-down').addClass('fa-angle-up');
             $(`#${inp.id}`).addClass('data-focused');
 
             var a, b, i, val = this.value;
@@ -173,7 +173,7 @@ $(document).ready(function(){
                 $(`#${inp.id}`).removeClass('data-focused');
             },500);
 
-            $(`#${inp.id}-icon`).removeClass('fa-angle-up').addClass('fa-angle-down');
+            $(`.${inp.id}-icon`).removeClass('fa-angle-up').addClass('fa-angle-down');
 
         });
 

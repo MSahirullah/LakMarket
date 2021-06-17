@@ -28,7 +28,7 @@ class AdminDashboardProfile extends Controller
 
 
         $data->profile_photo = "/" . $data->profile_photo;
-        
+
         return view('admin.dashboard_profile')->with(['AdminData' => $data]);
     }
 
@@ -74,8 +74,11 @@ class AdminDashboardProfile extends Controller
         return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
     }
 
+<<<<<<< HEAD
     
 
+=======
+>>>>>>> 4190b601d9ab0cf1792bf70970257364617f83f1
     public function sellerHotlineChange(Request $request)
     {
         $sellerId = Session::get('seller');

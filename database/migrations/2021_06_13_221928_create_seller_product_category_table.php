@@ -17,6 +17,7 @@ class CreateSellerProductCategoryTable extends Migration
             $table->id();
             $table->integer('seller_id')->unsigned();
             $table->integer('product_category_id')->unsigned();
+            $table->unique(array('seller_id', 'product_category_id'));
             $table->timestamps();
         });
     }

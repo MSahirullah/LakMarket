@@ -47,14 +47,14 @@
                                             <label for="reg-district">{{ __('District') }} <span class="required"></span> </label>
 
                                             <input type="text" class="form-control sign-input" onClick="this.select();" autocomplete="off" name="reg-district" id="reg-district" placeholder="Select your district" />
-                                            <i class="fa fa-angle-down reg-angle-icon" id="reg-district-icon" aria-hidden="true"></i>
+                                            <i class="fa fa-angle-down reg-angle-icon reg-district-icon" id="reg-district-icon" aria-hidden="true"></i>
                                             <br>
                                         </div>
 
                                         <div class="col">
                                             <label for="reg-hometown">{{ __('Home Town') }} <span class="required"></span> </label>
                                             <input type="text" class="form-control sign-input" onClick="this.select();" autocomplete="off" name="reg-hometown" id="reg-hometown" placeholder="Select your home town" />
-                                            <i class="fa fa-angle-down reg-angle-icon" id="reg-hometown-icon" aria-hidden="true"></i><br>
+                                            <i class="fa fa-angle-down reg-angle-icon reg-hometown-icon" id="reg-hometown-icon" aria-hidden="true"></i><br>
                                         </div>
 
                                     </div>

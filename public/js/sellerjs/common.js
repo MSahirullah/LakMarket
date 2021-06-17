@@ -13,9 +13,9 @@ function deleteAction(id, url, table = null) {
             $.post(url, {
                 rowid: id,
                 _token: post_token
-            }, function(dd) {
+            }, function (dd) {
                 if (dd == 1) {
-                    if (table){
+                    if (table) {
                         table.ajax.reload();
                     }
                     Swal.fire('Removed!', '', 'success');
@@ -27,7 +27,7 @@ function deleteAction(id, url, table = null) {
     })
 }
 
-function pageReload(){
+function pageReload() {
 
     $.ajax({
         url: "/seller/dashboard/clear-session",
@@ -35,12 +35,12 @@ function pageReload(){
             _token: post_token
         },
         method: 'post',
-        success: function() {
-            
+        success: function () {
+
             $('#actionStatus').removeAttr('data-status');
             $('#actionStatus').val('data-status-alert', '');
             $('#actionStatus').val('data-status-message', '');
-        
+
         }
     });
 }
@@ -64,66 +64,46 @@ function sweetPull() {
     }
 }
 
-function selectTitle(idName){
+function selectTitle(idName) {
 
     $(idName).addClass('disabled');
-    $(idName).addClass('highlighted-title'); 
-    $(idName).hover( function(){ 
+    $(idName).addClass('highlighted-title');
+    $(idName).hover(function () {
         $(idName).addClass('highlighted-title:h');
     });
 }
 
 
-function checkImageInput(actualBtn){
-    if(!actualBtn.files.length>0){
+function checkImageInput(actualBtn) {
+    if (!actualBtn.files.length > 0) {
         $('.checkImg').removeAttr('required');
-        if (!$("#file-chosen").attr('data-uploded')){
+        if (!$("#file-chosen").attr('data-uploded')) {
             $('.checkImg').attr('required', '');
         }
     }
 }
 
-function setBtnId(){
-    $(document).on('click', '.editBtn, .createBtn', function(){
-        var ModalLabel= $(this).attr('data-title');
-        var BtnLabel= $(this).attr('data-button');
+function setBtnId() {
+    $(document).on('click', '.editBtn, .createBtn', function () {
+        var ModalLabel = $(this).attr('data-title');
+        var BtnLabel = $(this).attr('data-button');
         $("#file-chosen").removeAttr('data-uploded');
         $('#file-chosen').attr("style", "color:black");
 
         $("#modalLabel").html(ModalLabel);
         $(".btnSubmit").html(BtnLabel);
         $('.btnSubmit').attr('id', BtnLabel);
-     });
+    });
 }
 
-function clickSubmit(actualBtn){
-    $(document).on('click', '#Save', function(e){
-         
+function clickSubmit(actualBtn) {
+    $(document).on('click', '#Save', function (e) {
+
         e.preventDefault();
 
         checkImageInput(actualBtn);
 
         $(this).next('button').trigger('click');
 
-     });
+    });
 }
-
-
-function vanillaAlert(inp, msg, time = 6000){
-
-    var title = ['Success!','Error!','Warning!','Information!'];
-    var type = ['success', 'error', 'warning','info'];
-    var icon = ['success.png', 'error.png', 'warning.png', 'info.png']
-    var path = '/img/alert-logo/';
-
-    VanillaToasts.create({
-        title: title[inp],
-        text: msg,
-        type: type[inp], 
-        icon: path + icon[inp], 
-        timeout: time
-        // callback: function() { ... } // executed when toast is clicked / optional parameter
-      });
-}
-
-

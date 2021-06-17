@@ -43,7 +43,14 @@ use Illuminate\Support\Facades\Session;
 */
 
 
-//  =========================== SELLER ===========================
+//  =========================== Customer ===========================
+
+Route::post('/register-cities', [CommonController::class, 'getCities']);
+Route::post('/register-district', [CommonController::class, 'getDistricts']);
+Route::post('/register-provinces', [CommonController::class, 'getProvinces']);
+Route::post('/register-district-bid', [CommonController::class, 'getDistrictsbyID']);
+
+Route::get('autocomplete', [CommonController::class, 'searchAutocomplete'])->name('customer.search');
 
 Route::get('/', function () {
     return view('home');
@@ -53,8 +60,7 @@ Auth::routes();
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/verify', [RegisterController::class, 'verifyCustomer']);
-Route::post('/register-cities', [CommonController::class, 'getCities']);
-Route::post('/register-district', [CommonController::class, 'getDistricts']);
+
 Route::post('/register/verification-resend', [RegisterController::class, 'resendVerification'])->name('verification.resend');
 
 Route::post('/forget-password', [ForgotPasswordController::class, 'postEmail'])->name('reset.password');

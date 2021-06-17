@@ -489,8 +489,8 @@
 
 .cart-block {
     position: absolute;
-    top: 32%;
-    right: 226px;
+    margin-top: -27px;
+    margin-left: -165px;
     z-index: 1002;
     max-height: 500px;
     overflow-y: auto;
@@ -659,4 +659,180 @@
 .cart-div:hover .cart-block {
     visibility: visible !important;
     opacity: 1 !important;
+}
+
+.location-select-div {
+    position: absolute;
+    margin-top: -32px;
+    margin-left: -354.5px;
+    z-index: 100;
+    max-height: 800px;
+    /* height: 200px; */
+    /* overflow-y: auto; */
+    padding: 10px;
+    background: #fff;
+    color: #666;
+    width: 591px;
+    box-shadow: 0 6px 11px 2px rgb(50 50 50 / 20%);
+    transition: opacity 0.4s, transform 0.4s;
+    transform: translate(0, 40px);
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    animation-delay: 2s;
+    font-size: 13px;
+    color: #000;
+    padding-bottom: 0px;
+}
+
+.location-select-div .row {
+    width: 100%;
+    margin: 0px;
+}
+
+.location-select-div .col-cus {
+    flex: 0 0 30%;
+    max-width: 30%;
+    padding: 0px 10px;
+    text-align: center;
+}
+
+.location-select-div .col-cus-2 {
+    flex: 0 0 10%;
+    max-width: 10%;
+    padding: 0px 10px;
+    text-align: center;
+}
+
+.location-select-div input[type="text"] {
+    width: 100%;
+    height: 35px;
+    padding-right: 10px;
+    margin: 0;
+    border: 0;
+    transition: 0.2s;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+.location-select-div label {
+    text-transform: capitalize;
+    font-size: 13px;
+    font-family: "Open Sans", sans-serif;
+    text-align: center;
+    font-weight: 600;
+}
+
+.location-select-div .reg-angle-icon {
+    float: right;
+    margin-right: 11px;
+    margin-top: -24px;
+    position: relative;
+    font-size: 15px;
+    z-index: 2;
+}
+
+.location-select-div .btn-locate {
+    background-color: white;
+    padding: 4px 12px;
+    height: 31px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    font-size: 16px;
+    transition: 0.2s;
+    height: 35px;
+    margin-top: 29px;
+}
+
+.location-select-div .btn-locate i {
+    color: #717171;
+}
+
+.location-select-div .btn-locate:hover {
+    background-color: rgb(255, 60, 60);
+    border: 1px solid rgb(255, 60, 60);
+}
+
+.location-select-div .btn-locate:hover i {
+    color: white;
+}
+
+.location-select-div .btn-close {
+    height: 16px;
+    width: 16px;
+    background: unset;
+    border-radius: 100%;
+    border: 0;
+    font-size: 23px;
+    transition: 0.2s;
+    margin-top: -6px;
+    position: absolute;
+    padding: 1px;
+    box-shadow: rgb(0 0 0 / 15%) 2px 4px 3px 3px;
+    margin-left: 10px;
+    color: #848484;
+}
+
+.location-select-div .btn-close:hover {
+    color: #2c2c2c;
+}
+
+/*the container must be positioned relative:*/
+.location-select-div .autocomplete {
+    position: relative;
+    display: inline-block;
+    text-align: left !important;
+}
+
+.location-select-div .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    margin-top: -20px;
+    background-color: #562222;
+    max-height: 150px;
+    overflow: auto !important;
+    overflow-x: auto;
+    overflow-y: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+    box-shadow: 0px 0px 1px 0px #b5b5b5;
+    margin-right: 0;
+    width: 150px;
+    margin-left: 20px;
+    border-radius: 0 0px 10px 10px;
+    text-align: left !important;
+    text-transform: capitalize;
+}
+
+.location-select-div .district .autocomplete-items {
+    margin-top: -20px;
+    margin-left: 192px;
+}
+
+.location-select-div .city .autocomplete-items {
+    margin-top: -20px;
+    margin-left: 364px;
+}
+
+.location-select-div .autocomplete-items div {
+    padding: 4px 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.location-select-div .autocomplete-items div:hover {
+    background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.location-select-div .autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
 }

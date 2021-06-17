@@ -37,7 +37,7 @@
 
 
                                         <button type="button" id="sellerRegSub" class="btn btn-primary reg-button-2 button-reg-1">
-                                            Send Verification Code
+                                            Verify Email
                                         </button>
                                         <button type="button" id="sellerRegResend" class="reg-button-2 button-reg-1 btn btn-success submit-button button-3" disabled style="display: none;">
                                             Click Here to Resend <span class="timer">(<span id="timer">60</span>)</span>
@@ -57,7 +57,7 @@
                                             <p class="mb-8 text-center ">{{ __('Before proceeding, please check your email for a verification code.') }}
                                             <div class="done_text text-center mt-20">
 
-                                                <input type="text" id="digit-1" name="digit-1" data-next="digit-2" autofocus/>
+                                                <input type="text" id="digit-1" name="digit-1" data-next="digit-2" autofocus />
                                                 <input type="text" id="digit-2" name="digit-2" data-next="digit-3" data-previous="digit-1" />
                                                 <input type="text" id="digit-3" name="digit-3" data-next="digit-4" data-previous="digit-2" />
                                                 <span class="splitter">&ndash;</span>
@@ -128,14 +128,14 @@
                                         <label for="reg-district">{{ __('District') }} <span class="required"></span> </label>
 
                                         <input type="text" class="form-control sign-input" onClick="this.select();" autocomplete="off" name="reg-district" id="reg-district" placeholder="Select your district" />
-                                        <i class="fa fa-angle-down reg-angle-icon" id="reg-district-icon" aria-hidden="true"></i>
+                                        <i class="fa fa-angle-down reg-angle-icon reg-district-icon" id="reg-district-icon" aria-hidden="true"></i>
                                         <br>
                                     </div>
 
                                     <div class="col">
                                         <label for="reg-hometown">{{ __('City') }} <span class="required"></span> </label>
                                         <input type="text" class="form-control sign-input" onClick="this.select();" autocomplete="off" name="reg-hometown" id="reg-hometown" placeholder="Select your city" />
-                                        <i class="fa fa-angle-down reg-angle-icon" id="reg-hometown-icon" aria-hidden="true"></i><br>
+                                        <i class="fa fa-angle-down reg-angle-icon reg-hometown-icon" id="reg-hometown-icon" aria-hidden="true"></i><br>
                                     </div>
 
                                 </div>
@@ -165,7 +165,7 @@
                                 <div class="row text-right">
                                     <div class="col">
                                         <button type="button" id="sellerDeailsSubmit" class="btn btn-primary reg-button-4 button-reg-1">
-                                            Submit
+                                            Create Seller Account
                                         </button>
                                         <button type="submit" class="sellerDeailsSubmitBtn" style='display:none;' disabled></button>
                                     </div>

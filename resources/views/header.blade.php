@@ -69,7 +69,7 @@
                 <div class="nav-search">
                     <form autocomplete="off" action="#" class="nav justify-content-cente">
                         <span class="nav-item dropdown search-bar ">
-                            <input type="text" id="search-text" class="form-control search-input" placeholder="Search...">
+                            <input type="text" id="search-text" class="typeahead form-control search-input" placeholder="Search...">
                             <select class="selectpicker select-cato f-cpt">
                                 <option>Pharmacies</option>
                                 <option>Book Shops</option>
@@ -198,12 +198,48 @@
 
 
                 <div class="nav-item dropdown city-wapper">
-                    <input type="text" id="CityInputTxt" class="form-control city-input" placeholder="All Cities">
+                    <input type="text" id="CityInputTxt" class="form-control city-input" placeholder="All Provinces" value="{{Session::has('customer-city')?Session::get('customer-city'):''}}">
                     <i class="fa fa-map-marker-alt city-icon" aria-hidden="true"></i>
                     <i class="fa fa-angle-down city-angle-icon" aria-hidden="true"></i>
+
+
+                    <div class="location-select-div">
+                        <div class="row">
+                            <div class="col-cus province">
+                                <label for="provinceS">{{ __('Province') }} </label>
+
+                                <input type="text" class="form-control sign-input" onClick="this.select();" autocomplete="off" name="provinceS" id="provinceS" placeholder="All Provinces" />
+                                <i class="fa fa-angle-down reg-angle-icon provinceS-icon" aria-hidden="true"></i>
+
+                            </div>
+                            <div class="col-cus district">
+                                <label for="districtS">{{ __('District') }} </label>
+
+                                <input type="text" class="form-control sign-input" onClick="this.select();" autocomplete="off" name="districtS" id="districtS" placeholder="All Districts" />
+                                <i class="fa fa-angle-down reg-angle-icon districtS-icon" aria-hidden="true"></i>
+
+                            </div>
+                            <div class="col-cus city">
+                                <label for="cityS">{{ __('City') }} </label>
+                                <input type="text" class="form-control sign-input" onClick="this.select();" autocomplete="off" name="cityS" id="cityS" placeholder="All Cities" />
+                                <i class="fa fa-angle-down reg-angle-icon cityS-icon" aria-hidden="true"></i><br>
+
+                            </div>
+
+                            <div class="col-cus-2">
+                                <div><i class="fas fa-times-circle btn-close"></i></div>
+                                <button class="btn-locate"><i class="fas fa-map-marker-alt"></i></button>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
             </div>
+
         </nav>
+
+
     </div>
 </div>
+
