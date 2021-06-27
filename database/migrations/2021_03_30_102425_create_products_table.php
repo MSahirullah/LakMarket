@@ -22,8 +22,8 @@ class CreateProductsTable extends Migration
             $table->string('url');
             $table->string('type');
             $table->string('images', 1000);
-            $table->string('short_desc', 2000);
-            $table->string('long_desc', 2000)->nullable();
+            $table->string('short_desc', 200);
+            $table->string('long_desc', 5000)->nullable();
             $table->decimal('unit_price', 10, 2);
             $table->decimal('tax', 2, 2)->default(0.0);
             $table->decimal('discount', 2, 2)->default(0.0);

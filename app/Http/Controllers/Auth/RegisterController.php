@@ -146,7 +146,7 @@ class RegisterController extends Controller
         if ($customer->is_verified == 0) {
 
             $customer = Customer::where('id', $req['cus_id'])
-            ->update(['verification_code' => $verification_code]);
+                ->update(['verification_code' => $verification_code]);
 
             $name = $customer->first_name . ' ' . $customer->last_name;
             MailController::sendRegisterMail($name, $customer->email, $customer->verification_code);
@@ -265,8 +265,8 @@ class RegisterController extends Controller
             $seller->address = $request->address;
             $seller->district_id = $districtId;
             $seller->city_id = $cityID;
-            $seller->latitude = $request->location_la;
-            $seller->longitude = $request->location_lo;
+            $seller->latitude = $request->location_lo;
+            $seller->longitude = $request->location_la;
             $seller->is_cod_available = $request->cashOnDel;
             $seller->url = $sellerURL;
             $seller->save();

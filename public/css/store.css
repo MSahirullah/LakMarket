@@ -59,7 +59,7 @@
 .store-contact .contact .icon {
     font-size: 25px;
     padding-left: 10px;
-    color: #ff5757;
+    color: #f97575;
 }
 
 .store-contact .contact .location-icon {
@@ -129,21 +129,30 @@
     background-color: #ffce47;
 }
 
-.store-info .by-now-btn button {
+.store-info .by-now-btn button,
+.report-btn {
     float: right;
     margin-top: -37px;
     margin-right: 10px;
-    font-size: 12px;
+    font-size: 13px;
+}
+.store-info .report-btn {
+    margin-top: -1px;
+}
+
+.store-info .report-btn a {
+    color: #ff5757;
+    font-size: 13px;
 }
 
 .location .by-now-btn button {
     font-size: 12px;
-    border: 1px solid #fb3939;
+    border: 1px solid #ff5757;
 }
 
 .location .by-now-btn button:hover {
     letter-spacing: 0px;
-    background-color: #fb3939 !important;
+    background-color: #ff5757 !important;
     box-shadow: none;
 }
 

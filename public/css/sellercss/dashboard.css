@@ -413,3 +413,51 @@ body {
 .vanillatoasts-toast {
     box-shadow: rgb(0 0 0 / 15%) 0px 4px 8px 0px;
 }
+
+.settings-icon {
+    transition: 0.3s;
+}
+
+.settings-icon:hover {
+    transform: rotate(90deg);
+}
+
+.change-pswrd {
+    cursor: pointer;
+}
+
+#changeThePassword .modal-header,
+.bs-logout-modal-sm .modal-header {
+    background-color: #031aa3bd;
+    color: white;
+}
+
+.bs-logout-modal-sm .fa-sign-out-alt {
+    font-size: 17px;
+    padding-left: 5px;
+}
+
+.sign-field-icon {
+    float: right;
+    margin-right: 12px;
+    margin-top: -24px;
+    position: relative;
+    z-index: 2;
+    font-size: 14px;
+}
+
+#changeThePassword input,
+#changeThePassword label {
+    font-size: 14px;
+}
+
+#changeThePassword input,
+.mismatch-msg {
+    padding: 1px 10px;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.logout-link {
+    cursor: pointer;
+}

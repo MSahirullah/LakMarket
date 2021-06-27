@@ -35,7 +35,6 @@
     padding: 4px 8px;
 }
 
-
 .sort-filter-select button:hover {
     color: #8d8d8d;
     box-shadow: none !important;
@@ -423,7 +422,7 @@ input::-webkit-inner-spin-button {
 }
 
 .product-rating-div-search {
-    margin: -22.2px 0px 0px 0px;
+    margin: -24.2px 0px 0px 0px;
     padding: 1px 4px 2px 5px;
     position: relative;
     float: right;
@@ -618,7 +617,7 @@ input::-webkit-inner-spin-button {
     margin-top: -16px;
     margin-bottom: 2px;
     background-color: white;
-    padding: 2px 0px 6px 15px;
+    padding: 5px 0px 6px 15px;
     color: #6c6c6c;
 }
 
@@ -635,4 +634,3 @@ input::-webkit-inner-spin-button {
 .c-p .selected {
     pointer-events: none;
 }
-

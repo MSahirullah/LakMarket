@@ -25,6 +25,10 @@
                     </div>
                     <div class="by-now-btn">
                         <button><i class="fas fa-user-plus" style="padding-right:5px;"></i>Follow</button>
+
+                    </div>
+                    <div class="report-btn">
+                        <a href="#">Report Seller</a>
                     </div>
                     <div class="store-follow">
                         <div class="followers"><i class="far fa-star"></i> <span>4000</span> followers</div>

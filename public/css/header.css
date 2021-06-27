@@ -683,6 +683,7 @@
     font-size: 13px;
     color: #000;
     padding-bottom: 0px;
+    border-radius: 2px;
 }
 
 .location-select-div .row {
@@ -769,7 +770,6 @@
     margin-top: -6px;
     position: absolute;
     padding: 1px;
-    box-shadow: rgb(0 0 0 / 15%) 2px 4px 3px 3px;
     margin-left: 10px;
     color: #848484;
 }

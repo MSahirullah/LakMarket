@@ -2,16 +2,16 @@
 
 @section('content')
 
-<div class="content pt-16" style="background-image:url('/img/sign-bg.png');background-size: contain; ">
+<div class="content pt-16" style="background-image:url('/img/sign-bg.png') ;background-size: cover; ">
     <div class="container c-p mt--30">
         <a href="/">Home</a>
         <i class="fas fa-chevron-right"></i>
         <a class="selected" href="#">Customer Care</a>
     </div>
-    <div class="form-content">
-        <div class="container">
+    <div class="form-content ">
+        <div class="container site-container">
             <div class="row jc-c">
-                <div class="col-md-8">
+                <div class="col-md-8 mt-20">
                     <form method="POST" action="{{ route('send-enquiry') }}">
                         @csrf
                         <input type="hidden" name="role" value="ROLE_CUSTOMER">

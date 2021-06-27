@@ -6,12 +6,19 @@ use App\Models\SellerProducts;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\DB;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class SellerDashboardProducts extends Controller
 {
     public function manageProducts(Request $request)
     {
+        $data = SellerDashboard::checkSellerInfo();
+        if ($data) {
+            Session::flash('status', ['1', $data]);
+            return redirect()->route('seller.profile');
+        }
+
+
         $sellerId = Session::get('seller');
 
         if (!$sellerId) {
@@ -28,14 +35,13 @@ class SellerDashboardProducts extends Controller
             ->select('products.id', 'products.images', 'products.code',  'products.name', 'products.type', 'products.colors', 'products.sizes', 'products.discount', 'products.tax', 'products.short_desc', 'products.unit_price', 'product_categories.name as category_name')
             ->get();
 
-        $cato = DB::table('product_categories')
-            ->join('sellers', 'sellers.id', '=', 'product_categories.seller_id')
+
+        $cato = DB::table('seller_product_category')
+            ->join('product_categories', 'product_categories.id', '=', 'seller_product_category.product_category_id')
             ->where([
-                // ['product_categories.seller_id', "=",  $sellerId],
-                ['product_categories.blacklisted', '=', 0],
-                ['product_categories.delete_status', '=', 0]
+                ['seller_product_category.seller_id', "=",  $sellerId]
             ])
-            ->select('product_categories.*')
+            ->select('product_categories.name as name', 'seller_product_category.id as id')
             ->get();
 
         if ($request->ajax()) {
@@ -109,6 +115,9 @@ class SellerDashboardProducts extends Controller
 
     public function addNewProduct(Request $request)
     {
+
+
+
         $product = new SellerProducts();
         $sellerId = Session::get('seller');
 
@@ -123,12 +132,14 @@ class SellerDashboardProducts extends Controller
             ->get()->first();
 
         if (!$productDetails) {
-            $cato_id = DB::table('product_categories')
+
+            $cato_id = DB::table('seller_product_category')
+                ->join('product_categories', 'product_categories.id', '=', 'seller_product_category.product_category_id')
                 ->where([
-                    ['seller_id', "=",  $sellerId],
-                    ['name', "=",  $request->product_category]
+                    ['seller_product_category.seller_id', "=",  $sellerId],
+                    ['product_categories.name', "=",  $request->product_category]
                 ])
-                ->select('id')
+                ->select('product_categories.id')
                 ->get();
 
             $product->seller_id = $sellerId;

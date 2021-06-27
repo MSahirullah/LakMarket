@@ -3,7 +3,7 @@
 @section('dahsboard_content')
 <link href="{{ URL::asset('css/sellercss/profile.css') }}" rel="stylesheet">
 <span id="actionStatus" {{ Session::has('alert') ? 'data-status' : '' }} data-status-alert='{{ Session::get('alert') }}' data-status-message='{{ Session::get('message') }}'></span>
-
+<span id="modalStatus" data-value='{{ Session::get('sellerStatus') }}'></span>
 
 <div class="content-wrapper">
 
@@ -23,12 +23,12 @@
             <div class="row profile-content">
                 <div class="col-sm-3">
                     <div class="pro-pic circle">
-                        <img class="profile-pic" src="{{$sellerData->profile_photo}}">
+                        <img class="profile-pic" src="{{$sellerData->store_logo}}">
                         <div class="p-image">
                             <i class="fa fa-camera upload-button"></i>
-                            <form action="profile/change-profile-image" enctype="multipart/form-data" method="post" id="profile_form">
+                            <form action="profile/change-store-image" enctype="multipart/form-data" method="post" id="profile_form">
                                 @csrf
-                                <input name="profile_photo" class="file-upload profile_img" type="file" accept="image/*" id="profile_photo" />
+                                <input name="store_image" class="file-upload profile_img" type="file" accept="image/*" id="store_image" />
                                 <button type="submit" style="display: none;" id="profile_submit"></button>
                             </form>
                         </div>
@@ -51,25 +51,14 @@
                             </tr>
                             <tr>
                                 <th>Birthday</th>
-                                <td id="seller_birthday">{{$sellerData->birthday}}</td>
+                                <td id="seller_birthday">{{$sellerData->birthday == "" ? 'Please input your birthday' : $sellerData->birthday}}
+                                    <i class="fas fa-edit bd-edit"></i>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Delivering Districts</th>
                                 <td id="seller_birthday">{{$sellerData->delivering_districts}}
                                     <i class="fas fa-edit dd-edit"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Store Image</th>
-                                <td id="store_image">
-                                    <img class="store-image" src="{{$sellerData->store_image}}">
-                                    <i class="far fa-image change_store_img"></i>
-                                    <form action="profile/change-store-image" enctype="multipart/form-data" method="post" id="store_form">
-                                        @csrf
-                                        <input name="store_image" id="stpre_image" class="store-img-input" type="file" accept="image/*" id="store_image" />
-                                        <p>Note : Store image size should be 1000px(width) and 500px(height)</p>
-                                        <button type="submit" style="display: none;" id="store_submit"></button>
-                                    </form>
                                 </td>
                             </tr>
                         </table>
@@ -182,10 +171,50 @@
 </div>
 </div>
 
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="editBdayDetails" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{$sellerData->birthday == "" ? 'Add Birthday' : 'Edit Birthday'}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{route('seller.bdayChange')}}" method="post" id="sellerBDForm">
+                @csrf
+                <div class="modal-body">
+                    <div class="row hotline-row">
+                        <div class="col">
+                            <label for="bday" class="col-form-label">Birthday</label>
+
+                            <input name="bday" required type="date" class="form-control p-input" id="bday" min="1975-01-01" max="2007-01-01">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary button-1" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary button-2" id="_submit-temp-bday">{{$sellerData->birthday == "" ? 'Save' : 'Update'}}</button>
+                    <button type="submit" style="display:none;" id="_submitBday"></button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function() {
 
         $("#delivery_districts").selectpicker();
+
+        var img = $('.profile-pic').attr('src');
+        if (img == '/') {
+            // console.log(1);
+            $('.profile-pic').attr('src', '/img/seller-temp.png');
+        }
 
         pageReload();
 
@@ -216,6 +245,35 @@
             $('.modal-title').text('Edit Delivering Districts');
             $('#edit_profile_details').trigger('click')
             $('#_submit-temp').addClass('district-submit')
+        });
+
+
+        $('.bd-edit').on('click', function() {
+
+            var sellerBD = "<?php echo $sellerData->birthday == null ? "xxxx" : $sellerData->birthday; ?>";
+
+            if (sellerBD != 'xxxx') {
+                $('#bday').val(sellerBD);
+            }
+
+            $('#editBdayDetails').modal('show')
+
+
+        });
+
+        $('#_submit-temp-bday').click(function() {
+
+            var sellerBD = "<?php echo $sellerData->birthday == null ? "xxxx" : $sellerData->birthday; ?>";
+            var inputBD = $('#bday').val();
+
+            if (sellerBD == inputBD || parseInt(inputBD.split("-")[0]) > 2007) {
+                vanillaAlert(1, 'Please input your birthday correctly!');
+            } else {
+                $('#_submitBday').trigger('click');
+            }
+
+
+
         });
     });
 

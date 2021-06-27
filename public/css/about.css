@@ -1,0 +1,86 @@
+.about-logo {
+    display: flex;
+    justify-content: center;
+}
+.about-us {
+    font-family: "Raleway", sans-serif;
+    padding: 25px 120px;
+}
+
+.uni-logo {
+    background-image: url(../img/uoc-logo.png);
+    width: 120px;
+    height: 140px;
+    background-size: 120px;
+    background-repeat: no-repeat;
+    padding: 10px;
+}
+
+.lakmarket-logo {
+    background-image: url(../img/weblogo.png);
+    width: 205px;
+    height: 100px;
+    background-size: 200px;
+    background-repeat: no-repeat;
+    padding: 25px;
+    margin-top: 35px;
+    margin-left: 40px;
+}
+
+.about-text-1 {
+    text-align: center;
+    font-size: 18px;
+    color: rgb(55 64 169);
+    padding: 0px 90px 10px 90px;
+}
+
+.about-title {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 5px 0px;
+}
+
+.about-text-2 {
+    text-align: center;
+    font-size: 16px;
+    color: rgb(81 81 81);
+    padding: 0px 90px 10px 90px;
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 300;
+}
+
+.about-text-2 .photo {
+    width: 130px;
+    height: 130px;
+    background-size: 130px;
+    background-repeat: no-repeat;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    border-radius: 50%;
+    margin: 10px auto 12px auto;
+}
+
+.team-details .member {
+    margin-bottom: 15px;
+}
+
+.team-details .about-social i {
+    margin-right: 10px;
+    color: rgb(103 66 255);
+    transition: 0.3s;
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+
+.team-details .name {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    margin-top: 15px;
+    font-family: "Raleway", sans-serif;
+    color: rgb(0 19 111);
+}
+.team-details .about-social i:hover {
+    color: rgb(83 57 188);
+    transform: scale(1.1);
+}

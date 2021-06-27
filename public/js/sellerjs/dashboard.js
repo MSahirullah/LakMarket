@@ -10,6 +10,8 @@ $(document).ready(function () {
   $('.online-seller-name').html(sellerName);
 
   sellerImage = $('#seller-name').attr('data-image');
+
+  $('#user-profile-photo').attr('src', '/img/seller-temp.png');
   if (sellerImage == '/') {
     $('#user-profile-photo').attr('src', '/img/seller-temp.png');
   } else {
@@ -31,6 +33,45 @@ $(document).ready(function () {
       },
       function () {
       });
+
+  });
+
+  $('#changeThePassword .btn-submit').click(function () {
+
+    var cP = $('#changeThePassword #current-password').val();
+    var nP = $('#changeThePassword #new-password').val();
+    var nCP = $('#changeThePassword #confirm-password').val();
+
+    const pattern = /(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+
+    if (cP && pattern.test(nP)) {
+      if (nP == nCP) {
+
+        $('.mismatch-msg').attr('style', 'display:none;');
+
+        $.post("/seller/dashboard/profile/change-password",
+          {
+            cP: cP,
+            nP: nP,
+            _token: post_token
+          },
+          function (data) {
+            vanillaAlert(data[0], data[1]);
+            if (data[0] == 0) {
+              $('#changeThePassword .close').click();
+            }
+          });
+
+      } else {
+
+        $('#changeThePassword #confirm-password').val('');
+        $('.mismatch-msg').removeAttr('style');
+        $('.mismatch-msg').text("Passwords must be match.");
+      }
+
+    } else {
+      $('#form-submit').trigger("click");
+    }
 
   });
 
@@ -99,3 +140,15 @@ document.getElementById('btnFullscreen').addEventListener('click', function () {
 
   toggleFullscreen();
 });
+
+$(".toggle-password").click(function () {
+
+  $(this).toggleClass("fa-eye fa-eye-slash");
+  var input = $($(this).attr("toggle"));
+  if (input.attr("type") == "password") {
+    input.attr("type", "text");
+  } else {
+    input.attr("type", "password");
+  }
+});
+

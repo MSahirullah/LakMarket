@@ -335,7 +335,7 @@
 @section('scripts')
 
 <script src="/xzoom/xzoom/js/vendor/modernizr.js"></script>
-<script src="/xzoom/xzoom/js/vendor/jquery.js"></script>
+<!-- <script src="/xzoom/xzoom/js/vendor/jquery.js"></script> -->
 <script src="/xzoom/dist/xzoom.min.js"></script>
 <script src="xzoom\xzoom\hammer.js\1.0.5\jquery.hammer.min.js"></script>
 <script src="/xzoom/xzoom/js/foundation/foundation.js"></script>

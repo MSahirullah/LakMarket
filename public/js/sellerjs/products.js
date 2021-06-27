@@ -1,26 +1,30 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
 
     selectTitle('#sidebarMenuProducts');
-    
+
     const actualBtn = document.getElementById('images');
 
     const fileChosen = document.getElementById('file-chosen');
 
-    actualBtn.addEventListener('change', function(){
+    actualBtn.addEventListener('change', function () {
         $('#file-chosen').attr("style", "color:black")
-        if (this.files.length > 1){
-            if(this.files.length > 3){
+        $("#file-chosen").addClass('data-uploded');
+        $('.checkImg').removeAttr('required');
+        if (this.files.length > 1) {
+
+            if (this.files.length > 3) {
                 fileChosen.innerHTML = 3 + ' images chosen.';
             }
-            else{
+            else {
                 fileChosen.innerHTML = this.files.length + ' images chosen.';
             }
-            
-        } else if (this.files.length == 1 ){
+
+        } else if (this.files.length == 1) {
             fileChosen.innerHTML = this.files.length + ' image chosen.';
         }
-        else{
+        else {
+            $("#file-chosen").removeClass('data-uploded');
             fileChosen.innerHTML = 'No file chosen.';
         }
     })
@@ -31,13 +35,13 @@ $(document).ready(function() {
             $(".imgShow").show();
 
             for (i = 0; i < input.files.length; i++) {
-                if (i<3){
+                if (i < 3) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         var img = $("<img />");
                         img.attr("class", "uploaded-image");
                         img.attr("src", e.target.result);
-    
+
                         $('.imgShow').append(img);
                     }
                     reader.readAsDataURL(input.files[i]);
@@ -46,14 +50,14 @@ $(document).ready(function() {
             }
         }
     }
-    
-    $("#images").change(function(){
+
+    $("#images").change(function () {
         $(".imgShow").empty();
         readURL(this);
     });
 
 
-    $(".createBtn").click(function(){
+    $(".createBtn").click(function () {
         $("#detailsForm .modal-body input, #detailsForm .modal-body textarea").val('');
         $('#tax, #discount').val('0.00');
         $('#file-chosen').html('No file chosen');
@@ -68,6 +72,6 @@ $(document).ready(function() {
     clickSubmit(actualBtn);
 
 
-} );
+});
 
 

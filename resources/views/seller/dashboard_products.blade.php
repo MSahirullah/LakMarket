@@ -107,7 +107,8 @@
                                 <label for="images" class="col-form-label labelimg">Choose images</label><br>
                                 <span id="file-chosen">No file chosen.</span>
 
-                                <input type="text" oninvalid="this.setCustomValidity('Please select the images.')" oninput="setCustomValidity('')" class="checkImg" value="0" name="0">
+                                <!-- <input type="text" oninvalid="this.setCustomValidity('Please select the images.')" oninput="setCustomValidity('')" class="checkImg" value="0" name="0"> -->
+                                <input type="text" class="checkImg" value="111" name="0">
 
                             </div>
                             <div class="col-md-9 imgShow p-input">
@@ -129,7 +130,7 @@
                             <div class="col-md-4">
                                 <label for="unit_price" class="col-form-label">Unit Price</label>
                                 <span class="required"></span>
-                                <input name="unit_price" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" class="form-control p-input validate-input" id="unit_price" maxlength="15" />
+                                <input name="unit_price" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="text" onkeypress="return  /^[0-9]*\.?[0-9]*$/i.test(event.key)" class="form-control p-input validate-input" id="unit_price" maxlength="15" />
                                 <span class="money-sign">Rs.</span>
                             </div>
                             <div class="col-md-4">
@@ -155,7 +156,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="closeBtn" data-dismiss="modal">Close</button>
-                    <button type="Submit" class="btn btn-primary btnSubmit">Save</button>
+                    <button type="button" class="btn btn-primary btnSubmit">Save</button>
                     <button type="submit" style="display: none;"></button>
                 </div>
             </form>
