@@ -1,5 +1,20 @@
 $(document).ready(function () {
 
+    $('#name').keyup(function (e) {
+        var lng = $(this).val().length;
+        document.getElementById("name_len").innerHTML = lng;
+    })
+    $('#short_desc').keyup(function (e) {
+        var lng = $(this).val().length;
+        document.getElementById("short_desc_len").innerHTML = lng;
+    })
+    $('#long_desc').keyup(function (e) {
+        var lng = $(this).val().length;
+        document.getElementById("long_desc_len").innerHTML = lng;
+    })
+
+
+
 
     selectTitle('#sidebarMenuProducts');
 
@@ -59,7 +74,7 @@ $(document).ready(function () {
 
     $(".createBtn").click(function () {
         $("#detailsForm .modal-body input, #detailsForm .modal-body textarea").val('');
-        $('#tax, #discount').val('0.00');
+        $('#tax, #discount, #unit_price').attr('placeholder', '0.00');
         $('#file-chosen').html('No file chosen');
         $(".imgShow").empty();
         $('#sizes').val('-');
@@ -69,7 +84,45 @@ $(document).ready(function () {
 
     setBtnId();
 
-    clickSubmit(actualBtn);
+    $(document).on('click', '#Save', function (e) {
+
+        e.preventDefault();
+        checkImageInput(actualBtn);
+
+        var price = 0.00;
+        var tax = 0.00;
+        var discount = 0.00;
+
+
+        price = parseFloat($('#unit_price').val()).toFixed(2);
+
+        if ($('#tax').val()) {
+            tax = parseFloat($('#tax').val()).toFixed(2);
+        }
+        if ($('#discount').val()) {
+            discount = parseFloat($('#discount').val()).toFixed(2);
+        }
+
+
+        if (!(price >= 0 && price <= 1000000)) {
+            vanillaAlert(2, 'Unit Price must be between Rs. 0.00 and Rs. 1000000.');
+            return false;
+        }
+        if (!(tax >= 0 && tax <= 100)) {
+            vanillaAlert(2, 'Tax must be between 0% and 100%.');
+            return false;
+        }
+        if (!(discount >= 0 && discount <= 100)) {
+            vanillaAlert(2, 'Discount must be between 0% and 100%.');
+            return false;
+        }
+
+
+
+        $(this).next('button').trigger('click');
+
+    });
+
 
 
 });

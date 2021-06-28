@@ -29,20 +29,20 @@
 
 .about-text-1 {
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     color: rgb(55 64 169);
     padding: 0px 90px 10px 90px;
 }
 
 .about-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     padding: 5px 0px;
 }
 
 .about-text-2 {
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     color: rgb(81 81 81);
     padding: 0px 90px 10px 90px;
     font-family: "Noto Sans KR", sans-serif;
@@ -68,12 +68,12 @@
     margin-right: 10px;
     color: rgb(103 66 255);
     transition: 0.3s;
-    font-size: 21px;
+    font-size: 19px;
     margin-bottom: 15px;
 }
 
 .team-details .name {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 500;
     margin-bottom: 8px;
     margin-top: 15px;

@@ -28,7 +28,7 @@ class SellerDashboardProducts extends Controller
         $data = DB::table('products')
             ->join('product_categories', 'product_categories.id', '=', 'products.product_catrgory_id')
             ->where([
-                // ['products.seller_id', "=",  $sellerId],
+                ['products.seller_id', "=",  $sellerId],
                 ['products.blacklisted', '=', 0],
                 ['products.delete_status', '=', 0]
             ])
@@ -43,6 +43,28 @@ class SellerDashboardProducts extends Controller
             ])
             ->select('product_categories.name as name', 'seller_product_category.id as id')
             ->get();
+
+        $last_record = DB::table('products')
+            ->where([
+                ['seller_id', "=",  $sellerId],
+                ['blacklisted', '=', 0],
+                ['delete_status', '=', 0]
+            ])
+            ->select('product_catrgory_id', 'type')
+            ->latest('created_at')->first();
+
+        $last_cato = DB::table('product_categories')
+            ->join('seller_product_category', 'seller_product_category.product_category_id', '=', 'product_categories.id')
+            ->where([
+                ['seller_product_category.product_category_id', "=",  $last_record->product_catrgory_id],
+            ])
+            ->select('product_categories.name as name')
+            ->get();
+
+        $last_cato = json_decode($last_cato, true)[0]['name'];
+        $last_type = $last_record->type;
+
+        Session::flash('last_data',  [$last_cato, $last_type]);
 
         if ($request->ajax()) {
 
@@ -70,6 +92,21 @@ class SellerDashboardProducts extends Controller
                     $cat_name = $product->category_name;
 
                     $txt = '<span>' . $cat_name . '</span><br><span><small><i>(' . $product->type . ')<//i></small></span>';
+                    return $txt;
+                })
+
+                ->addColumn('unit_price', function ($product) {
+                    $unit_price = floatval($product->unit_price);
+
+                    $discount = floatval($product->discount);
+
+                    $tax = floatval($product->tax);
+
+                    $price = ($unit_price * (100 - $discount) * (100 - $tax)) / (100 * 100);
+                    $price = number_format($price, 2, '.', ',');
+                    $unit_price = number_format($unit_price, 2, '.', ',');
+
+                    $txt = '<span>' . $unit_price . '</span><br><span><i>(' . $price . ')</i></span>';
                     return $txt;
                 })
 
@@ -104,7 +141,7 @@ class SellerDashboardProducts extends Controller
                     return $value;
                 })
 
-                ->rawColumns(['action', 'images', 'name', 'ids', 'category_name'])
+                ->rawColumns(['action', 'images', 'name', 'ids', 'category_name', 'unit_price'])
                 ->setRowId('{{$id}}')
 
                 ->make(true);
@@ -115,11 +152,19 @@ class SellerDashboardProducts extends Controller
 
     public function addNewProduct(Request $request)
     {
-
-
-
         $product = new SellerProducts();
         $sellerId = Session::get('seller');
+
+        $tax = '0.00';
+        if ($request->tax) {
+            $tax = $request->tax;
+        }
+
+        $discount = '0.00';
+        if ($request->discount) {
+            $tax = $request->discount;
+        }
+
 
 
         $productDetails = DB::table('products')
@@ -150,9 +195,10 @@ class SellerDashboardProducts extends Controller
             $product->url = "test";
             $product->images = "test";
             $product->short_desc = $request->short_desc;
+            $product->long_desc = $request->long_desc;
             $product->unit_price = $request->unit_price;
-            $product->tax = $request->tax;
-            $product->discount = $request->discount;
+            $product->tax = $tax;
+            $product->discount = $discount;
             $product->colors = $request->colors;
             $product->sizes = $request->sizes;
             $product->delete_status = 0;
@@ -177,15 +223,16 @@ class SellerDashboardProducts extends Controller
             $product->images = $uploadedFiles;
             $product->save();
 
-            return redirect()->route('product.list')->with(session()->put(['alert' => 'success', 'message' => 'Product has been successfully added to the store!']));
+            Session::flash('status', ['0', 'Product has been successfully added to the store!']);
         } else {
+            Session::flash('status', ['1', 'Something went wrong. Please try again later!']);
             if ($productDetails->blacklisted) {
-                return redirect()->route('product.list')->with(session()->put(['alert' => 'error', 'message' => 'This product has been blacklisted!']));
+                Session::flash('status', ['1', 'This product has been blacklisted!']);
             } else if ($productDetails->code == $request->code) {
-                return redirect()->route('product.list')->with(session()->put(['alert' => 'warning', 'message' => 'This product already exists!']));
+                Session::flash('status', ['2', 'This product already exists!']);
             }
         }
-        return redirect()->route('product.list')->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
+        return redirect()->back();
     }
 
     public static function slug($text)
@@ -195,6 +242,9 @@ class SellerDashboardProducts extends Controller
 
         // remove duplicate -
         $text = str_replace(' ', '-', $text);
+        
+        // remove duplicate -
+        $text = str_replace(',', '-', $text);
 
         // lowercase
         $text = strtolower($text);
@@ -236,16 +286,20 @@ class SellerDashboardProducts extends Controller
 
     public function updateProduct(Request $request)
     {
+
+
+
         $pid = $request->get('pid');
         $sellerId = Session::get('seller');
         $status = 0;
 
-        $cato_id = DB::table('product_categories')
+        $cato_id = DB::table('seller_product_category')
+            ->join('product_categories', 'product_categories.id', '=', 'seller_product_category.product_category_id')
             ->where([
-                ['seller_id', "=",  $sellerId],
-                ['name', "=",  $request->product_category]
+                ['seller_product_category.seller_id', "=",  $sellerId],
+                ['product_categories.name', "=",  $request->product_category]
             ])
-            ->select('id')
+            ->select('product_categories.id')
             ->get();
 
 

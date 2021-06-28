@@ -20,7 +20,7 @@
 }
 
 .circle {
-    border-radius: 1000px !important;
+    border-radius: 10px !important;
     overflow: hidden;
     width: 140px;
     height: 140px;
@@ -43,8 +43,8 @@
 
 .p-image {
     position: absolute;
-    top: 140px;
-    left: 167px;
+    top: 156px;
+    left: 182px;
     color: rgba(0, 0, 0, 0.5);
     transition: all 0.3s;
 }
