@@ -227,3 +227,6 @@ Route::post('/admin/dashboard/clear-session', [AdminDashboard::class, 'clearSess
 Route::get('/admin/dashboard/sellers', [AdminDashboardSellers::class, 'adminSellers'])->name('admin.sellers');
 Route::get('/admin/dashboard/products', [AdminDashboardProducts::class, 'adminProducts'])->name('admin.products');
 Route::get('/admin/dashboard/customers', [AdminDashboardCustomers::class, 'adminCustomers'])->name('admin.customers');
+
+Route::post('/admin/dashboard/admins-add-new', [AdminDashboardAdmins::class, 'addNewAdmin'])->name('admin.add');
+Route::post('/admin/dashboard/admins-delete', [AdminDashboardAdmins::class, 'deleteAdmin'])->name('admin.destroy');

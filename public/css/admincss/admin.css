@@ -1,0 +1,269 @@
+div.dataTables_wrapper div.dataTables_length select {
+    width: 55px;
+    display: inline-block;
+}
+.data-table {
+    width: 100% !important;
+}
+
+.seemorebtn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.dataTable td:last-child {
+    text-align: center;
+}
+
+.dataTable td:last-child .removeBtn {
+    color: red;
+}
+
+.dataTable td:last-child .removeBtn:hover {
+    color: #b22222;
+    cursor: pointer;
+}
+
+.dataTable td:last-child .editBtn {
+    color: blue;
+}
+
+.dataTable td:last-child .editBtn:hover {
+    color: #0000cd;
+    cursor: pointer;
+}
+
+.fa-trash {
+    padding-right: 4px;
+}
+
+.modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
+}
+
+.modal-body p {
+    text-align: center;
+}
+
+.modal-confirm .icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    z-index: 9;
+    text-align: center;
+    border: 3px solid #f15e5e;
+    margin-top: 10px;
+    margin-bottom: -12px;
+    padding-top: 2px;
+}
+.modal-confirm .icon-box i {
+    color: #f15e5e;
+    font-size: 46px;
+    display: inline-block;
+    margin-top: 13px;
+}
+
+.modal-confirm .close {
+    position: absolute;
+    top: 10px;
+    right: 16px;
+}
+
+.modal-confirm .close:focus {
+    margin-top: -8px;
+    margin-right: -14px;
+}
+
+.dataTable td:nth-child(2) {
+    text-align: center;
+    padding: 10px;
+}
+
+.createBtn {
+    position: absolute;
+    margin-left: 185px;
+    margin-top: -3px;
+    padding: 4px 10px;
+    z-index: 1000;
+    font-size: 15px;
+}
+.addNewBtn i {
+    padding-right: 6px;
+    margin-left: -8px;
+    padding: 0.4rem 0.5rem;
+}
+
+.modal-header {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.p-input {
+    border-radius: 5px;
+    font-size: 14px;
+    height: 34px;
+    margin-bottom: 10px !important;
+}
+
+.btn-input button {
+    border-radius: 5px;
+    font-size: 14px;
+    height: 34px;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+}
+
+.modelAddEdit label {
+    font-size: 14px;
+}
+.modal-footer .btn {
+    font-size: 14px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 10px;
+}
+
+.modal-footer .btnSubmit {
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-right: 18px;
+}
+
+.select-input button {
+    border-radius: 5px;
+    font-size: 14px;
+    height: 34px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+
+.bootstrap-select .dropdown-toggle:focus,
+.dropdown-toggle:focus {
+    outline: none !important;
+}
+
+.labelimg {
+    background-color: #7b68ee;
+    color: white;
+    padding: 0.4rem 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 13px !important;
+}
+
+#file-chosen {
+    margin-left: 0.3rem;
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
+textarea {
+    resize: none;
+}
+
+#displayImage {
+    height: 50px;
+    position: relative;
+}
+
+.uploaded-image {
+    height: 100px;
+    padding: 10px;
+}
+
+.money-sign {
+    position: absolute;
+    margin-top: -37px;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+#unit_price {
+    padding-left: 32px;
+}
+
+.table-img {
+    margin: 4px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.modal-footer {
+    background-color: #f4f6f9;
+}
+
+.bootstrap-select.show > .dropdown-menu > .dropdown-menu {
+    display: block;
+}
+
+.bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden {
+    display: none;
+}
+
+.bootstrap-select > .dropdown-menu > .dropdown-menu li a {
+    display: block;
+    width: 100%;
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0;
+    border: 0;
+}
+
+.bootstrap-select .dropdown-menu li a span.text {
+    font-size: 14px;
+}
+
+.swal2-actions {
+    font-size: 14px;
+}
+
+.imgShow {
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 0;
+    padding: 0;
+    margin-left: -14px;
+    margin-top: 14px;
+    height: 102px;
+}
+
+.checkImg {
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+    float: right;
+    top: 61px;
+    position: absolute;
+    left: 106px;
+    z-index: 1000;
+}
+
+.checkImg:hover {
+    pointer-events: none;
+}
+
+.checkbox-input-span {
+    margin-right: 40px;
+}
+
+.form-check {
+    margin-top: 5px;
+    margin-left: 2px;
+}

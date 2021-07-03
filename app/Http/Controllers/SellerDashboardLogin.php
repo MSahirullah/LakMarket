@@ -57,7 +57,7 @@ class SellerDashboardLogin extends Controller
             } elseif (!$seller->verified_seller) {
                 Session::flash('status', ['2', "Your details have not yet been confirmed. Please login back in once the details are confirmed."]);
                 return redirect()->back();
-            } else if (!Hash::check($password, $seller->password)) {
+            } elseif (!Hash::check($password, $seller->password)) {
                 Session::flash('status', ['1', "The password you entered is incorrect."]);
                 return redirect()->back();
             } else {

@@ -3,7 +3,7 @@
 @section('dahsboard_content')
 
 <span id="actionStatus" {{ Session::has('alert') ? 'data-status' : '' }} data-status-alert='{{ Session::get('alert') }}' data-status-message='{{ Session::get('message') }}'></span>
-
+<link href="{{ URL::asset('css/admincss/admin.css') }}" rel="stylesheet">
 
 
 <div class="content-wrapper">
@@ -14,7 +14,7 @@
     </div>
 
     <div class="addNewBtn">
-        <button data-toggle="modal" data-button="Save" data-title="Add New Product Details" data-target=".bd-AddEdit-modal-lg" class="btn btn-success createBtn" target="modalAddEdit"><i class="fas fa-plus addNewBtn"></i>Add New Product</button>
+        <button data-toggle="modal" data-button="Save" data-title="Add New Product Details" data-target=".bd-AddEdit-modal-lg" class="btn btn-success createBtn" target="modalAddEdit"><i class="fas fa-plus addNewBtn"></i>Add New Admins</button>
 
     </div>
     <section class="content" id="productsTable">
@@ -49,96 +49,68 @@
 <div class="modal fade bd-AddEdit-modal-lg" tabindex="-1" role="dialog" aria-labelledby="btnAddEdit" aria-hidden="true" id="modalAddEdit">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="{{route('product.add')}}" method="POST" enctype="multipart/form-data" id="detailsForm">
+            <form action="{{route('admin.add')}}" method="POST" enctype="multipart/form-data" id="detailsForm">
                 @csrf
                 <input type="hidden" name="pid" id="pid">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Add New Product Details</h5>
+                    <h5 class="modal-title" id="modalLabel">Add New Admin</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="modal-body">
                     <div class="col-md-12 modelAddEdit">
 
-                            <div class="col-md-4">
-                                <label for="code" class="col-form-label">Code</label>
+                        <div class="row">
+                            <div class="col">
+                                <label for="first_name" class="col-form-label">First name</label>
                                 <span class="required"></span>
-                                <input type="text" name="code" class="form-control p-input" id="code" required />
+                                <input type="text" required name="first_name" class="form-control p-input validate-input" id="first_name">
                             </div>
-                            <div class="col-md-4">
-                                <label for="type" class="col-form-label">Product Type</label>
+                            <div class="col">
+                                <label for="last_name" class="col-form-label">Last name</label>
                                 <span class="required"></span>
-                                <select name="type" class="form-control btn-input" id="type">
-                                    <option selected>Local Product</option>
-                                    <option>Imported Product</option>
-                                </select>
-
-                                <!-- <input type="text" name="type" class="form-control p-input" id="type" required /> -->
+                                <input type="text" required name="last_name" class="form-control p-input validate-input" id="last_name">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="name" class="col-form-label">Product Name</label>
+                                <label for="email" class="col-form-label">email</label>
                                 <span class="required"></span>
-                                <input type="text" required name="name" class="form-control p-input validate-input" id="name">
+                                <input type="email" required name="email" class="form-control p-input validate-input" id="email">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="images" class="col-form-label">Images</label>
-                                <span class="required"></span><br>
-
-                                <input type="file" id="images" hidden multiple accept="image/*" name="images[]" />
-
-                                <label for="images" class="col-form-label labelimg">Choose images</label><br>
-                                <span id="file-chosen">No file chosen.</span>
-
-                                <input type="text" oninvalid="this.setCustomValidity('Please select the images.')" oninput="setCustomValidity('')" class="checkImg" value="0" name="0">
-
-                            </div>
-                            <div class="col-md-9 imgShow p-input">
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <label for="short_desc" class="col-form-label">Short Description</label>
+                            <div class="col">
+                                <label for="phone_number" class="col-form-label">phone number</label>
                                 <span class="required"></span>
-                                <textarea rows="4" required name="short_desc" class="form-control p-input validate-input" id="short_desc"></textarea>
-                            </div>
-                            <div class="col-md-7">
-                                <label for="long_desc" class="col-form-label">Full Description</label>
-                                <textarea rows="4" name="long_desc" class="form-control p-input" id="long_desc"></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="unit_price" class="col-form-label">Unit Price</label>
-                                <span class="required"></span>
-                                <input name="unit_price" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" class="form-control p-input validate-input" id="unit_price" maxlength="15" />
-                                <span class="money-sign">Rs.</span>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="tax" class="col-form-label">Tax (%)</label>
-                                <input type="text" name="tax" class="form-control p-input" id="tax" value="0.00" maxlength="5">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="discount" class="col-form-label">Discount (%)</label>
-                                <input type="text" name="discount" class="form-control p-input" id="discount" value="0.00" maxlength="5">
+                                <input type="number" required name="phone_number" class="form-control p-input validate-input" id="phone_number">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="sizes" class="col-form-label">Sizes</label>
-                                <input type="text" name="sizes" class="form-control p-input" id="sizes">
+                                <label for="date_of_birth" class="col-form-label">date_of_birth</label>
+                                <span class="required"></span>
+                                <input type="date" required name="date_of_birth" class="form-control p-input validate-input" id="date_of_birth">
                             </div>
                             <div class="col">
-                                <label for="colors" class="col-form-label">Colors</label>
-                                <input type="text" name="colors" class="form-control p-input" id="colors">
+                                <label for="password" class="col-form-label">password</label>
+                                <span class="required"></span>
+                                <input type="password" required name="password" class="form-control p-input validate-input" id="password">
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="address" class="col-form-label">address</label>
+                                <textarea rows="4" name="address" class="form-control p-input" id="address"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="role" class="col-form-label">role</label>
+                                <input type="text" name="role" class="form-control p-input" id="role">
+                            </div> 
+                            <div class="col">
+                            </div>
+                        </div>     
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -199,11 +171,11 @@
         $(document).on('click', '.removeBtn', function() {
             var pid = $(this).attr('data-id');
 
-            deleteAction(pid, "{{ route('product.destroy') }}", table)
+            deleteAction(pid, "{{ route('admin.destroy') }}", table)
         });
 
-        var formChange = false;
-        const actualBtn = document.getElementById('images');
+        /* var formChange = false;
+        const actualBtn = document.getElementById('images'); */
 
         $(document).on('click', '.editBtn', function() {
 
