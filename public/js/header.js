@@ -1,10 +1,106 @@
+
 $(document).ready(function () {
+
+    // $.post("/customer-product-categories", {
+    //     "_token": post_token,
+    //     "location": $('#CityInputTxt').val()
+    // },
+    //     function (data) {
+    //         $.each(data, function (index, value) {
+    //             $('#select-search-cato').append('<option value="' + value.id + '">' + value.name + '</option>');
+
+    //         });
+    //         $('#select-search-cato').selectpicker('refresh');
+    //     });
+
+
+    $('.search-input').focus(function () {
+        if ($('.select-cato').hasClass('show')) {
+            $('.select-cato button').trigger('click');
+        }
+    })
+
+    $('#searchP').change(function () {
+
+        var query = $('#searchP').val();
+        setTimeout(() => {
+            $('#searchSubmitBtn').trigger('click');
+        }, 100);
+    });
+
+    $('#searchP').keyup(function (e) {
+        if (e.keyCode == 13) {
+            /*If the ENTER key is pressed, prevent the form from being submitted,*/
+            e.preventDefault();
+            setTimeout(() => {
+                $('#searchSubmitBtn').trigger('click');
+            }, 100);
+        }
+
+    })
+
+    function test() {
+        var query = $('#searchP').val();
+
+
+    }
 
     alertMSG = $('#status').attr('dataMSG');
     alertID = $('#status').attr('dataID');
     if (alertMSG) {
         vanillaAlert(alertID, alertMSG);
     }
+
+    $('.btn-locate').click(function () {
+
+        var pro = $('#provinceS').val();
+        var dis = $('#districtS').val();
+        var cit = $('#cityS').val();
+        var data = []
+        var statusVal = -1;
+
+        //Select the product for all provinces
+        if (!(pro) || pro == 'All Provinces') {
+            statusVal = 0;
+            data.push('allP');
+        }
+
+        //Select the product for specific province and all district
+        else if (pro != 'All Provinces' && (!(dis) || dis == 'All Districts')) {
+            statusVal = 1;
+            data.push(pro, 'allD');
+        }
+
+        //Select the product for specific province and specific district and all cities
+        else if (pro != 'All Provinces' && (dis && dis != 'All Districts') && (!(cit) || cit == 'All Cities')) {
+            statusVal = 2;
+            data.push(pro, dis, 'allC');
+        }
+
+        //Select the product for specific province and specific district and all cities
+        else if (pro != 'All Provinces' && (dis && dis != 'All Districts') && (cit && cit != 'All Cities')) {
+            statusVal = 3;
+            data.push(pro, dis, cit);
+        }
+
+        var jsondata = JSON.stringify(data);
+
+        $.post("/customer-location-change", {
+            "_token": post_token,
+            'data': jsondata
+        },
+            function (data) {
+
+                if (data) {
+                    location.reload(true);
+                }
+                else {
+                    vanillaAlert(1, 'Something went wrong. Please try again later.');
+                }
+
+            });
+
+    });
 
     $(window).scroll(function () {
         if ($(window).scrollTop() >= 36) {
@@ -47,17 +143,32 @@ $(document).ready(function () {
 
     });
 
-    var open;
+    // $('#select-search-cato').change(function () {
+    //     cato = $(this).val();
+    //     getSearchProducts(' ', cato);
+    // });
+
+    $('#select-search-cato').on('show.bs.select', function () {
+        $('.location-select-div .row').hide();
+        $('#searchPautocomplete-list').hide();
+        $('.location-select-div').css({ "visibility": "hidden", "opacity": "0" });
+        $('#city-angle-icon').removeClass('fa-angle-up').addClass('fa-angle-down');
+    });
+
     $('#CityInputTxt').focus(function () {
         $('.location-select-div .row').show();
+        if ($('.select-cato').hasClass('show')) {
+            $('.select-cato button').trigger('click');
+        }
         $('.location-select-div').css({ "visibility": "visible", "opacity": "1" });
-        open = 1;
+        $('#city-angle-icon').removeClass('fa-angle-down').addClass('fa-angle-up');
     })
 
     $("body").click(function () {
 
         $('.location-select-div .row').hide();
         $('.location-select-div').css({ "visibility": "hidden", "opacity": "0" });
+        $('#city-angle-icon').removeClass('fa-angle-up').addClass('fa-angle-down');
     })
 
     $('#CityInputTxt, .location-select-div').on('click', function (event) {
@@ -68,6 +179,7 @@ $(document).ready(function () {
     $('.btn-close').click(function () {
         $('.location-select-div .row').hide();
         $('.location-select-div').css({ "visibility": "hidden", "opacity": "0" });
+        $('#city-angle-icon').removeClass('fa-angle-up').addClass('fa-angle-down');
     });
 
 
@@ -90,7 +202,7 @@ function autocomplete(inp, tmpParam, arr) {
                 arr.push(" -Select province first- ");
                 inp.val = null;
                 $('#cityS').val(null);
-                
+
             }
 
 
@@ -102,7 +214,7 @@ function autocomplete(inp, tmpParam, arr) {
                 arr = [];
                 arr.push(" -Select district first- ");
                 inp.val = null;
-            
+
             }
         }
 
@@ -370,4 +482,147 @@ function getDistrictCities(dis_name) {
 autocomplete(document.getElementById("provinceS"), 0, provinces);
 autocomplete(document.getElementById("districtS"), 1, districts);
 autocomplete(document.getElementById("cityS"), 2, cities);
-//
+
+function autocompleteSearch(inp) {
+
+    var currentFocus;
+    var executed = false;
+    if (!executed) {
+        executed = true;
+        arr = getSearchProducts($('#searchP').val(), 'All Categories');
+    }
+
+    inp.addEventListener("input", function (e) {
+        var a, b, i, val = this.value;
+        var cato = $('#select-search-cato').val();
+
+        closeAllLists();
+
+        if (!val) { return false; }
+
+        currentFocus = -1;
+
+        data = getSearchProducts(val, cato);
+        arr = data[0];
+        arrId = data[1];
+
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+
+        this.parentNode.appendChild(a);
+
+        for (i = 0; i < arr.length; i++) {
+
+            // if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            b = document.createElement("DIV");
+            b.innerHTML = arr[i];
+
+            b.innerHTML += "<input type='hidden' class='searchAutocomplete-ID' data-id='" + arrId[i] + "' value='" + arr[i] + "'>";
+
+            b.addEventListener("click", function (e) {
+                inp.value = this.getElementsByTagName("input")[0].value;
+                closeAllLists();
+            });
+            a.appendChild(b);
+        }
+    });
+
+    inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) { //down
+            currentFocus++;
+            addActive(x);
+
+        } else if (e.keyCode == 38) { //up
+            currentFocus--;
+            addActive(x);
+
+        } else if (e.keyCode == 13) {
+            e.preventDefault();
+            if (currentFocus > -1) {
+                if (x) x[currentFocus].click();
+            }
+        }
+    });
+
+    function addActive(x) {
+        if (!x) return false;
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        x[currentFocus].classList.add("autocomplete-active");
+    }
+
+    function removeActive(x) {
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+        }
+    }
+
+    function closeAllLists(elmnt) {
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+            }
+        }
+    }
+
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+}
+
+var proNames = []
+var proId = []
+
+function getSearchProducts(value, category) {
+    var val = '';
+    if (value) {
+        val = value;
+    }
+
+
+    $.ajax({
+        'async': false,
+        'type': "GET",
+        'url': "/customer-search-products",
+        "contentType": "application/json",
+        'data': { "term": val, 'category': category },
+
+        'success': function (data) {
+
+            const iterator = data.values();
+            proNames = [];
+            proId = [];
+            for (var value of iterator) {
+                if (!proNames.includes(value['name'])) {
+
+                    proNames.push(value['name']);
+                    proId.push(value['id']);
+                }
+            }
+        }
+    });
+    // $.get("/customer-search-products", {
+    //     "term": val,
+    //     'category': category
+    // },
+    //     function (data) {
+
+    //         const iterator = data.values();
+    //         for (var value of iterator) {
+
+    //             if (!proNames.includes(value['name'])) {
+
+    //                 proNames.push(value['name']);
+    //                 proId.push(value['id']);
+    //             }
+    //         }
+    //     });
+    return [proNames, proId];
+}
+
+autocompleteSearch(document.getElementById("searchP"));

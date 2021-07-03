@@ -49,7 +49,7 @@
                 <input type="hidden" name="cid" id="cid">
                 <div class="modal-header">
                     <h5 class="modal-title" id="ModalLabel">Add New Category Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" id="closeModal" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -60,10 +60,14 @@
                             <div class="col">
                                 <label for="categoryName" class="col-form-label">Category Name</label>
                                 <span class="required"></span>
-                                <select name="categoryName" required class="form-control p-input btn-input validate-input" data-live-search="true" id="categoryName">
+                                <select name="categoryName[]" required class="form-control p-input btn-input validate-input" data-live-search="true" id="categoryName" multiple data-size="8">
+                                    @if(!empty(json_decode($categories, true)))
                                     @foreach($categories as $category)
                                     <option>{{$category->name}}</option>
                                     @endforeach
+                                    @else
+                                    <option disabled>No more categories</option>
+                                    @endif
                                 </select>
 
                             </div>
@@ -86,6 +90,10 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+        $('#closeModal, #closeBtn').click(function() {
+            $("#modalAddEdit").modal('hide');
+        })
 
         $("#categoryName").selectpicker();
 
@@ -126,63 +134,8 @@
             deleteAction(cid, "{{ route('categories.destroy') }}", table)
         });
 
-        $(document).on('click', '.editBtn', function() {
-            $('#ModalLabel').text($(this).attr('data-title'));
-
-            var cid = $(this).attr('data-id');
-
-            $.post("{{ route('categories.details') }}", {
-                rowid: cid,
-                _token: "{{ csrf_token() }}"
-            }, function(data) {
-                $('#categoryName').selectpicker('val', data[0].name);
-                $('#categoryName').selectpicker('refresh');
-                selectedValue = data[0].name;
-            });
-
-            $('#cid').val(cid);
-            $('.btnSubmit').attr('id', 'Update');
-
-        });
-
         pageReload();
         sweetPull();
-
-        $(document).on('click', '#Update', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            var check = 0
-
-            if (!($('#categoryName').val() == selectedValue)) {
-
-                var data = new FormData(this.form);
-                var url = "{{ route('categories.update') }}";
-
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        if (data == 1) {
-                            table.ajax.reload();
-                            vanillaAlert(0, 'Category details updated!')
-                            $('#closeBtn').trigger('click');
-
-                        } else if (data == 0) {
-                            vanillaAlert(1, 'This category already exists on your store.')
-                        }
-                    }
-
-                });
-
-
-            } else {
-                vanillaAlert(2, 'Please make any changes.')
-            }
-        });
 
 
     });

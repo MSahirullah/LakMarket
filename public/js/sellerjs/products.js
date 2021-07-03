@@ -77,9 +77,13 @@ $(document).ready(function () {
         $('#tax, #discount, #unit_price').attr('placeholder', '0.00');
         $('#file-chosen').html('No file chosen');
         $(".imgShow").empty();
-        $('#sizes').val('-');
-        $('#colors').val('-');
+        $('#colors').val('');
         $('#code').removeAttr('disabled');
+        $('#pCOD').val(1);
+        if (!$('#pCOD').is(':checked')) {
+            $('#pCOD').trigger('click');
+        }
+
     });
 
     setBtnId();

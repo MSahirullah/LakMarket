@@ -43,6 +43,7 @@
                                 <th>ID</th>
                                 <th>Last Added Date</th>
                                 <th>Product Name</th>
+                                <th>Color</th>
                                 <th>Total Added Stock</th>
                                 <th>Total Stock Usage</th>
                                 <th>Available Stock</th>
@@ -64,6 +65,7 @@
                                 <th>ID</th>
                                 <th>Added Date</th>
                                 <th>Product Name</th>
+                                <th>Color</th>
                                 <th>Added Stock</th>
                                 <th>Action</th>
                             </tr>
@@ -80,7 +82,7 @@
 
 
 <div class="modal fade bd-Add-modal" tabindex="-1" role="dialog" aria-labelledby="btnAdd" aria-hidden="true" id="modalAdd">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form action="{{route('stock.add')}}" method="POST" enctype="multipart/form-data" id="detailsForm">
                 @csrf
@@ -99,10 +101,20 @@
                             <div class="col">
                                 <label for="product" class="col-form-label">Product</label>
                                 <span class="required"></span>
-                                <select name="product" class="form-control btn-input" data-live-search="true" id="product">
+                                <select name="product" class="form-control btn-input" data-live-search="true" id="product" data-size="6">
                                     @foreach($stockdetails as $stock)
                                     <option>{{$stock->name}}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row" style="display: none;" id="colors_div">
+                            <div class="col">
+                                <label for="colors" class="col-form-label">Product Colors</label>
+                                <span class="required"></span>
+                                <select name="colors" class="form-control btn-input" id="colors" data-size="4">
+
                                 </select>
                             </div>
                         </div>
@@ -130,6 +142,31 @@
 
 
         $("#product").selectpicker();
+        $("#colors").selectpicker();
+
+        $('#product').selectpicker('val', '');
+        $('#product').selectpicker('refresh');
+
+        $('#product').change(function() {
+
+            $.post("{{ route('stock.data') }}", {
+                pName: $('#product').val(),
+                _token: post_token
+            }, function(data) {
+                if (data != 0) {
+
+                    data = data.replace(/\s/g, '').split(',');
+
+                    $('#colors_div').removeAttr('style');
+                    $.each(data, function(key, value) {
+                        $('#colors').append('<option>' + value + '</option>');
+                        console.log(value);
+                    });
+                    $("#colors").selectpicker('refresh');
+                }
+
+            });
+        });
 
         $(document).on('click', '.removeBtn', function() {
             var sid = $(this).attr('data-id');
@@ -193,6 +230,10 @@
                             name: 'product_name'
                         },
                         {
+                            data: 'product_color',
+                            name: 'product_color'
+                        },
+                        {
                             data: 'added_stock',
                             name: 'added_stock'
                         },
@@ -253,6 +294,10 @@
                         {
                             data: 'product_name',
                             name: 'product_name'
+                        },
+                        {
+                            data: 'product_color',
+                            name: 'product_color'
                         },
                         {
                             data: 'added_stock',

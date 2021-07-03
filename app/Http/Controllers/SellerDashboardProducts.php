@@ -12,17 +12,17 @@ class SellerDashboardProducts extends Controller
 {
     public function manageProducts(Request $request)
     {
-        $data = SellerDashboard::checkSellerInfo();
-        if ($data) {
-            Session::flash('status', ['1', $data]);
-            return redirect()->route('seller.profile');
-        }
-
 
         $sellerId = Session::get('seller');
 
         if (!$sellerId) {
             CommonController::checkSeller('/seller/login');
+        }
+
+        $data = SellerDashboard::checkSellerInfo();
+        if ($data) {
+            Session::flash('status', ['1', $data]);
+            return redirect()->route('seller.profile');
         }
 
         $data = DB::table('products')
@@ -32,7 +32,7 @@ class SellerDashboardProducts extends Controller
                 ['products.blacklisted', '=', 0],
                 ['products.delete_status', '=', 0]
             ])
-            ->select('products.id', 'products.images', 'products.code',  'products.name', 'products.type', 'products.colors', 'products.sizes', 'products.discount', 'products.tax', 'products.short_desc', 'products.unit_price', 'product_categories.name as category_name')
+            ->select('products.id', 'products.images', 'products.code',  'products.name', 'products.type', 'products.colors', 'products.cod', 'products.discount', 'products.tax', 'products.short_desc', 'products.unit_price', 'product_categories.name as category_name')
             ->get();
 
 
@@ -44,6 +44,11 @@ class SellerDashboardProducts extends Controller
             ->select('product_categories.name as name', 'seller_product_category.id as id')
             ->get();
 
+        if (!json_decode($cato, true)) {
+            Session::flash('status', ['2', 'Please add product categories first!']);
+            return redirect()->route('category.list');
+        }
+
         $last_record = DB::table('products')
             ->where([
                 ['seller_id', "=",  $sellerId],
@@ -53,18 +58,21 @@ class SellerDashboardProducts extends Controller
             ->select('product_catrgory_id', 'type')
             ->latest('created_at')->first();
 
-        $last_cato = DB::table('product_categories')
-            ->join('seller_product_category', 'seller_product_category.product_category_id', '=', 'product_categories.id')
-            ->where([
-                ['seller_product_category.product_category_id', "=",  $last_record->product_catrgory_id],
-            ])
-            ->select('product_categories.name as name')
-            ->get();
 
-        $last_cato = json_decode($last_cato, true)[0]['name'];
-        $last_type = $last_record->type;
+        if ($last_record) {
+            $last_cato = DB::table('product_categories')
+                ->join('seller_product_category', 'seller_product_category.product_category_id', '=', 'product_categories.id')
+                ->where([
+                    ['seller_product_category.product_category_id', "=",  $last_record->product_catrgory_id],
+                ])
+                ->select('product_categories.name as name')
+                ->get();
 
-        Session::flash('last_data',  [$last_cato, $last_type]);
+            $last_cato = json_decode($last_cato, true)[0]['name'];
+            $last_type = $last_record->type;
+
+            Session::flash('last_data',  [$last_cato, $last_type]);
+        }
 
         if ($request->ajax()) {
 
@@ -162,7 +170,7 @@ class SellerDashboardProducts extends Controller
 
         $discount = '0.00';
         if ($request->discount) {
-            $tax = $request->discount;
+            $discount = $request->discount;
         }
 
 
@@ -177,6 +185,17 @@ class SellerDashboardProducts extends Controller
             ->get()->first();
 
         if (!$productDetails) {
+            $productDetails = DB::table('products')
+                ->where([
+                    ['seller_id', "=",  $sellerId],
+                    ['name', '=', $request->name],
+                    ['delete_status', '=', 0],
+                ])
+                ->select('*')
+                ->get()->first();
+        }
+
+        if (!$productDetails) {
 
             $cato_id = DB::table('seller_product_category')
                 ->join('product_categories', 'product_categories.id', '=', 'seller_product_category.product_category_id')
@@ -186,6 +205,18 @@ class SellerDashboardProducts extends Controller
                 ])
                 ->select('product_categories.id')
                 ->get();
+
+
+            $pCOD = '0';
+            if ($request->pCOD) {
+                $pCOD = $request->pCOD;
+            }
+
+
+            $colors = '';
+            if ($request->colors) {
+                $colors = $request->colors;
+            }
 
             $product->seller_id = $sellerId;
             $product->product_catrgory_id = json_decode($cato_id, true)[0]['id'];
@@ -199,8 +230,8 @@ class SellerDashboardProducts extends Controller
             $product->unit_price = $request->unit_price;
             $product->tax = $tax;
             $product->discount = $discount;
-            $product->colors = $request->colors;
-            $product->sizes = $request->sizes;
+            $product->colors = $colors;
+            $product->cod = $pCOD;
             $product->delete_status = 0;
             $product->save();
 
@@ -242,7 +273,7 @@ class SellerDashboardProducts extends Controller
 
         // remove duplicate -
         $text = str_replace(' ', '-', $text);
-        
+
         // remove duplicate -
         $text = str_replace(',', '-', $text);
 
@@ -305,6 +336,8 @@ class SellerDashboardProducts extends Controller
 
         $productUrl = $this->slug($request->get('name') . '-' . $pid);
 
+
+
         $updateDetails = [
             'product_catrgory_id' => json_decode($cato_id, true)[0]['id'],
             'name' => $request->get('name'),
@@ -315,7 +348,7 @@ class SellerDashboardProducts extends Controller
             'tax' => $request->get('tax'),
             'discount' => $request->get('discount'),
             'colors' => $request->get('colors'),
-            'sizes' => $request->get('sizes'),
+            'cod' => $request->get('pCOD'),
             'type' => $request->get('type')
         ];
 

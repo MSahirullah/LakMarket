@@ -11,6 +11,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\HomeController;
@@ -45,22 +46,15 @@ use Illuminate\Support\Facades\Session;
 
 //  =========================== Customer ===========================
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::post('/register-cities', [CommonController::class, 'getCities']);
 Route::post('/register-district', [CommonController::class, 'getDistricts']);
 Route::post('/register-provinces', [CommonController::class, 'getProvinces']);
 Route::post('/register-district-bid', [CommonController::class, 'getDistrictsbyID']);
 
-Route::get('autocomplete', [CommonController::class, 'searchAutocomplete'])->name('customer.search');
-
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
-Auth::routes();
-
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/verify', [RegisterController::class, 'verifyCustomer']);
-
 Route::post('/register/verification-resend', [RegisterController::class, 'resendVerification'])->name('verification.resend');
 
 Route::post('/forget-password', [ForgotPasswordController::class, 'postEmail'])->name('reset.password');
@@ -71,6 +65,25 @@ Route::get('/seller/register', [SellerRegister::class, 'index'])->name('seller.r
 Route::post('/seller/registration', [RegisterController::class, 'sellerRegister'])->name('register.seller');
 Route::post('/seller/verification', [RegisterController::class, 'sellerVerify'])->name('verify.seller');
 Route::post('/seller/details-submit', [RegisterController::class, 'sellerSubmit'])->name('submit.seller');
+
+
+Route::get('/category/{category}', [CategoryController::class, 'index']);
+Route::post('/customer-location-change', [CommonController::class, 'changeCustomerLocation']);
+Route::get('/customer-search-products', [SearchContrller::class, 'searchAutocomplete']);
+
+// Route::post('/customer-product-categories', [CommonController::class, 'getCategories']);
+
+// Route::get('autocomplete', [CommonController::class, 'searchAutocomplete'])->name('customer.search');
+
+
+
+Auth::routes();
+
+
+
+
+
+
 
 Route::get('/customer-care', [EnquiryController::class, 'index'])->name('customer-care');
 Route::post('/customer-care', [EnquiryController::class, 'sendEnquiry'])->name('send-enquiry');
@@ -97,9 +110,6 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-Route::get('/c', function () {
-    return view('categories');
-});
 
 Route::get('/sc', function () {
     return view('sub-categories');
@@ -150,6 +160,7 @@ Route::post('/seller/dashboard/categories-details', [SellerDashboardCategories::
 Route::post('/seller/dashboard/categories-update', [SellerDashboardCategories::class, 'updateCategory'])->name('categories.update');
 
 Route::get('/seller/dashboard/stock', [SellerDashboardStock::class, 'manageStock'])->name('stock.list');
+Route::post('/seller/dashboard/stock-data', [SellerDashboardStock::class, 'stockData'])->name('stock.data');
 Route::post('/seller/dashboard/stock-add-new', [SellerDashboardStock::class, 'addNewStock'])->name('stock.add');
 Route::post('/seller/dashboard/stock-delete', [SellerDashboardStock::class, 'deleteStock'])->name('stock.destroy');
 Route::post('/seller/dashboard/change-stock-status', [SellerDashboardStock::class, 'changeStockStatus'])->name('stock.change');

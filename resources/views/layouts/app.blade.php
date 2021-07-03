@@ -32,6 +32,7 @@
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillatoasts@1.4.0/vanillatoasts.min.css">
     <link rel="stylesheet" href="/css/corner-popup/corner-popup.css">
+    <link rel="stylesheet" href="/css/jquery.inputpicker.css">
 
     <link href="{{ URL::asset('css/common.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
@@ -77,6 +78,8 @@
 <script src="/js/corner-popup/corner-popup.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
+<script src="{{ asset('js/jquery.inputpicker.js') }}" defer></script>
+
 <script src="{{ asset('js/header.js') }}" defer></script>
 <script src="{{ asset('js/common.js') }}" defer></script>
 

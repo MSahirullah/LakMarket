@@ -14,17 +14,20 @@ class SellerDashboardCategories extends Controller
 {
     public function manageCategories(Request $request)
     {
-        $data = SellerDashboard::checkSellerInfo();
-        if ($data) {
-            Session::flash('status', ['1', $data]);
-            return redirect()->route('seller.profile');
-        }
 
         $sellerId = Session::get('seller');
 
         if (!$sellerId) {
             CommonController::checkSeller('/seller/login');
         }
+
+        $data = SellerDashboard::checkSellerInfo();
+        if ($data) {
+            Session::flash('status', ['1', $data]);
+            return redirect()->route('seller.profile');
+        }
+
+
 
         $data = DB::table('seller_product_category')
             ->join('product_categories', 'product_categories.id', '=', 'seller_product_category.product_category_id')
@@ -53,6 +56,15 @@ class SellerDashboardCategories extends Controller
             ->get();
 
 
+
+        foreach (json_decode($categories, true) as $kc => $cat) {
+            foreach (json_decode($data, true) as $kd => $d) {
+                if ($cat['name'] == $d['name']) {
+                    unset($categories[$kc]);
+                }
+            }
+        }
+
         if ($request->ajax()) {
 
             $num = 0;
@@ -68,10 +80,8 @@ class SellerDashboardCategories extends Controller
 
                 ->addIndexColumn()
                 ->addColumn('action', function ($category) {
-                    $categoryName = $category->name;
-                    $btn = '<span class="fas fa-edit editBtn" data-id="' . $category->id . '" data-toggle="modal" data-target=".bd-AddEdit-modal" class="btn btn-success createBtn" target="modalAddEdit" data-button = "Update" data-title="Edit Category Details"></span>';
 
-                    $btn = $btn . '<span class="fas fa-trash removeBtn" data-id="' . $category->id . '"> </span>';
+                    $btn =  '<span class="fas fa-trash removeBtn" data-id="' . $category->id . '"> </span>';
                     return $btn;
                 })
 
@@ -88,47 +98,72 @@ class SellerDashboardCategories extends Controller
                 ->make(true);
         }
 
+        
+
         return view('seller.dashboard_categories', ['categories' => $categories]);
     }
 
     public function addNewCategory(Request $request)
     {
-        $newcategory = new SellerProductCategories();
+
+
         $sellerId = Session::get('seller');
 
-
-        $category = DB::table('product_categories')
-            ->where([
-                ['name', "=",  $request->categoryName]
-            ])
-            ->select('id')
-            ->get();
-
-        $category = json_decode($category, true)[0]['id'];
+        $c1 = 0;
+        $c2 = 0;
 
 
 
-        $check = DB::table('seller_product_category')
-            ->where([
-                ['product_category_id', "=",  $category],
-                ['seller_id', "=",  $sellerId],
-            ])
-            ->select('id')
-            ->get();
+        foreach ($request->categoryName as $category) {
+            $newcategory = new SellerProductCategories();
+            $category_0 = DB::table('product_categories')
+                ->where([
+                    ['name', "=",  $category]
+                ])
+                ->select('id')
+                ->get();
 
-        $check = json_decode($check, true);
+            $category_1 = json_decode($category_0, true)[0]['id'];
 
-        if ($check == []) {
+            $check = DB::table('seller_product_category')
+                ->where([
+                    ['product_category_id', "=",  $category_1],
+                    ['seller_id', "=",  $sellerId],
+                ])
+                ->select('id')
+                ->get();
 
-            $newcategory->seller_id = $sellerId;
-            $newcategory->product_category_id = $category;
-            $newcategory->save();
+            $check = json_decode($check, true);
 
-            Session::flash('status', ['0', 'Category has been successfully added to the store!']);
-            return redirect()->route('category.list');
+            if ($check == []) {
+
+                $newcategory->seller_id = $sellerId;
+                $newcategory->product_category_id = $category_1;
+                $newcategory->save();
+
+                $c1 = $c1 + 1;
+            } else {
+                $c2 = $c2 + 1;
+            }
         }
 
-        Session::flash('status', ['1', 'This category already exists on your store.']);
+        $txt = '';
+        if ($c1 > 1) {
+            $txt = $txt . $c1 . ' ' . 'categories has been successfully added to the store. ';
+        } else if ($c1 > 0) {
+            $txt =  $txt . $c1 . ' ' . 'category has been successfully added to the store. ';
+        }
+        if ($c2 > 1) {
+            $txt =  $txt . $c2 . ' ' . 'categories already exists on your store.';
+        } else if ($c2 > 0) {
+            $txt =  $txt . $c2 . ' ' . 'category already exists on your store.';
+        }
+
+        if ($c1 > 0) {
+            Session::flash('status', ['0', $txt]);
+        } else {
+            Session::flash('status', ['1', $txt]);
+        }
 
         return redirect()->route('category.list');
     }

@@ -29,3 +29,7 @@
     border: 1px solid gainsboro;
     box-shadow: none !important;
 }
+
+label {
+    color: black !important;
+}

@@ -84,3 +84,11 @@
 .bg-warning a {
     color: #1f2d3d !important;
 }
+
+.settings-icon {
+    transition: 0.3s;
+}
+
+.settings-icon:hover {
+    transform: rotate(90deg);
+}

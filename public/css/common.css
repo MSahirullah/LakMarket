@@ -99,6 +99,10 @@
     margin-top: 35px !important;
 }
 
+.mt-40 {
+    margin-top: 40px !important;
+}
+
 .prlt-15 {
     padding: 15px 15px;
 }
@@ -153,6 +157,10 @@
 .toasts-top-right {
     top: 165px;
     right: 0;
+    z-index: 1000;
+}
+.btn:focus {
+    box-shadow: none !important;
 }
 
 .h-btn {
@@ -209,7 +217,10 @@
     background-color: #f8f8f8 !important;
 }
 
-
-.fs-14{
+.fs-14 {
     font-size: 14px !important;
+}
+
+.mb-15 {
+    margin-bottom: 15px !important;
 }

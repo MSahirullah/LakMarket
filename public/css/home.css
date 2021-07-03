@@ -298,7 +298,7 @@ a.shop-now-btn {
 .home-tile-title-h,
 .home-tile-title-p {
     margin-left: 10px;
-    color: #838587;
+    color: #5f5f5f;
 }
 
 .home-tile-title-h {
@@ -507,7 +507,7 @@ a.shop-now-btn {
 }
 
 .t-r-p-title {
-    background: #f2f2f2;
+    background: #ccd0ff;
     border-radius: 5px;
     padding: 2px 0px;
     margin-bottom: 7px;
@@ -516,8 +516,9 @@ a.shop-now-btn {
 
 .t-r-p-title h4 {
     font-size: 14px;
-    font-weight: 600;
-    color: #58595b;
+    font-weight: 700;
+    color: #2c2c2c;
+    padding: 2px;
     padding-left: 10px;
     margin: 0px;
 }
@@ -544,7 +545,7 @@ a.shop-now-btn {
 
 .site-q {
     margin-top: 20px;
-    height: 75px;
+    height: 85px;
     background: #1e2d48;
     color: white;
 }
@@ -570,14 +571,14 @@ a.shop-now-btn {
 }
 
 .site-q-text-area h5 {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
     margin: 2px 0px;
 }
 
 .site-q-text-area p {
-    font-size: 11px;
+    font-size: 12px;
     margin: 0px;
 }
 
@@ -592,7 +593,7 @@ a.shop-now-btn {
 }
 
 .owl-c-4-1 .owl-stage-outer {
-    height: 265px !important;
+    height: 270px !important;
 }
 
 .owl-c-6 .owl-stage-outer {

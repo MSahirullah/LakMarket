@@ -28,7 +28,7 @@ class CreateProductsTable extends Migration
             $table->decimal('tax', 2, 2)->default(0.0);
             $table->decimal('discount', 2, 2)->default(0.0);
             $table->string('colors')->nullable()->default('-');
-            $table->string('sizes')->nullable()->default('-');
+            $table->string('cod')->nullable()->default('0');
             $table->boolean('blacklisted')->default(0);
             $table->boolean('delete_status')->default(0);
             $table->timestamps();

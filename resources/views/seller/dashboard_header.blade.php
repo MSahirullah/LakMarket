@@ -155,7 +155,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Change The password</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Change the password</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -164,18 +164,18 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label for="current-password">Current Password</label>
+                        <label for="current-password">Current password</label>
                         <input type="password" class="form-control sign-input" required id="current-password" placeholder="Enter your current password" />
                         <span toggle="#current-password" class="far fa-fw fa-eye sign-field-icon toggle-password"></span>
                     </div>
                     <div class="form-group">
-                        <label for="new-password">New Password</label>
+                        <label for="new-password">New password</label>
                         <input type="password" class="form-control" required id="new-password" placeholder="Enter your new password" pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
                         <span toggle="#new-password" class="far fa-fw fa-eye sign-field-icon toggle-password"></span>
                     </div>
                     <div class="form-group">
-                        <label for="confirm-password">Retype Password</label>
-                        <input type="password" class="form-control" required id="confirm-password" placeholder="Retype your password">
+                        <label for="confirm-password">Retype new password</label>
+                        <input type="password" class="form-control" required id="confirm-password" placeholder="Retype your new password">
                         <span toggle="#confirm-password" class="far fa-fw fa-eye sign-field-icon toggle-password"></span>
                         <div class="alert alert-danger mismatch-msg" role="alert" style="display:none;">
 

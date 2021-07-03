@@ -57,12 +57,56 @@ class CommonController extends Controller
         abort(404, $url);
     }
 
-    public function searchAutocomplete(Request $request)
+    // public function searchAutocomplete(Request $request)
+    // {
+    //     $data = SellerProducts::select("name")
+    //         ->where("name", "LIKE", "%{$request->query}%")
+    //         ->get();
+
+    //     return response()->json($data);
+    // }
+
+    // public function getCategories()
+    // {
+    //     $data = DB::table('shop_categories')
+    //         ->select('name', 'id', 'url')
+    //         ->get();
+
+
+
+    //     $data = json_decode($data, true);
+    //     return $data;
+    // }
+
+    public function changeCustomerLocation(Request $request)
     {
-        $data = SellerProducts::select("name")
-                ->where("name","LIKE","%{$request->query}%")
-                ->get();
-   
-        return response()->json($data);
+
+        $data = $request->data;
+
+        $data = str_replace(array(
+            '[', ']', '\'', '"'
+        ), '', $data);
+
+        $data = explode(',', $data);
+
+        if ($data[0] == 'allP') {
+
+            $value = 'All of Sri Lanka';
+            //
+        } else if ($data[1] == 'allD') {
+
+            $value = $data[0] . ' ' . 'Province';
+            //
+        } else if ($data[2] == 'allC') {
+
+            $value = $data[1] . ' ' . 'District';
+            //
+        } else {
+            $value = $data[2];
+        }
+
+        $request->session()->put('customer-city', $value);
+
+        return 1;
     }
 }

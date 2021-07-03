@@ -13,28 +13,28 @@
                             <h5 class="cato-card-title">Categories</h5>
                         </div>
                         <div class="cato-item">
-                            <a href="#" class="card-link cato-card-catos"><i class="fas fa-pills cato-card-item-icon"></i> Pharmacies</a>
+                            <a href="/category/pharmacies" class="card-link cato-card-catos"><i class="fas fa-pills cato-card-item-icon"></i> Pharmacies</a>
                         </div>
                         <div class="cato-item">
-                            <a href="#" class="card-link cato-card-catos"><i class="fas fa-pencil-ruler cato-card-item-icon"></i> Book Shops</a>
+                            <a href="/category/book-shops" class="card-link cato-card-catos"><i class="fas fa-pencil-ruler cato-card-item-icon"></i> Book Shops</a>
                         </div>
                         <div class="cato-item">
-                            <a href="#" class="card-link cato-card-catos"><i class="fas fa-laptop cato-card-item-icon"></i> Computer Shops</a>
+                            <a href="/category/computer-shops" class="card-link cato-card-catos"><i class="fas fa-laptop cato-card-item-icon"></i> Computer Shops</a>
                         </div>
                         <div class="cato-item">
-                            <a href="#" class="card-link cato-card-catos"><i class="fas fa-mobile-alt cato-card-item-icon"></i> Mobile Phone Shops</a>
+                            <a href="/category/mobile-phone-shops" class="card-link cato-card-catos"><i class="fas fa-mobile-alt cato-card-item-icon"></i> Mobile Phone Shops</a>
                         </div>
                         <div class="cato-item">
-                            <a href="#" class="card-link cato-card-catos"><i class="fas fa-suitcase-rolling cato-card-item-icon"></i> Bags & Footwear Shops</a>
+                            <a href="/category/bags-and-footwear-shops" class="card-link cato-card-catos"><i class="fas fa-suitcase-rolling cato-card-item-icon"></i> Bags & Footwear Shops</a>
                         </div>
                         <div class="cato-item">
-                            <a href="#" class="card-link cato-card-catos"><i class="fas fa-camera-retro cato-card-item-icon"></i> Electronic Shops</a>
+                            <a href="/category/electronic-shops" class="card-link cato-card-catos"><i class="fas fa-camera-retro cato-card-item-icon"></i> Electronic Shops</a>
                         </div>
                         <div class="cato-item">
-                            <a href="#" class="card-link cato-card-catos"><i class="fab fa-waze cato-card-item-icon" style="font-size:14px"></i> Toys Shops</a>
+                            <a href="/category/toys-shop" class="card-link cato-card-catos"><i class="fab fa-waze cato-card-item-icon" style="font-size:14px"></i> Toys Shops</a>
                         </div>
                         <div class="cato-item">
-                            <a href="#" class="card-link cato-card-catos"><i class="fas fa-table-tennis cato-card-item-icon"></i> Sports Shops</a>
+                            <a href="/category/sports-shops" class="card-link cato-card-catos"><i class="fas fa-table-tennis cato-card-item-icon"></i> Sports Shops</a>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
 
     <div class="site-q">
         <div class="container text-center">
-            <div class="row" style="padding: 20px 0px;">
+            <div class="row" style="padding: 25px 0px;">
                 <div class="col-lg-4 site-q-col">
                     <i class="fas fa-hand-holding-usd site-q-icon"></i>
                     <div class="site-q-text-area">
@@ -166,6 +166,21 @@
                 <div class="carousel-item">
                     <img class="d-block w-100 cato-slider-img" src="\img\cato\cato-3.png" alt="Third slide">
                 </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 cato-slider-img" src="\img\cato\cato-4.png" alt="Fourth slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 cato-slider-img" src="\img\cato\cato-5.png" alt="Fifth slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 cato-slider-img" src="\img\cato\cato-6.png" alt="Sixth slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 cato-slider-img" src="\img\cato\cato-7.png" alt="Seventh slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 cato-slider-img" src="\img\cato\cato-8.png" alt="Eighth slide">
+                </div>
             </div>
             <a class="carousel-control-prev" href="#cato_slider" role="button" data-slide="prev" style="margin: -25px;">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -230,7 +245,7 @@
         <div class="col-md-6 t-r-p" style="padding-left:7.5px;">
 
             <div class="t-r-p-title">
-                <h4>International Products</h4>
+                <h4>Imported Products</h4>
             </div>
             <div class="row m-0 owl-carousel owl-theme owl-c-3-2">
                 @for ($i = 0; $i < 3; $i++) <div class="col-md home-tile">
@@ -357,20 +372,4 @@
 @section('scripts')
 
 <script src="{{ asset('js/home.js') }}" defer></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        var path = "{{ route('customer.search') }}";
-        $('input.typeahead').typeahead({
-            source: function(query, process) {
-                return $.get(path, {
-                    query: query
-                }, function(data) {
-                    return process(data);
-                });
-            }
-        });
-    });
-</script>
-
 @endsection

@@ -29,8 +29,8 @@
                                 <th>Images</th>
                                 <th>Name</th>
                                 <th>Category</th>
+                                <th>COD Status</th>
                                 <th>Colors</th>
-                                <th>Sizes</th>
                                 <th>Discount(%)</th>
                                 <th>Tax(%)</th>
                                 <th>Unit Price</th>
@@ -69,7 +69,7 @@
                             <div class="col-md-4">
                                 <label for="product_category" class="col-form-label">Category</label>
                                 <span class="required"></span>
-                                <select name="product_category" class="form-control btn-input" data-live-search="true" id="product_category">
+                                <select name="product_category" class="form-control btn-input" data-live-search="true" id="product_category" data-size="8">
                                     @foreach($catogeries as $catogery)
                                     <option>{{$catogery->name}}</option>
                                     @endforeach
@@ -147,13 +147,17 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <label for="sizes" class="col-form-label">Sizes</label>
-                                <input type="text" name="sizes" class="form-control p-input" id="sizes" maxlength="100">
-                            </div>
-                            <div class="col">
+                            <div class="col-md-8">
                                 <label for="colors" class="col-form-label">Colors</label>
                                 <input type="text" name="colors" class="form-control p-input" id="colors" maxlength="100">
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="custom-control custom-switch cod-div">
+                                    <input type="checkbox" class="custom-control-input" id="pCOD" checked name="pCOD" value="1">
+                                    <label class="custom-control-label" for="pCOD">Cash On Delivery Available</label>
+                                    <span class="required"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -172,6 +176,20 @@
     $(function() {
 
         $("#product_category").selectpicker();
+
+        $('#pCOD').change(function() {
+            if ($(this).is(':checked')) {
+                $('#pCOD').val(1);
+
+            } else {
+                $('#pCOD').val(0);
+
+            }
+        });
+
+        $("input[type='text']").on("click", function() {
+            $(this).select();
+        });
 
         $("#type").selectpicker();
 
@@ -196,13 +214,14 @@
                     name: 'category_name'
                 },
                 {
+                    data: 'cod',
+                    name: 'cod'
+                },
+                {
                     data: 'colors',
                     name: 'colors'
                 },
-                {
-                    data: 'sizes',
-                    name: 'sizes'
-                },
+
                 {
                     data: 'discount',
                     name: 'discount'
@@ -232,12 +251,10 @@
         $('#type').selectpicker('refresh');
 
 
-
-
-
         //Sweet alert for remove record
         $(document).on('click', '.removeBtn', function() {
             var pid = $(this).attr('data-id');
+
 
             deleteAction(pid, "{{ route('product.destroy') }}", table)
         });
@@ -248,6 +265,10 @@
         $(document).on('click', '.editBtn', function() {
 
             var pid = $(this).attr('data-id');
+            if ($('#pCOD').is(':checked')) {
+                $('#pCOD').trigger('click');
+            }
+
             $('#pid').val(pid);
             $.post("{{ route('product.details') }}", {
                 rowid: pid,
@@ -267,7 +288,12 @@
                 $('#unit_price').val(data[0].unit_price);
                 $('#tax').val(data[0].tax);
                 $('#discount').val(data[0].discount);
-                $('#sizes').val(data[0].sizes);
+
+                $('#pCOD').removeAttr('checked');
+                if (data[0].cod == '1') {
+                    $('#pCOD').trigger('click');
+                }
+
                 $('#colors').val(data[0].colors);
 
 
@@ -309,6 +335,9 @@
             if (formChange) {
 
                 var data = new FormData(this.form);
+                data.append('pCOD', $('#pCOD').val());
+
+
                 var url = "{{ route('product.update') }}";
 
                 $(".validate-input").each(function() {

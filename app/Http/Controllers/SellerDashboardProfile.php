@@ -14,16 +14,19 @@ class SellerDashboardProfile extends Controller
 
     public function sellerProfile()
     {
-        $data = SellerDashboard::checkSellerInfo();
-        if ($data) {
-            Session::flash('status', ['1', $data]);
-        }
 
         $sellerId = Session::get('seller');
 
         if (!$sellerId) {
             CommonController::checkSeller('/seller/login');
         }
+
+        $data = SellerDashboard::checkSellerInfo();
+        if ($data) {
+            Session::flash('status', ['1', $data]);
+        }
+
+
 
         $data = DB::table('sellers')
             ->join('shop_categories', 'shop_categories.id', '=', 'sellers.shop_category_id')
@@ -66,10 +69,10 @@ class SellerDashboardProfile extends Controller
 
     public function sellerStoreChange(Request $request)
     {
-
         $sellerId = Session::get('seller');
         $file = $request->file('store_image');
         $uploadedFiles = "";
+
 
         $destinationPath = 'sellers/images/' . $sellerId . '/store';
         $file->move($destinationPath, $file->getClientOriginalName());
@@ -78,12 +81,22 @@ class SellerDashboardProfile extends Controller
         $affected = DB::table('sellers')->where('id', $sellerId)
             ->update(['store_logo' => $uploadedFiles]);
 
+
+
+
+        $data = DB::table('sellers')
+            ->where('sellers.id', "=",  $sellerId)
+            ->select('sellers.*')
+            ->get();
+
         if ($affected) {
+            $data[0]->store_logo = "/" . $data[0]->store_logo;
+            $request->session()->put('sellerImage', $data[0]->store_logo);
             Session::flash('status', ['0', 'Store Logo Updated!']);
-            return redirect()->back();
+            return redirect()->route('seller.profile');
         }
-        Session::flash('status', ['1', 'Something went wrong. Please try again later.']);
-        return redirect()->back();
+        Session::flash('status', ['2', 'please select another image!']);
+        return redirect()->route('seller.profile');
     }
 
 
@@ -166,8 +179,9 @@ class SellerDashboardProfile extends Controller
 
         if (Hash::check($currentPass, $data[0]->password)) {
             $affected = DB::table('sellers')->where('id', $sellerId)
-                ->update(['password' => $newPass, 'status'=> '1']);
+                ->update(['password' => $newPass, 'status' => '1']);
             if ($affected) {
+                $request->session()->put('sellerStatus', $data[0]->status);
                 return [0, "Your password has been changed successfully."];
             }
             return [1, "Something went wrong. Please try again later."];

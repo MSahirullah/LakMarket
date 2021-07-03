@@ -14,13 +14,19 @@ class SellerDashboardStock extends Controller
 {
     public function manageStock(Request $request)
     {
+        $sellerId = Session::get('seller');
+
+        if (!$sellerId) {
+            CommonController::checkSeller('/seller/login');
+        }
+
         $data = SellerDashboard::checkSellerInfo();
         if ($data) {
             Session::flash('status', ['1', $data]);
             return redirect()->route('seller.profile');
         }
 
-        $sellerId = Session::get('seller');
+
         $tableType = $request->query->get('type');
         $data = "";
 
@@ -29,9 +35,7 @@ class SellerDashboardStock extends Controller
 
         // dd($data);
 
-        if (!$sellerId) {
-            CommonController::checkSeller('/seller/login');
-        }
+
 
         $dataQ = DB::table('stocks')
             ->join('products', 'products.id', '=', 'stocks.product_id')
@@ -40,9 +44,24 @@ class SellerDashboardStock extends Controller
                 ['stocks.delete_status', '=', 0],
             ]);
 
+        $modalData = DB::table('products')
+            ->where([
+                ['seller_id', "=",  $sellerId],
+                ['delete_status', '=', 0],
+            ])
+
+            ->get();
+
+
+        if (!json_decode($modalData, true)) {
+            Session::flash('status', ['2', 'Please add products first!']);
+            return redirect()->route('product.list');
+        }
+
+
         if ($tableType == 'summery-stock') {
-            $dataQ->select('stocks.id', DB::raw('SUM(stocks.added_stock) as added_stock'), DB::raw('SUM(stocks.stock_usage) as stock_usage'), 'stocks.outof_stock', 'stocks.created_at', 'stocks.product_id', 'products.name as product_name')
-                ->groupBy('stocks.product_id');
+            $dataQ->select('stocks.id', DB::raw('SUM(stocks.added_stock) as added_stock'), DB::raw('SUM(stocks.stock_usage) as stock_usage'), 'stocks.outof_stock', 'stocks.created_at', 'stocks.product_id', 'stocks.product_color',  'products.name as product_name')
+                ->groupBy('stocks.product_id', 'stocks.product_color');
 
             $data = $dataQ->get();
 
@@ -146,17 +165,34 @@ class SellerDashboardStock extends Controller
             }
         }
 
-        $modalData = DB::table('products')
-            ->where([
-                ['seller_id', "=",  $sellerId],
-                ['delete_status', '=', 0],
-            ])
-            ->distinct()
-            ->get();
+
 
         return view('seller.dashboard_stock', ['stocks' => $data, 'stockdetails' => $modalData]);
         // return view('seller.dashboard_stock');
     }
+
+    public function stockData(Request $request)
+    {
+
+
+        $sellerId = Session::get('seller');
+
+        $productD = DB::table('products')
+            ->where([
+                ['seller_id', "=",  $sellerId],
+                ['name', '=', $request->pName],
+            ])
+            ->select('colors')
+            ->get();
+
+        if ($productD) {
+            $colors = json_decode($productD, true)[0]['colors'];
+            return $colors;
+        }
+        return 0;
+    }
+
+
 
     public function addNewStock(Request $request)
     {
@@ -173,9 +209,11 @@ class SellerDashboardStock extends Controller
 
         $stock->product_id = $productId->id;
         $stock->added_stock = $request->stock;
+        $stock->product_color = $request->colors;
         $stock->save();
 
-        return redirect()->route('stock.list')->with(session()->put(['alert' => 'success', 'message' => 'Stock has been successfully added to the store!']));
+        Session::flash('status', ['0', 'Stock has been successfully added to the store!']);
+        return redirect()->back();
     }
 
     public function deleteStock(Request $request)

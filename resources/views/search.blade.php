@@ -30,7 +30,7 @@
 
                     <div class="filter-item">
                         <div class="filter-item-body">
-                            <p class="filter-title-text">Delivery Type :</p>
+                            <p class="filter-title-text mb-15">Delivery Type :</p>
                             <div class="delivery-check">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" id="paidDelivery" checked>
@@ -50,9 +50,9 @@
                         <div class="filter-item-body">
                             <p class="filter-title-text">Price :</p>
                             <div class="filter-price">
-                                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" class="form-control p-input" id="priceFrom" maxlength="7">
+                                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" class="form-control p-input" id="priceFrom" maxlength="7" placeholder="min">
                                 <span class="filter-price-dash">-</span>
-                                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" class="form-control p-input" id="priceTo" maxlength="7">
+                                <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" class="form-control p-input" id="priceTo" maxlength="7" placeholder="max">
 
                                 <button class="filter-btn-1"><i class="fas fa-arrow-right"></i></button>
                             </div>
@@ -86,12 +86,7 @@
                 <div class="result-col">
                     <div class="result-count">
                         <div>
-                            <h5> <b><span>3550</span></b> Results for <b>"<span>light</span>"</b></h5>
-                        </div>
-                        <div class="view-buttons">
-                            <span>View: </span>
-                            <button class="tile-view-btn"><i class="fas fa-th-large view-button-selected"></i></button>
-                            <button class="list-view-btn"><i class="fas fa-th-list"></i></button>
+                            <h5> <b><span>35</span></b> Shops and <span>55</span> Products found for <b>"<span>light</span>"</b></h5>
                         </div>
                     </div>
                     <div class="h-line">
@@ -125,6 +120,11 @@
 
                 <div class="search-tile-title" style="margin-bottom: 15px;">
                     <h4>Related products for "<span>light</span>"</h4>
+                </div>
+                <div class="view-buttons">
+                    <span>View: </span>
+                    <button class="tile-view-btn"><i class="fas fa-th-large view-button-selected"></i></button>
+                    <button class="list-view-btn"><i class="fas fa-th-list"></i></button>
                 </div>
                 <div class="search-tile-product-div">
                     @for ($i = 0; $i < 12; $i++) <div class="search-tile">
@@ -253,7 +253,7 @@
 @endsection
 
 @section('scripts')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHQxriVKFmURanWzX7-k-WG1gdN30drD4&callback=initMap&libraries=&v=weekly" async></script>
+
 <script src="{{ asset('js/search.js') }}" defer></script>
 
 @endsection

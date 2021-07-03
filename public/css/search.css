@@ -18,7 +18,7 @@
 
 .filter-title-text {
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 500;
     margin-bottom: 10px;
 }
 
@@ -58,7 +58,7 @@
 
 .sort-filter .down-btn {
     position: absolute;
-    top: 12px;
+    top: 11.5px;
     z-index: 1;
     font-size: 12px;
     right: 10px;
@@ -180,14 +180,22 @@ input::-webkit-inner-spin-button {
     color: red;
 }
 
+.search-tile-div .home-tile-rating {
+    font-size: 12.5px;
+}
+.search-tile-div .home-tile-title-p {
+    font-size: 12px;
+}
+
 /* ------------------------------- */
 
 .btn-2 {
-    padding: 3px 10px;
-    border: 1px solid red;
-    color: red;
+    padding: 2px 10px;
+    border: 1px solid rgb(151 151 151);
+    color: rgb(159, 159, 159);
     height: 25px;
     margin-left: 0px;
+    background-color: white;
 }
 
 .btn-2 i {
@@ -196,7 +204,9 @@ input::-webkit-inner-spin-button {
 }
 .btn-2:hover,
 .btn-2:focus {
-    background-color: rgb(238, 75, 88);
+    border-color: rgb(238, 75, 88);
+    color: rgb(238, 75, 88);
+    background-color: white;
 }
 
 .pagination-ul {
@@ -289,12 +299,16 @@ input::-webkit-inner-spin-button {
 }
 
 .search-tile-title h4 {
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 400;
+    font-size: 15px;
     padding-top: 10px;
     color: #042863;
 }
 
+.view-buttons {
+    float: right;
+    margin-top: -32px;
+}
 .view-buttons button {
     background: transparent;
     height: 0px;
@@ -352,7 +366,7 @@ input::-webkit-inner-spin-button {
 }
 
 .search-product:hover {
-    box-shadow: rgb(0 0 0 / 15%) 0px 4px 6px 0px;
+    box-shadow: rgb(0 0 0 / 15%) 0px 3px 6px 0px;
 }
 
 .search-tile {
@@ -477,7 +491,7 @@ input::-webkit-inner-spin-button {
 .search-tile-hr .search-product {
     height: 228px;
     margin: 0px -4px;
-    padding: 0px 8px;
+    padding: 0px 8px 0px 4px;
 }
 
 .search-tile-hr .search-product:hover {
@@ -627,10 +641,12 @@ input::-webkit-inner-spin-button {
 }
 
 .c-p a {
-    font-size: 13px;
-    color: #6c6c6c;
+    font-size: 13.5px;
+    font-family: Roboto, Helvetica, Arial, font-family;
+    color: black;
 }
 
 .c-p .selected {
     pointer-events: none;
+    color: #6c6c6c;
 }

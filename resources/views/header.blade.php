@@ -67,23 +67,26 @@
                 </a>
 
                 <div class="nav-search">
-                    <form autocomplete="off" action="#" class="nav justify-content-cente">
+                    <form autocomplete="off" action="{{route('search')}}" class="nav justify-content-cente">
                         <span class="nav-item dropdown search-bar ">
-                            <input type="text" id="search-text" class="typeahead form-control search-input" placeholder="Search...">
-                            <select class="selectpicker select-cato f-cpt">
-                                <option>Pharmacies</option>
-                                <option>Book Shops</option>
-                                <option>Computer Shops</option>
-                                <option>Mobile Phone Shops</option>
-                                <option>Bags & Footwear Shops</option>
-                                <option>Electronic Shops</option>
-                                <option>Toys Shops</option>
-                                <option>Sports Shops</option>
+
+                            <input type="text" class=" typeahead form-control search-input" name="q" id="searchP" placeholder="Search..." onClick="this.select();" required value="{{ app('request')->input('q') }}" />
+                            <select class="selectpicker select-cato f-cpt" id="select-search-cato">
+                                <option value='All Categories'>All Categories</option>
+                                <option value='Pharmacies'>Pharmacies</option>
+                                <option value='Book Shops'>Book Shops</option>
+                                <option value='Computer Shops'>Computer Shops</option>
+                                <option value='Mobile Phone Shops'>Mobile Phone Shops</option>
+                                <option value='Bags & Footwear Shops'>Bags & Footwear Shops</option>
+                                <option value='Electronic Shops'>Electronic Shops</option>
+                                <option value='Toys Shops'>Toys Shops</option>
+                                <option value='Sports Shops'>Sports Shops</option>
                             </select>
 
                         </span>
 
-                        <button type="submit" class="search-btn"><i class="fa fa-search search-icon" aria-hidden="true"></i></button>
+                        <button type="button" class="search-btn"><i class="fa fa-search search-icon" aria-hidden="true"></i></button>
+                        <button type="hidden" id='searchSubmitBtn' style='display:none'></button>
                     </form>
                 </div>
 
@@ -159,30 +162,30 @@
                             <i class="fas fa-chevron-down cato-icon"></i>
                             <i class="fas fa-chevron-up cato-icon" style="display:none;"></i>
 
-                            <div class="cato-list" style="display:none;">
+                            <div class="cato-list" id="cato-list-all" style="display:none;">
                                 <div class="cato-item">
-                                    <a href="#" class="card-link cato-card-catos fs-13"><i class="fas fa-pills cato-card-item-icon"></i> Pharmacies</a>
+                                    <a href="/category/pharmacies" class="card-link cato-card-catos fs-13"><i class="fas fa-pills cato-card-item-icon"></i> Pharmacies</a>
                                 </div>
                                 <div class="cato-item">
-                                    <a href="#" class="card-link cato-card-catos fs-13"><i class="fas fa-pencil-ruler cato-card-item-icon"></i> Book Shops</a>
+                                    <a href="/category/book-shops" class="card-link cato-card-catos fs-13"><i class="fas fa-pencil-ruler cato-card-item-icon"></i> Book Shops</a>
                                 </div>
                                 <div class="cato-item">
-                                    <a href="#" class="card-link cato-card-catos fs-13"><i class="fas fa-laptop cato-card-item-icon"></i> Computer Shops</a>
+                                    <a href="/category/computer-shops" class="card-link cato-card-catos fs-13"><i class="fas fa-laptop cato-card-item-icon"></i> Computer Shops</a>
                                 </div>
                                 <div class="cato-item">
-                                    <a href="#" class="card-link cato-card-catos fs-13"><i class="fas fa-mobile-alt cato-card-item-icon"></i> Mobile Phone Shops</a>
+                                    <a href="/category/mobile-phone-shops" class="card-link cato-card-catos fs-13"><i class="fas fa-mobile-alt cato-card-item-icon"></i> Mobile Phone Shops</a>
                                 </div>
                                 <div class="cato-item">
-                                    <a href="#" class="card-link cato-card-catos fs-13"><i class="fas fa-suitcase-rolling cato-card-item-icon"></i> Bags & Footwear Shops</a>
+                                    <a href="/category/bags-and-footwear-shops" class="card-link cato-card-catos fs-13"><i class="fas fa-suitcase-rolling cato-card-item-icon"></i> Bags & Footwear Shops</a>
                                 </div>
                                 <div class="cato-item">
-                                    <a href="#" class="card-link cato-card-catos fs-13"><i class="fas fa-camera-retro cato-card-item-icon"></i> Electronic Shops</a>
+                                    <a href="/category/electronic-shops" class="card-link cato-card-catos fs-13"><i class="fas fa-camera-retro cato-card-item-icon"></i> Electronic Shops</a>
                                 </div>
                                 <div class="cato-item">
-                                    <a href="#" class="card-link cato-card-catos fs-13"><i class="fab fa-waze cato-card-item-icon" style="font-size:14px"></i> Toys Shops</a>
+                                    <a href="/category/toys-shop" class="card-link cato-card-catos fs-13"><i class="fab fa-waze cato-card-item-icon" style="font-size:14px"></i> Toys Shops</a>
                                 </div>
                                 <div class="cato-item">
-                                    <a href="#" class="card-link cato-card-catos fs-13"><i class="fas fa-table-tennis cato-card-item-icon"></i> Sports Shops</a>
+                                    <a href="/category/sports-shops" class="card-link cato-card-catos fs-13"><i class="fas fa-table-tennis cato-card-item-icon"></i> Sports Shops</a>
                                 </div>
                             </div>
                         </span>
@@ -195,12 +198,10 @@
                     </li>
                 </ul>
 
-
-
                 <div class="nav-item dropdown city-wapper">
-                    <input type="text" id="CityInputTxt" class="form-control city-input" placeholder="All Provinces" value="{{Session::has('customer-city')?Session::get('customer-city'):''}}">
+                    <input type="text" id="CityInputTxt" class="form-control city-input" placeholder="All Provinces" value="{{Session::has('customer-city')?Session::get('customer-city'):'All of Sri Lanka'}}" READONLY>
                     <i class="fa fa-map-marker-alt city-icon" aria-hidden="true"></i>
-                    <i class="fa fa-angle-down city-angle-icon" aria-hidden="true"></i>
+                    <i class="fa fa-angle-down city-angle-icon" id='city-angle-icon' aria-hidden="true"></i>
 
 
                     <div class="location-select-div">
@@ -228,6 +229,9 @@
 
                             <div class="col-cus-2">
                                 <div><i class="fas fa-times btn-close"></i></div>
+                                @if ((Session::has('customer')))
+                                <div><i class="fas fa-home btn-home"></i></div>
+                                @endif
                                 <button class="btn-locate"><i class="fas fa-map-marker-alt"></i></button>
                             </div>
 
@@ -242,4 +246,3 @@
 
     </div>
 </div>
-
