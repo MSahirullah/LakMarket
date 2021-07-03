@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session as Session;
+
 // use App\Http\Controllers\CommonController;
 
 class SellerDashboardProfile extends Controller
 {
+
     public function sellerProfile()
     {
+        $data = SellerDashboard::checkSellerInfo();
+        if ($data) {
+            Session::flash('status', ['1', $data]);
+        }
 
         $sellerId = Session::get('seller');
 
@@ -27,11 +34,7 @@ class SellerDashboardProfile extends Controller
             ->get()
             ->first();
 
-        // dd($data);
-
-
-        $data->profile_photo = "/" . $data->profile_photo;
-        $data->store_image = "/" . $data->store_image;
+        $data->store_logo = "/" . $data->store_logo;
 
         $districts = DB::table('lkdistricts')
             ->select('name_en')
@@ -40,28 +43,30 @@ class SellerDashboardProfile extends Controller
         return view('seller.dashboard_profile')->with(['sellerData' => $data, 'districtsData' => $districts]);
     }
 
-    public function sellerProfileChange(Request $request)
-    {
-        $sellerId = Session::get('seller');
-        $file = $request->file('profile_photo');
-        $uploadedFiles = "";
+    // public function sellerProfileChange(Request $request)
+    // {
 
-        $destinationPath = 'sellers/images/' . $sellerId . '/profile';
-        $file->move($destinationPath, $file->getClientOriginalName());
-        $uploadedFiles = $destinationPath . '/' . $file->getClientOriginalName();
+    //     $sellerId = Session::get('seller');
+    //     $file = $request->file('profile_photo');
+    //     $uploadedFiles = "";
 
-        $affected = DB::table('sellers')->where('id', $sellerId)
-            ->update(['profile_photo' => $uploadedFiles]);
+    //     $destinationPath = 'sellers/images/' . $sellerId . '/profile';
+    //     $file->move($destinationPath, $file->getClientOriginalName());
+    //     $uploadedFiles = $destinationPath . '/' . $file->getClientOriginalName();
 
-        if ($affected) {
-            $request->session()->put('sellerImage', '/' . $uploadedFiles);
-            return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Profile picture updated!']));
-        }
-        return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
-    }
+    //     $affected = DB::table('sellers')->where('id', $sellerId)
+    //         ->update(['profile_photo' => $uploadedFiles]);
+
+    //     if ($affected) {
+    //         $request->session()->put('sellerImage', '/' . $uploadedFiles);
+    //         return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Profile picture updated!']));
+    //     }
+    //     return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
+    // }
 
     public function sellerStoreChange(Request $request)
     {
+
         $sellerId = Session::get('seller');
         $file = $request->file('store_image');
         $uploadedFiles = "";
@@ -71,17 +76,26 @@ class SellerDashboardProfile extends Controller
         $uploadedFiles = $destinationPath . '/' . $file->getClientOriginalName();
 
         $affected = DB::table('sellers')->where('id', $sellerId)
-            ->update(['store_image' => $uploadedFiles]);
+            ->update(['store_logo' => $uploadedFiles]);
 
         if ($affected) {
-            return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Store image updated!']));
+            Session::flash('status', ['0', 'Store Logo Updated!']);
+            return redirect()->back();
         }
-        return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
+        Session::flash('status', ['1', 'Something went wrong. Please try again later.']);
+        return redirect()->back();
     }
 
 
     public function sellerHotlineChange(Request $request)
     {
+
+        $data = SellerDashboard::checkSellerInfo();
+        if ($data) {
+            Session::flash('status', ['1', $data]);
+            return redirect()->back();
+        }
+
         $sellerId = Session::get('seller');
         $hotline = $request->hotline;
 
@@ -91,13 +105,39 @@ class SellerDashboardProfile extends Controller
             ->update(['hotline' => $hotline]);
 
         if ($affected) {
-            return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Hotline updated!']));
+            Session::flash('status', ['0', 'Hotline Updated!']);
+            return redirect()->back();
         }
-        return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
+        Session::flash('status', ['1', 'Something went wrong. Please try again later.']);
+        return redirect()->back();
+    }
+
+    public function sellerBdayChange(Request $request)
+    {
+        $sellerId = Session::get('seller');
+
+        $bday = $request->bday;
+
+        $affected = DB::table('sellers')->where('id', $sellerId)
+            ->update(['birthday' => $bday]);
+
+        if ($affected) {
+            Session::flash('status', ['0', 'Birthday Updated!']);
+            return redirect()->back();
+        }
+        Session::flash('status', ['1', 'Something went wrong. Please try again later.']);
+        return redirect()->back();
     }
 
     public function sellerDDChange(Request $request)
     {
+
+        $data = SellerDashboard::checkSellerInfo();
+        if ($data) {
+            Session::flash('status', ['1', $data]);
+            return redirect()->back();
+        }
+
         $sellerId = Session::get('seller');
         $deliveringDistricts = $request->get('delivery_districts');
 
@@ -110,5 +150,28 @@ class SellerDashboardProfile extends Controller
             return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Delivering districts updated!']));
         }
         return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
+    }
+
+    public function sellerPasswordChange(Request $request)
+    {
+        $sellerId = Session::get('seller');
+
+        $currentPass = $request->cP;
+        $newPass = Hash::make($request->nP);
+
+        $data = DB::table('sellers')
+            ->where('sellers.id', "=",  $sellerId)
+            ->select('sellers.*')
+            ->get();
+
+        if (Hash::check($currentPass, $data[0]->password)) {
+            $affected = DB::table('sellers')->where('id', $sellerId)
+                ->update(['password' => $newPass, 'status'=> '1']);
+            if ($affected) {
+                return [0, "Your password has been changed successfully."];
+            }
+            return [1, "Something went wrong. Please try again later."];
+        }
+        return [1, "Please enter the correct current password."];
     }
 }

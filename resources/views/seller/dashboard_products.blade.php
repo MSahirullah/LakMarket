@@ -3,6 +3,7 @@
 @section('dahsboard_content')
 
 <span id="actionStatus" {{ Session::has('alert') ? 'data-status' : '' }} data-status-alert='{{ Session::get('alert') }}' data-status-message='{{ Session::get('message') }}'></span>
+<span id="last_data" data-last-cato="{{ Session::has('last_data') ? Session::get('last_data')[0]  : '' }}" data-last-type="{{ Session::has('last_data') ? Session::get('last_data')[1] : '' }}"> </span>
 
 <link href="{{ URL::asset('css/sellercss/products.css') }}" rel="stylesheet">
 
@@ -77,7 +78,7 @@
                             <div class="col-md-4">
                                 <label for="code" class="col-form-label">Code</label>
                                 <span class="required"></span>
-                                <input type="text" name="code" class="form-control p-input" id="code" required />
+                                <input type="text" name="code" class="form-control p-input" id="code" required maxlength="20" />
                             </div>
                             <div class="col-md-4">
                                 <label for="type" class="col-form-label">Product Type</label>
@@ -94,7 +95,8 @@
                             <div class="col">
                                 <label for="name" class="col-form-label">Product Name</label>
                                 <span class="required"></span>
-                                <input type="text" required name="name" class="form-control p-input validate-input" id="name">
+                                <span class="char-len">(<span id="name_len">0</span>/120)</span>
+                                <input type="text" required name="name" class="form-control p-input validate-input" id="name" maxlength="120">
                             </div>
                         </div>
                         <div class="row">
@@ -107,7 +109,8 @@
                                 <label for="images" class="col-form-label labelimg">Choose images</label><br>
                                 <span id="file-chosen">No file chosen.</span>
 
-                                <input type="text" oninvalid="this.setCustomValidity('Please select the images.')" oninput="setCustomValidity('')" class="checkImg" value="0" name="0">
+                                <!-- <input type="text" oninvalid="this.setCustomValidity('Please select the images.')" oninput="setCustomValidity('')" class="checkImg" value="0" name="0"> -->
+                                <input type="text" class="checkImg" value="111" name="0">
 
                             </div>
                             <div class="col-md-9 imgShow p-input">
@@ -118,44 +121,46 @@
                             <div class="col-md-5">
                                 <label for="short_desc" class="col-form-label">Short Description</label>
                                 <span class="required"></span>
-                                <textarea rows="4" required name="short_desc" class="form-control p-input validate-input" id="short_desc"></textarea>
+                                <span class="char-len">(<span id="short_desc_len">0</span>/200)</span>
+                                <textarea rows="4" required name="short_desc" class="form-control p-input validate-input" id="short_desc" maxlength="200"></textarea>
                             </div>
                             <div class="col-md-7">
                                 <label for="long_desc" class="col-form-label">Full Description</label>
-                                <textarea rows="4" name="long_desc" class="form-control p-input" id="long_desc"></textarea>
+                                <span class="char-len">(<span id="long_desc_len">0</span>/5000)</span>
+                                <textarea rows="4" name="long_desc" class="form-control p-input" id="long_desc" maxlength="5000"></textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="unit_price" class="col-form-label">Unit Price</label>
                                 <span class="required"></span>
-                                <input name="unit_price" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" class="form-control p-input validate-input" id="unit_price" maxlength="15" />
+                                <input name="unit_price" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="text" onkeypress="return  /^[0-9]*\.?[0-9]*$/i.test(event.key)" class="form-control p-input validate-input" id="unit_price" maxlength="10" placeholder="0.00" />
                                 <span class="money-sign">Rs.</span>
                             </div>
                             <div class="col-md-4">
-                                <label for="tax" class="col-form-label">Tax (%)</label>
-                                <input type="text" name="tax" class="form-control p-input" id="tax" value="0.00" maxlength="5">
+                                <label for="discount" class="col-form-label">Discount (%)</label>
+                                <input type="text" name="discount" class="form-control p-input" id="discount" placeholder="0.00" maxlength="5" onkeypress="return  /^[0-9]*\.?[0-9]*$/i.test(event.key)">
                             </div>
                             <div class="col-md-4">
-                                <label for="discount" class="col-form-label">Discount (%)</label>
-                                <input type="text" name="discount" class="form-control p-input" id="discount" value="0.00" maxlength="5">
+                                <label for="tax" class="col-form-label">Tax (%)</label>
+                                <input type="text" name="tax" class="form-control p-input" id="tax" placeholder="0.00" maxlength="5" onkeypress="return  /^[0-9]*\.?[0-9]*$/i.test(event.key)">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <label for="sizes" class="col-form-label">Sizes</label>
-                                <input type="text" name="sizes" class="form-control p-input" id="sizes">
+                                <input type="text" name="sizes" class="form-control p-input" id="sizes" maxlength="100">
                             </div>
                             <div class="col">
                                 <label for="colors" class="col-form-label">Colors</label>
-                                <input type="text" name="colors" class="form-control p-input" id="colors">
+                                <input type="text" name="colors" class="form-control p-input" id="colors" maxlength="100">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="closeBtn" data-dismiss="modal">Close</button>
-                    <button type="Submit" class="btn btn-primary btnSubmit">Save</button>
+                    <button type="button" class="btn btn-primary btnSubmit">Save</button>
                     <button type="submit" style="display: none;"></button>
                 </div>
             </form>
@@ -220,6 +225,15 @@
             ]
         });
 
+        $('#product_category').selectpicker('val', $('#last_data').attr('data-last-cato'));
+        $('#product_category').selectpicker('refresh');
+
+        $('#type').selectpicker('val', $('#last_data').attr('data-last-type'));
+        $('#type').selectpicker('refresh');
+
+
+
+
 
         //Sweet alert for remove record
         $(document).on('click', '.removeBtn', function() {
@@ -255,6 +269,8 @@
                 $('#discount').val(data[0].discount);
                 $('#sizes').val(data[0].sizes);
                 $('#colors').val(data[0].colors);
+
+
 
                 var pImages = data[0].images;
                 pImagesA = pImages.replace('["', '');
@@ -297,15 +313,15 @@
 
                 $(".validate-input").each(function() {
                     if ($(this).val() == "") {
-                        alert('Please fill the required information.');
+                        vanillaAlert(2, 'Please fill the required information.');
                         check = 1;
                         return false;
 
                     }
                 });
 
-                if ($('.checkImg').attr('required')) {
-                    alert('Please select the images.');
+                if ($('#file-chosen').text() == 'No file chosen.') {
+                    vanillaAlert(2, 'Please select the images.');
                     check = 1;
                     return false;
                 }
@@ -321,11 +337,13 @@
                         success: function(data) {
                             if (data == 1) {
                                 table.ajax.reload();
-                                Swal.fire('Product details updated!', '', 'success');
+                                // Swal.fire('', '', 'success');
+                                vanillaAlert(0, 'Product details updated!');
                                 $('#closeBtn').trigger('click');
 
                             } else if (data == 0) {
-                                Swal.fire('Failed to update.', '', 'info');
+                                vanillaAlert(1, 'Failed to update.');
+                                // Swal.fire('', '', 'info');
                             }
                         }
                     });
@@ -333,7 +351,7 @@
                     e.preventDefault();
                 }
             } else {
-                alert('Please make any changes');
+                vanillaAlert(2, 'Please make any changes');
                 return false;
             }
         });

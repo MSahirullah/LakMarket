@@ -33,7 +33,6 @@ $(document).ready(function(){
           $('.list-view-btn i').removeClass('view-button-selected');
           $('.tile-view-btn i').addClass('view-button-selected');
   
-          console.log(1);
         }
       });
 });

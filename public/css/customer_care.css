@@ -24,3 +24,8 @@
 .astrike-hide:after {
     content: "" !important;
 }
+
+.window {
+    border: 1px solid gainsboro;
+    box-shadow: none !important;
+}

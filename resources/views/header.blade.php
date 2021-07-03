@@ -14,7 +14,7 @@
                 </div>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link a-nav-link" href="#">About</a>
+                        <a class="nav-link a-nav-link" href="{{route('about')}}">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link a-nav-link" href="{{ route('customer-care') }}">Customer Care</a>
@@ -227,7 +227,7 @@
                             </div>
 
                             <div class="col-cus-2">
-                                <div><i class="fas fa-times-circle btn-close"></i></div>
+                                <div><i class="fas fa-times btn-close"></i></div>
                                 <button class="btn-locate"><i class="fas fa-map-marker-alt"></i></button>
                             </div>
 

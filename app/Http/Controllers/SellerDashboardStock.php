@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SellerStocks;
-use Session;
+use Illuminate\Support\Facades\Session;
 use DataTables;
 use DateTime;
 use Illuminate\Http\Request;
@@ -14,6 +14,12 @@ class SellerDashboardStock extends Controller
 {
     public function manageStock(Request $request)
     {
+        $data = SellerDashboard::checkSellerInfo();
+        if ($data) {
+            Session::flash('status', ['1', $data]);
+            return redirect()->route('seller.profile');
+        }
+
         $sellerId = Session::get('seller');
         $tableType = $request->query->get('type');
         $data = "";

@@ -143,13 +143,11 @@
                             <div class="long-desc">No Neutral Line required. Wi-Fi direct connection. APP remote control. Link with other smart devices Support voice speaker control.</div>
 
                             <div class="shop-name">
-                                <a href="#">Jayanthi Electronics</a>
+                                
                             </div>
 
                             <div class="district-city">
-                                <span class="district">Kegalle</span>
-                                <span">,</span>
-                                    <span class="city">Mawanella</span>
+                                
                             </div>
 
                         </div>

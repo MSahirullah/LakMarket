@@ -267,3 +267,10 @@ input[type="number"] {
     margin-top: 5px;
     margin-left: 2px;
 }
+
+.char-len {
+    font-size: 14px;
+    font-style: italic;
+    float: right;
+    margin-top: 7px;
+}

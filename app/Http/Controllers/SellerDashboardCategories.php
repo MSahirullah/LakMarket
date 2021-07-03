@@ -14,6 +14,12 @@ class SellerDashboardCategories extends Controller
 {
     public function manageCategories(Request $request)
     {
+        $data = SellerDashboard::checkSellerInfo();
+        if ($data) {
+            Session::flash('status', ['1', $data]);
+            return redirect()->route('seller.profile');
+        }
+
         $sellerId = Session::get('seller');
 
         if (!$sellerId) {
@@ -23,8 +29,7 @@ class SellerDashboardCategories extends Controller
         $data = DB::table('seller_product_category')
             ->join('product_categories', 'product_categories.id', '=', 'seller_product_category.product_category_id')
             ->where([
-                ['seller_id', "=",  $sellerId],
-                ['delete_status', '=', '0']
+                ['seller_product_category.seller_id', "=",  $sellerId]
             ])
             ->select('product_categories.name as name', 'seller_product_category.id as id')
             ->get();

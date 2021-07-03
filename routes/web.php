@@ -117,6 +117,12 @@ Route::get('/a', function () {
     return view('auth.login_register');
 });
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+
+
 //  =========================== SELLER ===========================
 
 
@@ -124,10 +130,12 @@ Route::get('/a', function () {
 Route::get('/seller/dashboard', [SellerDashboard::class, 'index'])->name('seller.dashboard');
 
 Route::get('/seller/dashboard/profile', [SellerDashboardProfile::class, 'sellerProfile'])->name('seller.profile');
-Route::post('/seller/dashboard/profile/change-profile-image', [SellerDashboardProfile::class, 'sellerProfileChange']);
+// Route::post('/seller/dashboard/profile/change-profile-image', [SellerDashboardProfile::class, 'sellerProfileChange']);
 Route::post('/seller/dashboard/profile/change-store-image', [SellerDashboardProfile::class, 'sellerStoreChange']);
 Route::post('/seller/dashboard/profile/change-hotline', [SellerDashboardProfile::class, 'sellerHotlineChange']);
-Route::post('/seller/dashboard/profile/change-delivery-districts', [SellerDashboardProfile::class, 'sellerDDChange'])->name('[seller.editDistrict');
+Route::post('/seller/dashboard/profile/change-bday', [SellerDashboardProfile::class, 'sellerBdayChange'])->name('seller.bdayChange');
+Route::post('/seller/dashboard/profile/change-delivery-districts', [SellerDashboardProfile::class, 'sellerDDChange'])->name('seller.editDistrict');
+Route::post('/seller/dashboard/profile/change-password', [SellerDashboardProfile::class, 'sellerPasswordChange'])->name('seller.changePassword');
 
 Route::get('/seller/dashboard/products', [SellerDashboardProducts::class, 'manageProducts'])->name('product.list');
 Route::post('/seller/dashboard/product-edit', [SellerDashboardProducts::class, 'updateProduct'])->name('product.update');

@@ -1,23 +1,28 @@
 @extends('layouts.app')
 
+@section('css')
+
+@endsection
+
 @section('content')
 
-<div class="content pt-16" style="background-image:url('/img/sign-bg.png');background-size: contain; ">
-    <div class="container c-p mt--30">
-        <a href="/">Home</a>
+<div class="site-wrapper pt-16 ">
+    <!-- //Breadcrumb -->
+    <div class="container c-p">
+        <a href="#">Home</a>
         <i class="fas fa-chevron-right"></i>
-        <a class="selected" href="#">Customer Care</a>
+        <a class="selected" href="#">About</a>
     </div>
     <div class="form-content">
-        <div class="container">
+        <div class="container bg-w site-container">
             <div class="row jc-c">
-                <div class="col-md-8">
+                <div class="col-md-8 mt-20 mb-40">
                     <form method="POST" action="{{ route('send-enquiry') }}">
                         @csrf
                         <input type="hidden" name="role" value="ROLE_CUSTOMER">
-                        <div class="welcome-window">
+                        <div class="welcome-window window">
                             <p class="fw-bold welcome-msg ">How can we help you? </p>
-                            <p class="welcome-desc">For all enquiries, Please email us using the form below. </p>
+                            <p class="  fs-14welcome-desc">For all enquiries, Please email us using the form below. </p>
                             <div class="row">
                                 <div class="col">
                                     <label for="name">{{ __('Full Name') }} <span class="required"></span> </label>
@@ -50,4 +55,5 @@
         </div>
     </div>
 </div>
+
 @endsection

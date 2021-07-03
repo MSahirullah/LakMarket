@@ -27,6 +27,23 @@ function deleteAction(id, url, table = null) {
     })
 }
 
+function vanillaAlert(inp, msg, time = 6000) {
+
+    var title = ['Success!', 'Error!', 'Warning!', 'Information!'];
+    var type = ['success', 'error', 'warning', 'info'];
+    var icon = ['success.png', 'error.png', 'warning.png', 'info.png']
+    var path = '/img/alert-logo/';
+
+    VanillaToasts.create({
+        title: title[inp],
+        text: msg,
+        type: type[inp],
+        icon: path + icon[inp],
+        timeout: time
+        // callback: function() { ... } // executed when toast is clicked / optional parameter
+    });
+}
+
 function pageReload() {
 
     $.ajax({
@@ -77,7 +94,10 @@ function selectTitle(idName) {
 function checkImageInput(actualBtn) {
     if (!actualBtn.files.length > 0) {
         $('.checkImg').removeAttr('required');
-        if (!$("#file-chosen").attr('data-uploded')) {
+
+        if (!$("#file-chosen").hasClass('data-uploded')) {
+
+
             $('.checkImg').attr('required', '');
         }
     }
@@ -87,7 +107,7 @@ function setBtnId() {
     $(document).on('click', '.editBtn, .createBtn', function () {
         var ModalLabel = $(this).attr('data-title');
         var BtnLabel = $(this).attr('data-button');
-        $("#file-chosen").removeAttr('data-uploded');
+        $("#file-chosen").removeClass('data-uploded');
         $('#file-chosen').attr("style", "color:black");
 
         $("#modalLabel").html(ModalLabel);

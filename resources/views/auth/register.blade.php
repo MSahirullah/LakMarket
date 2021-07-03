@@ -77,13 +77,13 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="password">{{ __('Password') }} <span class="required"></span> </label>
-                                            <input type="password" class="form-control sign-input pr-30" name="password" required autocomplete="current-password" id="password" placeholder="Enter your password" required autocomplete="current-password" pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"><br>
+                                            <input type="password" class="form-control sign-input pr-30" name="password" required  id="password" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"><br>
                                             <span toggle="#password" class="far fa-fw fa-eye sign-field-icon toggle-password"></span>
                                         </div>
 
                                         <div class="col">
                                             <label for="confirm-password">{{ __('Confirm Password') }} <span class="required"></span> </label>
-                                            <input type="password" class="form-control sign-input pr-30" required autocomplete="current-password" id="confirm-password" placeholder="Enter your password" required autocomplete="current-password" /><br>
+                                            <input type="password" class="form-control sign-input pr-30" required id="confirm-password" placeholder="Enter your password" required /><br>
                                             <span toggle="#confirm-password" class="far fa-fw fa-eye sign-field-icon toggle-password"></span>
                                         </div>
                                     </div>
