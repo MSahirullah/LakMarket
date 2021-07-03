@@ -3,7 +3,7 @@
 @section('dahsboard_content')
 
 <span id="actionStatus" {{ Session::has('alert') ? 'data-status' : '' }} data-status-alert='{{ Session::get('alert') }}' data-status-message='{{ Session::get('message') }}'></span>
-
+<link href="{{ URL::asset('css/admincss/admin.css') }}" rel="stylesheet">
 
 
 <div class="content-wrapper">
