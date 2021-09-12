@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy Genuine | Buy NearBy |
+@endsection
 @section('css')
 <link href="{{ URL::asset('/css/sellerRegister.css') }}" rel="stylesheet">
 @endsection

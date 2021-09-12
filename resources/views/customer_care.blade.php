@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('css')
-
+@section('title')
+Customer Care |
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
 <div class="site-wrapper pt-16 ">
     <!-- //Breadcrumb -->
     <div class="container c-p">
-        <a href="#">Home</a>
+        <a href="/">Home</a>
         <i class="fas fa-chevron-right"></i>
         <a class="selected" href="#">About</a>
     </div>
@@ -34,14 +34,15 @@
                                     <label for="email">{{ __('Email') }} <span class="required"></span> </label>
                                     <input type="email" class="form-control sign-input" name="email" required autocomplete="email" id="email" placeholder="Enter your email" value="{{(Session::has('customer'))?(Session::get('customer')['email']):''}}" />
                                 </div>
-                                <div class="col">
+                                <div class="col cc">
                                     <label for="phoneno">{{ __('Phone Number') }} <span class="required astrike-hide"></span> </label>
-                                    <input type="text" class="form-control sign-input" name="mobile_no" id="mobile_no" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" pattern="[0]{1}[7]{1}[0-8]{1}[0-9]{7}" placeholder="Enter your phone number" value="{{(Session::has('customer'))?(Session::get('customer')['mobile_no']):''}}" /><br>
+                                    <input type="text" class="form-control sign-input pl-45" name="mobile_no" id="mobile_no" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" pattern="[0]{1}[7]{1}[0-8]{1}[0-9]{7}" placeholder="Enter your phone number" value="{{(Session::has('customer'))?(Session::get('customer')['mobile_no']):''}}" /><br>
+                                    <span class="mob-contry-code">+94</span>
                                 </div>
                             </div>
                             <div class="form-floating">
                                 <label for="enquiry">Enquiry <span class="required"></span> </label>
-                                <textarea class="form-control signin-input cc-enquiry" name="enquiry" id="enquiry" required></textarea>
+                                <textarea class="form-control signin-input cc-enquiry" name="enquiry" id="enquiry" required maxlength="600"></textarea>
 
                             </div>
                             <button type="submit" class="btn btn-primary submit-button button-1">

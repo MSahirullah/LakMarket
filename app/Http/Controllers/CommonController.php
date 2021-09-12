@@ -8,6 +8,8 @@ use App\Models\Lkprovinces;
 use App\Models\SellerProducts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session as FacadesSession;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Session;
 
 class CommonController extends Controller
@@ -82,6 +84,7 @@ class CommonController extends Controller
     {
 
         $data = $request->data;
+        $value = [];
 
         $data = str_replace(array(
             '[', ']', '\'', '"'
@@ -91,20 +94,51 @@ class CommonController extends Controller
 
         if ($data[0] == 'allP') {
 
-            $value = 'All of Sri Lanka';
+            $value['0'] = 'All of Sri Lanka';
+            $value['1'] = '0';
+            $value['2'] = array('0', '0', '0');
+
             //
         } else if ($data[1] == 'allD') {
 
-            $value = $data[0] . ' ' . 'Province';
+            $value['0'] = $data[0] . ' ' . 'Province';
+            $value['1'] = '1';
+            $value['2'] = array($data[0], '0', '0');
             //
         } else if ($data[2] == 'allC') {
 
-            $value = $data[1] . ' ' . 'District';
+            $value['0'] = $data[1] . ' ' . 'District';
+            $value['1'] = '2';
+            $value['2'] = array($data[0], $data[1], '0');
             //
         } else {
-            $value = $data[2];
+            $value['0'] = $data[2];
+            $value['1'] = '3';
+            $value['2'] = array($data[0], $data[1],  $data[2]);
         }
 
+        $request->session()->put('customer-city', $value);
+
+        return 1;
+    }
+
+    public function locationReset(Request $request)
+    {
+        $customer = FacadesSession::get('customer');
+
+        $city = DB::table('lkcities')
+            ->join('lkdistricts', 'lkdistricts.id', '=', 'lkcities.district_id')
+            ->join('lkprovinces', 'lkprovinces.id', '=', 'lkdistricts.province_id')
+            ->where('lkcities.id', $customer->city_id)
+            ->select('lkcities.name_en as city', 'lkdistricts.name_en as district', 'lkprovinces.name_en as province')
+
+            ->get();
+        $location = json_decode($city, true)[0];
+
+        $value = [];
+        $value['0'] = $city[0]->city;
+        $value['1'] = '3';
+        $value['2'] = array($location['province'], $location['district'],  $location['city']);
         $request->session()->put('customer-city', $value);
 
         return 1;

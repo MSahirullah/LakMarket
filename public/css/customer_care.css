@@ -33,3 +33,14 @@
 label {
     color: black !important;
 }
+
+.cc .mob-contry-code {
+    position: absolute;
+    margin-top: -53px;
+    margin-left: 13px;
+    font-size: 14px;
+}
+
+.cc label {
+    font-size: 13.5px;
+}

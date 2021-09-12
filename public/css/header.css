@@ -16,7 +16,7 @@
 .a-nav-link {
     font-weight: 600;
     font-size: 13px;
-    color: #909090;
+    color: #6e6e6e !important;
     transition: 0.3s;
     margin-right: 8px;
     text-transform: uppercase;
@@ -272,7 +272,7 @@
 
 .search-bar input[type="text"] {
     width: 510px;
-    height: 34px;
+    height: 40px;
     transition: 0.3s;
     border: 0px;
     padding-left: 20px;
@@ -303,17 +303,16 @@
 .search-btn {
     float: left;
     width: 40px;
-    height: 36px !important;
+    height: 44px !important;
     padding: 4px;
     background: transparent;
     color: white;
-    font-size: 11px;
+    font-size: 19px;
     border-left: none;
     cursor: pointer;
     margin-left: -41px;
     z-index: 0;
-    margin-top: 6px;
-    height: 28px;
+    margin-top: 5px;
     border-radius: 0px 18px 18px 0px !important;
     border-width: 0px 0px 0px 1px; /* top right bottom left */
     border-style: solid;
@@ -323,7 +322,7 @@
 
 .search-icon {
     float: right;
-    font-size: 16px;
+    font-size: 18px;
     margin-right: 9px;
     color: #042863;
 }
@@ -376,21 +375,23 @@
 
 .select-cato {
     position: absolute;
-    margin-top: -34px;
-    height: 34px !important;
-    margin-left: 286px !important;
+    margin-top: -40px;
+    height: 40px !important;
+    margin-left: 293px !important;
     width: 177px !important;
     border-left: 1px solid rgb(248, 248, 248);
+    border-right: 1px solid rgb(248, 248, 248);
 }
 
 .select-cato button {
     background-color: #dddddd;
     border: none;
-    height: 34px;
+    height: 40px;
     font-size: 13px;
     font-family: "Open Sans", sans-serif;
     color: #444444;
     border-radius: unset;
+    padding: 8px 10px;
 }
 .filter-option-inner-inner {
     padding: 1px;
@@ -446,7 +447,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 2000;
+    z-index: 1000;
 }
 
 .fa-mobile-alt {
@@ -878,8 +879,16 @@
 }
 
 .select-cato .dropdown-menu {
-    min-width: 180px !important;
+    min-width: 174px !important;
     overflow: hidden;
     max-height: 300px !important;
     min-height: 100px !important;
+}
+
+.logged-user .dropdown-divider {
+    margin: 1px 0;
+}
+
+.logged-user .fas {
+    padding-right: 5px;
 }

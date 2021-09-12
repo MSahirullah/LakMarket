@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy Genuine | Buy NearBy |
+@endsection
 @section('content')
 
 <div class="content site-container" style="background-image:url('/img/sign-bg.png');background-size: contain; padding-bottom: 150px;">
@@ -77,7 +79,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="password">{{ __('Password') }} <span class="required"></span> </label>
-                                            <input type="password" class="form-control sign-input pr-30" name="password" required  id="password" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"><br>
+                                            <input type="password" class="form-control sign-input pr-30" name="password" required id="password" placeholder="Enter your password" required pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"><br>
                                             <span toggle="#password" class="far fa-fw fa-eye sign-field-icon toggle-password"></span>
                                         </div>
 
@@ -115,12 +117,19 @@
 @section('scripts')
 
 <script>
-    $.fn.cornerpopup({
-        variant: 10,
-        slide: 1,
-        escClose: 1,
-        content: "<div class='hide-mobile p-sm-8 pop-up-img-div'><img src='/img/img-3.png' align='center' class='responsive pop-up-img'></div> <div> <div class='corner-container'><p class='corner-head'> BECOME A SELLER ON <br> LAK MARKET </p><a href='{{route('login')}}' onclick='loginCall();' class='corner-btn-close'>Create Your Business Account</a></div></div>",
-    });
+    localStorage.setItem("popup", false);
+    var popupR = localStorage.getItem("popup");
+
+
+    if (popupR == 'false' && !performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+        $.fn.cornerpopup({
+            variant: 10,
+            slide: 1,
+            escClose: 1,
+            content: "<div class='hide-mobile p-sm-8 pop-up-img-div'><img src='/img/img-3.png' align='center' class='responsive pop-up-img'></div> <div> <div class='corner-container'><p class='corner-head'> BECOME A SELLER ON <br> LAK MARKET </p><a href='{{route('seller.register')}}' onclick='loginCall();' class='corner-btn-close'>Create Your Business Account</a></div></div>",
+        });
+        localStorage.setItem("popup", true);
+    }
 </script>
 
 <script src="{{ asset('js/register.js') }}" defer></script>

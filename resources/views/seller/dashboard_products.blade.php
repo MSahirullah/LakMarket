@@ -32,7 +32,7 @@
                                 <th>COD Status</th>
                                 <th>Colors</th>
                                 <th>Discount(%)</th>
-                                <th>Tax(%)</th>
+                                <!-- <th>Tax(%)</th> -->
                                 <th>Unit Price</th>
                                 <th>Action</th>
                             </tr>
@@ -95,8 +95,8 @@
                             <div class="col">
                                 <label for="name" class="col-form-label">Product Name</label>
                                 <span class="required"></span>
-                                <span class="char-len">(<span id="name_len">0</span>/120)</span>
-                                <input type="text" required name="name" class="form-control p-input validate-input" id="name" maxlength="120">
+                                <span class="char-len">(<span id="name_len">0</span>/70)</span>
+                                <input type="text" required name="name" class="form-control p-input validate-input" id="name" maxlength="70">
                             </div>
                         </div>
                         <div class="row">
@@ -131,27 +131,28 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col">
                                 <label for="unit_price" class="col-form-label">Unit Price</label>
                                 <span class="required"></span>
                                 <input name="unit_price" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="text" onkeypress="return  /^[0-9]*\.?[0-9]*$/i.test(event.key)" class="form-control p-input validate-input" id="unit_price" maxlength="10" placeholder="0.00" />
                                 <span class="money-sign">Rs.</span>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col">
                                 <label for="discount" class="col-form-label">Discount (%)</label>
                                 <input type="text" name="discount" class="form-control p-input" id="discount" placeholder="0.00" maxlength="5" onkeypress="return  /^[0-9]*\.?[0-9]*$/i.test(event.key)">
                             </div>
-                            <div class="col-md-4">
+                            <!-- <div class="col-md-4">
                                 <label for="tax" class="col-form-label">Tax (%)</label>
                                 <input type="text" name="tax" class="form-control p-input" id="tax" placeholder="0.00" maxlength="5" onkeypress="return  /^[0-9]*\.?[0-9]*$/i.test(event.key)">
-                            </div>
+                            </div> -->
                         </div>
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class=" {{Session::has('sessellerDelivery') == '1' ? 'col-md-8' : 'col' }}">
                                 <label for="colors" class="col-form-label">Colors</label>
-                                <input type="text" name="colors" class="form-control p-input" id="colors" maxlength="100">
+                                <input type="text" name="colors" class="form-control p-input" id="colors" maxlength="100" placeholder="Black, Red, White, Blue...">
                             </div>
 
+                            @if(Session::has('sessellerDelivery') == '1')
                             <div class="col-md-4">
                                 <div class="custom-control custom-switch cod-div">
                                     <input type="checkbox" class="custom-control-input" id="pCOD" checked name="pCOD" value="1">
@@ -159,6 +160,7 @@
                                     <span class="required"></span>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -226,10 +228,10 @@
                     data: 'discount',
                     name: 'discount'
                 },
-                {
-                    data: 'tax',
-                    name: 'tax'
-                },
+                // {
+                //     data: 'tax',
+                //     name: 'tax'
+                // },
                 {
                     data: 'unit_price',
                     name: 'unit_price'
@@ -286,7 +288,7 @@
                 $('#short_desc').text(data[0].short_desc);
                 $('#long_desc').text(data[0].long_desc);
                 $('#unit_price').val(data[0].unit_price);
-                $('#tax').val(data[0].tax);
+                // $('#tax').val(data[0].tax);
                 $('#discount').val(data[0].discount);
 
                 $('#pCOD').removeAttr('checked');
@@ -295,8 +297,6 @@
                 }
 
                 $('#colors').val(data[0].colors);
-
-
 
                 var pImages = data[0].images;
                 pImagesA = pImages.replace('["', '');

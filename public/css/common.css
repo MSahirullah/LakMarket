@@ -118,6 +118,10 @@
     padding-top: 15px !important;
 }
 
+.pt-10 {
+    padding-top: 10px !important;
+}
+
 .pt-20 {
     padding-top: 20px !important;
 }
@@ -150,6 +154,10 @@
     padding-bottom: 15px !important;
 }
 
+.pb-25 {
+    padding-bottom: 25px !important;
+}
+
 .mt-9 {
     margin-top: 9px !important;
 }
@@ -157,7 +165,7 @@
 .toasts-top-right {
     top: 165px;
     right: 0;
-    z-index: 1000;
+    z-index: 999999;
 }
 .btn:focus {
     box-shadow: none !important;
@@ -167,6 +175,9 @@
     background: transparent;
     outline: 0;
     border: none;
+}
+.fs-14 {
+    font-size: 14px !important;
 }
 
 .fs-13 {
@@ -182,6 +193,18 @@
     margin: auto;
     margin-bottom: 0px;
     margin-top: 25px;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.p-p3 {
+    padding: 3px !important;
+}
+
+.h-25 {
+    height: 25px !important;
 }
 
 .pr-30 {
@@ -223,4 +246,47 @@
 
 .mb-15 {
     margin-bottom: 15px !important;
+}
+
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+
+#loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgb(255, 255, 255) url("/img/loading.gif") no-repeat center;
+    z-index: 999999;
+    top: 0px;
+}
+
+.loader-top {
+    top: 140px !important;
+}
+
+.pagination-udiv {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    width: 98%;
+}
+
+.result-col {
+    position: relative;
+}
+
+.sign-input,
+.cc-enquiry {
+    box-shadow: none !important;
+}
+
+.sign-input:focus,
+.cc-enquiry:focus {
+    border: 1px solid #bbbbbb !important;
+    color: rgb(45, 45, 45);
+}
+
+.pl-45 {
+    padding-left: 45px !important;
 }

@@ -16,7 +16,9 @@ use App\Http\Controllers\CommonController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SearchContrller;
 use App\Http\Controllers\SellerDashboard;
 use App\Http\Controllers\SellerDashboardLogin;
@@ -28,6 +30,8 @@ use App\Http\Controllers\SellerDashboardNewsletters;
 use App\Http\Controllers\SellerDashboardOrders;
 use App\Http\Controllers\SellerDashboardStock;
 use App\Http\Controllers\SellerRegister;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -68,6 +72,18 @@ Route::post('/seller/details-submit', [RegisterController::class, 'sellerSubmit'
 
 
 Route::get('/category/{category}', [CategoryController::class, 'index']);
+Route::post('/category/filter/', [CategoryController::class, 'shopCategoryFilter']);
+
+Route::get('/category/{category}/{subCategory}', [SubCategoryController::class, 'index']);
+
+
+Route::get('/flash-deals', [SearchContrller::class, 'flashDeals'])->name('flash.deals');
+
+
+Route::get('/store/{name}', [StoreController::class, 'index']);
+
+// Route::get('/product-category/{category}', [CategoryController::class, 'index']);
+// Route::get('/product/{category}', [CategoryController::class, 'index']);
 Route::post('/customer-location-change', [CommonController::class, 'changeCustomerLocation']);
 Route::get('/customer-search-products', [SearchContrller::class, 'searchAutocomplete']);
 
@@ -75,13 +91,15 @@ Route::get('/customer-search-products', [SearchContrller::class, 'searchAutocomp
 
 // Route::get('autocomplete', [CommonController::class, 'searchAutocomplete'])->name('customer.search');
 
+Route::get('/search', [SearchContrller::class, 'search'])->name('search');
+Route::post('/search/filter/sort-by', [SearchContrller::class, 'searchFilterSort']);
+Route::post('/search/filter/', [SearchContrller::class, 'searchFilter']);
+
+Route::get('/product/{pURL}', [ProductController::class, 'index']);
+Route::post('/product/color/stock', [ProductController::class, 'changeStock']);
 
 
 Auth::routes();
-
-
-
-
 
 
 
@@ -90,21 +108,37 @@ Route::post('/customer-care', [EnquiryController::class, 'sendEnquiry'])->name('
 
 Route::post('/newsletter-add', [NewsletterController::class, 'addNewsletter'])->name('add.newsletter');
 
+
+
+
 Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/customer-location-reset', [CommonController::class, 'locationReset']);
+
+
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
+
+    Route::post('/report/review', [ReviewController::class, 'reportReview'])->name('report.review');
+    Route::get('/report', function () {
+        return view('auth.login');
+    });
+    Route::post('/review/helpful', [ReviewController::class, 'reviewHelpful']);
+
+    Route::post('/follow/store', [StoreController::class, 'followStore'])->name('follow.store');
+    Route::get('/follow', function () {
+        return view('auth.login');
+    });
 });
 
 
 
 
 
-Route::get('/search', function () {
-    return view('search');
-})->name('search');
+
+
 
 Route::get('/about', function () {
     return view('about');
@@ -113,14 +147,6 @@ Route::get('/about', function () {
 
 Route::get('/sc', function () {
     return view('sub-categories');
-});
-
-Route::get('/store', function () {
-    return view('store-home');
-});
-
-Route::get('/p', function () {
-    return view('products');
 });
 
 Route::get('/a', function () {

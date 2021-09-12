@@ -17,10 +17,10 @@ class CreateAdministratorsTable extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('profile_photo', 500)->nullable;
+            $table->string('profile_photo', 500)->nullable();
             $table->string('email')->unique();
-            $table->string('phone_number')->nullable;
-            $table->string('verification_code')->nullable;
+            $table->string('phone_number')->nullable();
+            $table->string('verification_code')->nullable();
             $table->integer('is_verified')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->date('date_of_birth');

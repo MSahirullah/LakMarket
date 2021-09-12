@@ -8,7 +8,7 @@
 <div class="site-wrapper pt-16">
     <!-- //Breadcrumb -->
     <div class="container c-p">
-        <a href="#">Home</a>
+        <a href="/">Home</a>
         <i class="fas fa-chevron-right"></i>
         <a class="selected" href="#">My Cart</a>
     </div>

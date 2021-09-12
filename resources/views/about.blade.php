@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+About |
+@endsection
+
 @section('css')
 <link href="{{ URL::asset('/css/about.css') }}" rel="stylesheet">
 
@@ -52,9 +56,9 @@
                         </div>
                         <div class="about-social">
                             <a href="https://www.facebook.com/thisaradanushka.danushka"><i class="fab fa-facebook-square"></i></a>
-                            <a href="#"><i class="fab fa-instagram-square"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-github-square mr-0"></i></a>
+                            <!-- <a href="#"><i class="fab fa-instagram-square"></i></a> -->
+                            <!-- <a href="#"><i class="fab fa-linkedin"></i></a> -->
+                            <!-- <a href="#"><i class="fab fa-github-square mr-0"></i></a> -->
                         </div>
                     </div>
                 </div>
@@ -67,35 +71,35 @@
                         </div>
                         <div class="about-social">
                             <a href="https://www.facebook.com/m.sahirullah/"><i class="fab fa-facebook-square"></i></a>
-                            <a href="https://www.instagram.com/m_sahirullah/"><i class="fab fa-instagram-square"></i></a>
+                            <!-- <a href="https://www.instagram.com/m_sahirullah/"><i class="fab fa-instagram-square"></i></a> -->
                             <a href="https://www.linkedin.com/in/mohomed-sahirullah-3184b8141/"><i class="fab fa-linkedin"></i></a>
                             <a href="https://github.com/MSahirullah"><i class="fab fa-github-square mr-0"></i></a>
                         </div>
                     </div>
                     <div class="member col">
-                        <div class="photo" style="background-image:url('/img/seller-temp.png')">
+                        <div class="photo" style="background-image:url('/img/gimhan.png')">
                         </div>
                         <div class="name">
                             K.G.M. Rajapaksha
                         </div>
                         <div class="about-social">
-                            <a href="#"><i class="fab fa-facebook-square"></i></a>
-                            <a href="#"><i class="fab fa-instagram-square"></i></a>
+                            <!-- <a href="#"><i class="fab fa-facebook-square"></i></a> -->
+                            <!-- <a href="#"><i class="fab fa-instagram-square"></i></a> -->
                             <a href="https://www.linkedin.com/in/gimhan-mihiranga/"><i class="fab fa-linkedin"></i></a>
                             <a href="https://github.com/gimhan1999"><i class="fab fa-github-square mr-0"></i></a>
                         </div>
                     </div>
                     <div class="member col">
-                        <div class="photo" style="background-image:url('/img/seller-temp.png')">
+                        <div class="photo" style="background-image:url('/img/chathuri.png')">
                         </div>
                         <div class="name">
                             G.G.C.B Perera
                         </div>
                         <div class="about-social">
-                            <a href="#"><i class="fab fa-facebook-square"></i></a>
-                            <a href="#"><i class="fab fa-instagram-square"></i></a>
+                            <!-- <a href="#"><i class="fab fa-facebook-square"></i></a> -->
+                            <!-- <a href="#"><i class="fab fa-instagram-square"></i></a> -->
                             <a href="https://www.linkedin.com/in/chathuri-perera-958553154/"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-github-square mr-0"></i></a>
+                            <a href="https://github.com/Chathuri-perera"><i class="fab fa-github-square mr-0"></i></a>
                         </div>
                     </div>
                 </div>

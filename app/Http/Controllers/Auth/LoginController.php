@@ -72,15 +72,23 @@ class LoginController extends Controller
             } else if (Hash::check($password, $customer->password)) {
 
                 $city = DB::table('lkcities')
-                    ->select('name_en')
-                    ->where('id', $customer->city_id)
+                    ->join('lkdistricts', 'lkdistricts.id', '=', 'lkcities.district_id')
+                    ->join('lkprovinces', 'lkprovinces.id', '=', 'lkdistricts.province_id')
+                    ->where('lkcities.id', $customer->city_id)
+                    ->select('lkcities.name_en as city', 'lkdistricts.name_en as district', 'lkprovinces.name_en as province')
+
                     ->get();
 
-                $city = json_decode($city, true)[0]['name_en'];
+                $location = json_decode($city, true)[0];
 
                 FacadesAuth::login($customer);
                 $req->session()->put('customer', $customer);
-                $req->session()->put('customer-city', $city);
+                $value = [];
+                $value['0'] = $city[0]->city;
+                $value['1'] = '3';
+                $value['2'] = array($location['province'], $location['district'],  $location['city']);
+                $req->session()->put('customer-city', $value);
+
                 return redirect()->route('home');
             }
             Session::flash('loginStatus', 'The passowrd is incorrect.');

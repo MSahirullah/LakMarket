@@ -92,7 +92,7 @@ class SellerDashboardProfile extends Controller
         if ($affected) {
             $data[0]->store_logo = "/" . $data[0]->store_logo;
             $request->session()->put('sellerImage', $data[0]->store_logo);
-            Session::flash('status', ['0', 'Store Logo Updated!']);
+            Session::flash('status', ['0', 'Store Background Image Updated!']);
             return redirect()->route('seller.profile');
         }
         Session::flash('status', ['2', 'please select another image!']);

@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy Genuine | Buy NearBy  |
+@endsection
 @section('content')
 
 <div class="content site-container" style="background-image:url('/img/sign-bg.png');background-size: contain; ">
