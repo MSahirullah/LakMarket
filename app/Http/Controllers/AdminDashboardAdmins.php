@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use DataTables;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\MailController;
+use Illuminate\Support\Facades\Hash;
 
 class AdminDashboardAdmins extends Controller
 {
@@ -25,7 +26,7 @@ class AdminDashboardAdmins extends Controller
             $admin = administrator::where('id', $request['admin_id'])
                 ->update(['verification_code' => $verification_code]);
 
-            $name = $admin->first_name . ' ' . $admin->last_name;
+            $name = $admin->full_name;
             MailController::sendAdminVerificationMail($name, $admin->email, $verification_code);
 
             Session::flash('status', ['0', 'Please check email for verification link.', $admin->id]);
@@ -40,9 +41,6 @@ class AdminDashboardAdmins extends Controller
 
         $data = DB::table('administrators')
             ->select('*')
-            ->where([
-                ['delete_status', "=", 0],
-            ])
             ->get();
 
 
@@ -61,16 +59,17 @@ class AdminDashboardAdmins extends Controller
 
                 ->addIndexColumn()
                 ->addColumn('action', function ($admin) {
-                    $adminName = $admin->email . " " . $admin->last_name;
-                    $btn = '<span class="fas fa-edit editBtn" data-id="' . $admin->email . '" data-toggle="modal" data-target=".bd-AddEdit-modal-lg" class="btn btn-success createBtn" target="modalAddEdit" data-button = "Update" data-title="Edit ' . $adminName . ' Details"></span></br>';
+                    $adminName = $admin->full_name;
+                    $btn = '<span class="fas fa-edit editBtn" data-id="' . $admin->id . '" data-toggle="modal" data-target=".bd-AddEdit-modal-lg" target="modalAddEdit" data-button = "Update" data-title="Edit ' . $adminName . ' Details"></span></br>';
 
-                    $btn = $btn . '<span class="fas fa-trash removeBtn" data-id="' . $admin->email . '"></span>';
+                    $btn = $btn . '<span class="fas fa-trash removeBtn1" data-id="' . $admin->id . '"></span></br>';
+                    $btn = $btn . '<span class="fas fa-trash removeBtn2" data-id="' . $admin->id . '"></span>';
                     return $btn;
                 })
 
 
                 ->addColumn('name', function ($admin) {
-                    $adminName = $admin->first_name . " " . $admin->last_name;
+                    $adminName = $admin->full_name;
                     $txt = "<span>" . $adminName . "</span> <br> <span><i>" . $admin->role . "</i></span>";
                     return $txt;
                 })
@@ -96,11 +95,28 @@ class AdminDashboardAdmins extends Controller
                             $txt .= '<img src=' . $img . ' width="100px" class="table-img">';
                         }
                     }
-
                     return $txt;
                 })
 
-                ->rawColumns(['ids', 'name', 'image', 'action'])
+                ->addColumn('status', function ($admin) {
+                    $adminblacklisted = $admin->blacklisted;
+                    $admindeleted = $admin->delete_status;
+                    if ($adminblacklisted && $admindeleted) {
+                        $txt = "<span>Deleted</br>Blacklisted</span>";
+                        return $txt;
+                    } elseif ($admindeleted) {
+                        $txt = "<span>Deleted</span>";
+                        return $txt;
+                    } elseif ($adminblacklisted) {
+                        $txt = "<span>Blacklisted</span>";
+                        return $txt;
+                    } else {
+                        $txt = "<span></span>";
+                        return $txt;
+                    }
+                })
+
+                ->rawColumns(['ids', 'name', 'image', 'status', 'action'])
                 ->setRowId('{{$id}}')
 
                 ->make(true);
@@ -110,10 +126,10 @@ class AdminDashboardAdmins extends Controller
 
     public function adminDetails(Request $request)
     {
-        $pid = $request->get('rowid');
+        $aid = $request->get('rowid');
 
         $data = DB::table('administrators')
-            ->where('administrators.id', $pid)
+            ->where('administrators.id', $aid)
             ->select('*')
             ->get();
 
@@ -122,77 +138,52 @@ class AdminDashboardAdmins extends Controller
 
     public function addNewAdmin(Request $request)
     {
+
         $admin = new administrator();
         $adminId = Session::get('admin');
 
         $AdminDetails = DB::table('administrators')
             ->where([
                 ['email', "=",  $request->email],
-                ['delete_status', '=', 0],
+                /* ['delete_status', '=', 0], */
             ])
             ->select('*')
             ->get()->first();
 
         if (!$AdminDetails) {
 
-            /* $cato_id = DB::table('seller_product_category')
-                ->join('product_categories', 'product_categories.id', '=', 'seller_product_category.product_category_id')
-                ->where([
-                    ['seller_product_category.seller_id', "=",  $sellerId],
-                    ['product_categories.name', "=",  $request->product_category]
-                ])
-                ->select('product_categories.id')
-                ->get(); */
-
-            $admin->first_name = $request->first_name;
-            $admin->last_name = $request->last_name;
+            $admin->full_name = $request->full_name;
             $admin->email = $request->email;
             $admin->phone_number = $request->phone_number;
-            $admin->date_of_birth = $request->date_of_birth;
             $admin->address = $request->address;
-            $admin->password = $request->password;
-            $admin->role = $request->role;
+            $admin->password = Hash::make($request->password);
+            $admin->date_of_birth = $request->dob;
+            $admin->role = "ASSIST_ADMIN";
+            $admin->is_verified = 1;
             $admin->blacklisted = 0;
             $admin->delete_status = 0;
             $admin->save();
 
-            /* $productUrl = $this->slug($request->name . '-' . json_decode($product, true)['id']);
-            $product->url = $productUrl;
-
-            $files = $request->file('images');
-            $uploadedFiles = [];
-
-            $k = 0;
-            foreach ($files as $file) {
-                if ($k < 3) {
-                    $destinationPath = 'products/images/' . $productUrl;
-                    $file->move($destinationPath, $file->getClientOriginalName());
-                    $uploadedFiles[] = $destinationPath . '/' . $file->getClientOriginalName();
-                    $k++;
-                }
-            }
-
-            $product->images = $uploadedFiles;
-            $product->save(); */
-
             Session::flash('status', ['0', 'Admin has been successfully added!']);
         } else {
             Session::flash('status', ['1', 'Something went wrong. Please try again later!']);
-            /* if ($AdminDetails->blacklisted) {
-                Session::flash('status', ['1', 'This product has been blacklisted!']);
+            if ($AdminDetails->blacklisted) {
+                Session::flash('status', ['1', 'This Admin has been blacklisted!']);
+            } else if ($AdminDetails->delete_status) {
+                Session::flash('status', ['2', 'This Admin no longer in our system!']);
             } else if ($AdminDetails->email == $request->email) {
                 Session::flash('status', ['2', 'This Admin already exists!']);
-            } */
+            }
         }
         return redirect()->back();
     }
 
     public function deleteAdmin(Request $request)
     {
-        $pid = $request->get('rowid');
+        $row = $request->get('rowid');
 
         $status = 0;
-        $affected = DB::table('administrators')->where('id', $pid)
+        $affected = DB::table('administrators')->where('id', $row)
             ->update(['delete_status' => 1]);
 
         if ($affected) {
@@ -202,5 +193,79 @@ class AdminDashboardAdmins extends Controller
         return $status;
     }
 
-    
+    public function blacklistAdmin(Request $request)
+    {
+        $row = $request->get('rowid');
+
+        $status = 0;
+        $affected = DB::table('administrators')->where('id', $row)
+            ->update(['blacklisted' => 1]);
+
+        if ($affected) {
+            $status = 1;
+        }
+
+        return $status;
+    }
+
+    public function updateAdminDetails(Request $request)
+    {
+
+        $aid = $request->get('aid');
+        $status = 0;
+
+        $updateDetails = [
+            'full_name' => $request->get('full_name'),
+            'phone_number' => $request->get('phone_number'),
+            'date_of_birth' => $request->get('dob'),
+            'address' => $request->get('address'),
+            'LinkedIn' => $request->get('linkedin'),
+        ];
+
+        $files = $request->file('images');
+        $uploadedFiles = [];
+
+        $affected = DB::table('administrators')
+            ->where('id', $aid)
+            ->update($updateDetails);
+
+        if ($affected) {
+            $status = 1;
+        }
+
+        return $status;
+    }
+    public function changePassword(Request $request)
+    {
+
+        $admin = new administrator();
+        $adminId = Session::get('admin');
+
+        $AdminDetails = DB::table('administrators')
+            ->where([
+                ['email', "=",  $request->email],
+                ['delete_status', '=', 0],
+                ['blacklisted', '=', 0]
+            ])
+            ->select('*')
+            ->get()->first();
+
+        if (!$AdminDetails) {
+            Session::flash('status', ['1', 'Something went wrong. Please try again later!']);
+            if ($AdminDetails->blacklisted) {
+                Session::flash('status', ['1', 'This Admin has been blacklisted!']);
+            } else if ($AdminDetails->delete_status) {
+                Session::flash('status', ['2', 'This Admin no longer in our system!']);
+            } else if ($AdminDetails->email != $request->email) {
+                Session::flash('status', ['2', 'Admin does not exists!']);
+            }
+        } else {
+            $AdminDetails = DB::table('administrators')
+                ->where('email', '=', $request->email)
+                ->update(['password' => $request->password]);
+
+            Session::flash('status', ['0', 'password sucessfully changed!']);
+        }
+        return redirect()->back();
+    }
 }

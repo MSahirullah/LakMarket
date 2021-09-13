@@ -12,7 +12,7 @@ class SellerRegister extends Controller
 
         $data = DB::table('shop_categories')
             ->select('id', 'name')
-            ->get();        
+            ->get();
 
         return view('auth.seller_register')->with('shopC', $data);
     }

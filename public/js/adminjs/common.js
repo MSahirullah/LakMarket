@@ -21,10 +21,56 @@ function deleteAction(id, url, table = null) {
                     Swal.fire('Removed!', '', 'success');
                 } else {
                     Swal.fire('Failed to remove.', '', 'info');
+                }  
+            });
+        }
+    })
+}
+
+function blacklistAction(id, url, table = null) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, blacklist it!'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            $.post(url, {
+                rowid: id,
+                _token: post_token
+            }, function(dd) {
+                if (dd == 1) {
+                    if (table){
+                        table.ajax.reload();
+                    }
+                    Swal.fire('Blacklisted!', '', 'success');
+                } else {
+                    Swal.fire('Failed to blacklist.', '', 'info');
                 }
             });
         }
     })
+}
+
+function vanillaAlert(inp, msg, time = 6000) {
+
+    var title = ['Success!', 'Error!', 'Warning!', 'Information!'];
+    var type = ['success', 'error', 'warning', 'info'];
+    var icon = ['success.png', 'error.png', 'warning.png', 'info.png']
+    var path = '/img/alert-logo/';
+
+    VanillaToasts.create({
+        title: title[inp],
+        text: msg,
+        type: type[inp],
+        icon: path + icon[inp],
+        timeout: time
+        // callback: function() { ... } // executed when toast is clicked / optional parameter
+    });
 }
 
 function pageReload(){
@@ -96,23 +142,16 @@ function setBtnId(){
      });
 }
 
-function clickSubmit(actualBtn){
+ /* function clickSubmit(actualBtn){
     $(document).on('click', '#Save', function(e){
          
         e.preventDefault();
 
         checkImageInput(actualBtn);
 
-        $(this).next('button').trigger('click');
+        $('#addAdminSubmit').trigger('click');
 
      });
-}
+}  */
 
-function selectTitle(idName){
 
-    $(idName).addClass('disabled');
-    $(idName).addClass('highlighted-title'); 
-    $(idName).hover( function(){ 
-        $(idName).addClass('highlighted-title:h');
-    });
-}

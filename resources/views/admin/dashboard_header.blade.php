@@ -22,22 +22,7 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
-                <li class="nav-item dashboard-home-search">
-                    <div class="navbar-search-block">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control shadow-none input-search-box" type="text" placeholder="Search" aria-label="Search" />
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar home-search-submit" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>
-
+                
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -58,13 +43,22 @@
                         </a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cog settings-icon"></i>
                     </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item change-pswrd" data-toggle="modal" data-target="#changeThePassword">Change the password</a>
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/logout">Log Out
+                    <a class="nav-link" id="btnFullscreen" href="#" role="button">
+                        <i id="fullScreenIcon" class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link logout-link" data-target=".bs-logout-modal-sm" data-toggle="modal">Log Out
                         <i class="fas fa-sign-out-alt na-sign-out-icon"></i>
                     </a>
                 </li>
@@ -160,5 +154,20 @@
             </div>
             <!-- /.sidebar -->
         </aside>
+    </div>
+</div>
+
+<div tabindex="-1" class="modal bs-logout-modal-sm" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Logout <i class="fas fa-sign-out-alt"></i></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"><i class="fa fa-question-circle"></i> Are you sure you want to log-off?</div>
+            <div class="modal-footer"><a class="btn btn-primary btn-block" href="/admin/logout">Logout</a></div>
+        </div>
     </div>
 </div>

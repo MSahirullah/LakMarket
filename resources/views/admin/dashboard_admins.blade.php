@@ -14,8 +14,7 @@
     </div>
 
     <div class="addNewBtn">
-        <button data-toggle="modal" data-button="Save" data-title="Add New Product Details" data-target=".bd-AddEdit-modal-lg" class="btn btn-success createBtn" target="modalAddEdit"><i class="fas fa-plus addNewBtn"></i>Add New Admins</button>
-
+        <button data-toggle="modal" data-button="Save" data-title="Add New Admin" data-target=".bd-AddEdit-modal-lg" class="btn btn-success createBtn" target="modalAddEdit" id="createBtn1"><i class="fas fa-plus addNewBtn"></i>Add New Admins</button>
     </div>
     <section class="content" id="productsTable">
         <div class="container-fluid">
@@ -31,6 +30,8 @@
                                 <th>Mobile Number</th>
                                 <th>DOB</th>
                                 <th>Address</th>
+                                <th>LinkedIn</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -49,74 +50,68 @@
 <div class="modal fade bd-AddEdit-modal-lg" tabindex="-1" role="dialog" aria-labelledby="btnAddEdit" aria-hidden="true" id="modalAddEdit">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="{{route('admin.add')}}" method="POST" enctype="multipart/form-data" id="detailsForm">
+            <form action= "{{route('admin.add')}}"  method="POST" enctype="multipart/form-data" id="detailsForm">
                 @csrf
-                <input type="hidden" name="pid" id="pid">
+                <input type="hidden" name="aid" id="aid">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalLabel">Add New Admin</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+
+                <div class="modal-body admin-modal">
                     <div class="col-md-12 modelAddEdit">
 
                         <div class="row">
                             <div class="col">
-                                <label for="first_name" class="col-form-label">First name</label>
+                                <label for="full_name" class="col-form-label">Full name</label>
                                 <span class="required"></span>
-                                <input type="text" required name="first_name" class="form-control p-input validate-input" id="first_name">
-                            </div>
-                            <div class="col">
-                                <label for="last_name" class="col-form-label">Last name</label>
-                                <span class="required"></span>
-                                <input type="text" required name="last_name" class="form-control p-input validate-input" id="last_name">
+                                <input type="text" name="full_name" class="form-control p-input validate-input" id="full_name" onkeypress="return /[a-z]/i.test(event.key)" pattern="[a-zA-Z ]*"required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="email" class="col-form-label">email</label>
+                                <label for="email" class="col-form-label">Email</label>
                                 <span class="required"></span>
                                 <input type="email" required name="email" class="form-control p-input validate-input" id="email">
                             </div>
                             <div class="col">
-                                <label for="phone_number" class="col-form-label">phone number</label>
-                                <span class="required"></span>
-                                <input type="number" required name="phone_number" class="form-control p-input validate-input" id="phone_number">
+                                <label for="phone_number" class="col-form-label">Phone Number</label>
+                                <span class="required"></span> 
+                                <input name="phone_number" required type="text" class="form-control p-input validate-input" id="phone_number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="9" pattern="[7]{1}[0-8]{1}[0-9]{7}" style="padding-left: 40px;" placeholder="7XXXXXXXX">
+                                <span class="mob-contry-code">+94</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="date_of_birth" class="col-form-label">date_of_birth</label>
+                                <label for="address" class="col-form-label">Address</label>
                                 <span class="required"></span>
-                                <input type="date" required name="date_of_birth" class="form-control p-input validate-input" id="date_of_birth">
-                            </div>
-                            <div class="col">
-                                <label for="password" class="col-form-label">password</label>
-                                <span class="required"></span>
-                                <input type="password" required name="password" class="form-control p-input validate-input" id="password">
+                                <textarea rows="4" name="address" class="form-control p-input validate-input" id="address" required></textarea>
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col linkedin-col">
+                                <label for="linkedin" class="col-form-label">LinkedIn Link</label>
+                                <input name="linkedin" type="text"class="form-control p-input validate-input" id="linkedin" pattern='www.linkedin.com/in/[a-zA-Z0-9\-]*'>
+                            </div>
+                            <div class="col password-col">
+                                <label for="ad-password" class="col-form-label">Password</label>
+                                <span class="required"></span>
+                                <input type="text" required name="password" class="form-control p-input" id="ad-password">
+                                <span class="pass-generate">Generate Password</span>
+                            </div>
                             <div class="col">
-                                <label for="address" class="col-form-label">address</label>
-                                <textarea rows="4" name="address" class="form-control p-input" id="address"></textarea>
+                                <label for="dob" class="col-form-label">DOB</label>
+                                <span class="required"></span>
+                                <input type="date" required name="dob" class="form-control p-input validate-input" id="dob" min="1975-01-01" max="2007-01-01">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="role" class="col-form-label">role</label>
-                                <input type="text" name="role" class="form-control p-input" id="role">
-                            </div> 
-                            <div class="col">
-                            </div>
-                        </div>     
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="closeBtn" data-dismiss="modal">Close</button>
-                    <button type="Submit" class="btn btn-primary btnSubmit">Save</button>
-                    <button type="submit" style="display: none;"></button>
+                    <button type="submit" class="btn btn-primary btnSubmit">Save</button>
                 </div>
             </form>
         </div>
@@ -124,6 +119,10 @@
 </div>
 
 <script type="text/javascript">
+        $("input[type='text']").on("click", function() {
+            $(this).select();
+    });
+
     $(function() {
         var table = $('.data-table').DataTable({
             processing: true,
@@ -158,6 +157,14 @@
                     name: 'address'
                 },
                 {
+                    data: 'LinkedIn',
+                    name: 'LinkedIn'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
                     data: 'action',
                     name: 'action',
                     orderable: false,
@@ -165,63 +172,53 @@
                 }
             ]
         });
-
+    
+        
 
         //Sweet alert for remove record
-        $(document).on('click', '.removeBtn', function() {
+        $(document).on('click', '.removeBtn1', function() {
             var pid = $(this).attr('data-id');
 
             deleteAction(pid, "{{ route('admin.destroy') }}", table)
         });
+        $(document).on('click', '.removeBtn2', function() {
+            var pid = $(this).attr('data-id');
 
-        /* var formChange = false;
-        const actualBtn = document.getElementById('images'); */
-
+           blacklistAction(pid, "{{ route('admin.blacklist') }}", table)
+        });
+        formChange = false;
         $(document).on('click', '.editBtn', function() {
 
-            var pid = $(this).attr('data-id');
-            $('#pid').val(pid);
-            $.post("{{ route('product.details') }}", {
-                rowid: pid,
+            var aid = $(this).attr('data-id');
+
+            $('#aid').val(aid);
+            $.post("{{ route('admin.details') }}", {
+                rowid: aid,
                 _token: "{{ csrf_token() }}"
             }, function(data) {
-                $('#product_category').selectpicker('val', data[0].category_name);
-                $('#product_category').selectpicker('refresh');
 
-                $('#type').selectpicker('val', data[0].type);
-                $('#type').selectpicker('refresh');
+                // console.log(this);
 
-                $('#code').val(data[0].code);
-                $('#code').attr('disabled', 'disabled');
-                $('#first_name').val(data[0].first_name);
-                $('#last_name').val(data[0].last_name);
-                $('#phone_number').text(data[0].phone_number);
-                $('#DOB').text(data[0].date_of_birth);
+                $('.btnSubmit').text($('.editBtn').attr('data-button'));
+
+                $('#modalLabel').text($('.editBtn').attr('data-title'));
+                $('.btnSubmit').attr('id', $('.editBtn').attr('data-button'));
+                $('.linkedin-col').show();
+                $('.password-col').hide();
+
+                $('#full_name').val(data[0].full_name);
+                $('#email').val(data[0].email);
+                $('#phone_number').val(data[0].phone_number);
+                $('#dob').val(data[0].date_of_birth);
                 $('#address').val(data[0].address);
-                
+                $('#linkedin').val(data[0].LinkedIn)
+            
+                $('#email').attr('disabled', 'disabled');
 
-                var pImages = data[0].images;
-                pImagesA = pImages.replace('["', '');
-                pImagesB = pImagesA.replace('"]', '');
-                pImagesC = pImagesB.replace('","', ',').replace('"', '').replace('"', '');
-                var ImagesArray = pImagesC.split(",");
 
-                $('.imgShow').html('');
-                $("#file-chosen").html(ImagesArray.length + ' images chosen.')
-
-                for (p = 0; p < ImagesArray.length; p++) {
-                    var img = $("<img />");
-                    img.attr("class", "uploaded-image");
-                    img.attr("src", "/" + ImagesArray[p]);
-                    $('.imgShow').append(img);
-                    $("#file-chosen").attr('data-uploded', 1);
-                }
             });
 
             $('#detailsForm').on('keyup change paste', 'input, select, textarea', function() {
-                formChange = true;
-            });
-            actualBtn.addEventListener('change', function() {
                 formChange = true;
             });
         });
@@ -230,29 +227,29 @@
             e.preventDefault();
             e.stopPropagation();
 
-            checkImageInput(actualBtn);
+            var phoneNum = $('#phone_number').val();
+            var phoneValidate = new RegExp('[7]{1}[0-8]{1}[0-9]{7}');
 
-            var check = 0
+            if (!phoneValidate.test(phoneNum)) {
+                vanillaAlert(1, 'The phone number you entered does not match.');
+                return false;
+            }
+            
+            check = 0;
 
             if (formChange) {
 
                 var data = new FormData(this.form);
-                var url = "{{ route('product.update') }}";
+                var url = "{{ route('admin.update') }}";
 
                 $(".validate-input").each(function() {
                     if ($(this).val() == "") {
-                        alert('Please fill the required information.');
+                        vanillaAlert(2, 'Please fill the required information.');
                         check = 1;
                         return false;
 
                     }
                 });
-
-                if ($('.checkImg').attr('required')) {
-                    alert('Please select the images.');
-                    check = 1;
-                    return false;
-                }
 
                 if (check == 0) {
 
@@ -263,13 +260,16 @@
                         processData: false,
                         contentType: false,
                         success: function(data) {
+
+                            console.log(data);
                             if (data == 1) {
                                 table.ajax.reload();
-                                Swal.fire('Product details updated!', '', 'success');
+                                vanillaAlert(0, 'Admin details updated!');
+                                
                                 $('#closeBtn').trigger('click');
 
-                            } else if (data == 0) {
-                                Swal.fire('Failed to update.', '', 'info');
+                            } else {
+                                vanillaAlert(1, 'Failed to update.');
                             }
                         }
                     });
@@ -277,15 +277,18 @@
                     e.preventDefault();
                 }
             } else {
-                alert('Please make any changes');
+                vanillaAlert(2, 'Please make any changes.');
                 return false;
             }
         });
 
         pageReload();
         sweetPull();
+    
     });
+
 </script>
+<script src="{{ asset('js/adminjs/admins.js') }}" defer></script>
 
 
 
