@@ -153,11 +153,13 @@
                 pName: $('#product').val(),
                 _token: post_token
             }, function(data) {
+                $('#colors_div').attr('style', 'display:none;');
                 if (data != 0) {
 
                     data = data.replace(/\s/g, '').split(',');
 
                     $('#colors_div').removeAttr('style');
+                    $('#colors').empty();
                     $.each(data, function(key, value) {
                         $('#colors').append('<option>' + value + '</option>');
                         console.log(value);

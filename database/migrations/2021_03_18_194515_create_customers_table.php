@@ -23,7 +23,7 @@ class CreateCustomersTable extends Migration
             $table->date('dob')->nullable();
             $table->string('gender')->nullable();
             $table->string('profile_pic')->nullable();
-            $table->string('verification_code')->nullable;
+            $table->string('verification_code')->nullable();
             $table->integer('is_verified')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('address')->nullable();

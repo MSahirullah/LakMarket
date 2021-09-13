@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="{{ URL::asset('/css/admincss/login.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('/css/sellercss/login.css') }}">
     <link href="{{ URL::asset('css/common.css') }}" rel="stylesheet">
-    
-    
+
+
 
     <link href="{{ URL::asset('css/login.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/register.css') }}" rel="stylesheet">

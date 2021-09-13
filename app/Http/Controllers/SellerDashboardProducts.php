@@ -32,7 +32,7 @@ class SellerDashboardProducts extends Controller
                 ['products.blacklisted', '=', 0],
                 ['products.delete_status', '=', 0]
             ])
-            ->select('products.id', 'products.images', 'products.code',  'products.name', 'products.type', 'products.colors', 'products.cod', 'products.discount', 'products.tax', 'products.short_desc', 'products.unit_price', 'product_categories.name as category_name')
+            ->select('products.id', 'products.images', 'products.code',  'products.name', 'products.type', 'products.colors', 'products.cod', 'products.discount', 'products.short_desc', 'products.unit_price', 'products.discounted_price', 'product_categories.name as category_name')
             ->get();
 
 
@@ -106,12 +106,12 @@ class SellerDashboardProducts extends Controller
                 ->addColumn('unit_price', function ($product) {
                     $unit_price = floatval($product->unit_price);
 
-                    $discount = floatval($product->discount);
+                    $discount = floatval($product->discounted_price);
 
-                    $tax = floatval($product->tax);
+                    // $tax = floatval($product->tax);
 
-                    $price = ($unit_price * (100 - $discount) * (100 - $tax)) / (100 * 100);
-                    $price = number_format($price, 2, '.', ',');
+                    // $price = ($unit_price * (100 - $discount)) / (100);
+                    $price = number_format($discount, 2, '.', ',');
                     $unit_price = number_format($unit_price, 2, '.', ',');
 
                     $txt = '<span>' . $unit_price . '</span><br><span><i>(' . $price . ')</i></span>';
@@ -163,14 +163,16 @@ class SellerDashboardProducts extends Controller
         $product = new SellerProducts();
         $sellerId = Session::get('seller');
 
-        $tax = '0.00';
-        if ($request->tax) {
-            $tax = $request->tax;
-        }
+        // $tax = '0.00';
+        // if ($request->tax) {
+        //     $tax = $request->tax;
+        // }
 
         $discount = '0.00';
+        $discounted_price = $request->unit_price;
         if ($request->discount) {
             $discount = $request->discount;
+            $discounted_price = $price = (floatval($request->unit_price) * (100 - $discount)) / (100);
         }
 
 
@@ -228,7 +230,8 @@ class SellerDashboardProducts extends Controller
             $product->short_desc = $request->short_desc;
             $product->long_desc = $request->long_desc;
             $product->unit_price = $request->unit_price;
-            $product->tax = $tax;
+            $product->discounted_price = $discounted_price;
+            // $product->tax = $tax;
             $product->discount = $discount;
             $product->colors = $colors;
             $product->cod = $pCOD;
@@ -276,6 +279,12 @@ class SellerDashboardProducts extends Controller
 
         // remove duplicate -
         $text = str_replace(',', '-', $text);
+
+        // remove duplicate -
+        $text = str_replace('/', '-', $text);
+
+        $text = str_replace('--', '-', $text);
+        $text = str_replace('---', '-', $text);
 
         // lowercase
         $text = strtolower($text);
@@ -336,7 +345,14 @@ class SellerDashboardProducts extends Controller
 
         $productUrl = $this->slug($request->get('name') . '-' . $pid);
 
+        $discount = '0.00';
+        $discounted_price = $request->unit_price;
 
+
+        if ($request->discount) {
+            $discount = $request->discount;
+            $discounted_price = $price = (floatval($request->unit_price) * (100 - $discount)) / (100);
+        }
 
         $updateDetails = [
             'product_catrgory_id' => json_decode($cato_id, true)[0]['id'],
@@ -345,7 +361,8 @@ class SellerDashboardProducts extends Controller
             'short_desc' => $request->get('short_desc'),
             'long_desc' => $request->get('long_desc'),
             'unit_price' => $request->get('unit_price'),
-            'tax' => $request->get('tax'),
+            // 'tax' => $request->get('tax'),
+            'discounted_price' => $discounted_price,
             'discount' => $request->get('discount'),
             'colors' => $request->get('colors'),
             'cod' => $request->get('pCOD'),

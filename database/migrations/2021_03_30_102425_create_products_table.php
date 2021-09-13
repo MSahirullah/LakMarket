@@ -24,9 +24,10 @@ class CreateProductsTable extends Migration
             $table->string('images', 1000);
             $table->string('short_desc', 200);
             $table->string('long_desc', 5000)->nullable();
-            $table->decimal('unit_price', 10, 2);
+            $table->decimal('unit_price', 17, 2);
             $table->decimal('tax', 2, 2)->default(0.0);
             $table->decimal('discount', 2, 2)->default(0.0);
+            $table->decimal('discounted_price', 10, 2);
             $table->string('colors')->nullable()->default('-');
             $table->string('cod')->nullable()->default('0');
             $table->boolean('blacklisted')->default(0);

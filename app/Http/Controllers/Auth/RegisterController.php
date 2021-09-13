@@ -271,7 +271,7 @@ class RegisterController extends Controller
             $seller->url = $sellerURL;
             $seller->save();
 
-            return [0, 'Thank you! Your information is submitted.'];
+            return [0, 'Thank you! Your information has been submitted.'];
         }
 
         return [1, 'Something went wrong. Please try again later.'];

@@ -27,7 +27,7 @@ class SellerDashboard extends Controller
             ->get();
 
         $data[0]->store_logo = "/" . $data[0]->store_logo;
-        
+
         $request->session()->put('storeName', $data[0]->store_name);
         $request->session()->put('sellerImage', $data[0]->store_logo);
         $request->session()->put('sellerStatus', $data[0]->status);
@@ -68,12 +68,12 @@ class SellerDashboard extends Controller
             return 'Please change the password.';
         } else if (!$data[0]->birthday) {
             if (!$data[0]->store_logo) {
-                return 'Please complete missing informations. [Store Logo/Birthday]';
+                return 'Please complete missing informations. [Store Background Image/Birthday]';
             }
             return 'Please complete missing informations. [Bthirday]';
         } else {
             if (!$data[0]->store_logo) {
-                return 'Please complete missing informations. [Store Logo]';
+                return 'Please complete missing informations. [Store Background Image]';
             }
         }
     }

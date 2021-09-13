@@ -13,6 +13,17 @@ $(document).ready(function () {
     //         $('#select-search-cato').selectpicker('refresh');
     //     });
 
+    if ($('#searchCato').attr('data-cato')) {
+        $('#select-search-cato').val($('#searchCato').attr('data-cato'));
+        $('#select-search-cato').selectpicker('refresh');
+    }
+
+    $('#searchP').focusout(function () {
+        setTimeout(() => {
+            $('#searchPautocomplete-list').hide();
+        }, 100);
+    });
+
 
     $('.search-input').focus(function () {
         if ($('.select-cato').hasClass('show')) {
@@ -20,13 +31,30 @@ $(document).ready(function () {
         }
     })
 
-    $('#searchP').change(function () {
+    // $('#searchP').change(function () {
+    //     setTimeout(() => {
+    //         $('#searchSubmitBtn').trigger('click');
+    //     }, 100);
+    // });
 
-        var query = $('#searchP').val();
+    $('.search-btn').click(function () {
+
+        if (!$('#searchP').val() == '') {
+            setTimeout(() => {
+                $('#searchSubmitBtn').trigger('click');
+            }, 100);
+        }
+
+    });
+
+
+
+    $(document).on('click', '.selected-search', function () {
+        console.log(1);
         setTimeout(() => {
             $('#searchSubmitBtn').trigger('click');
         }, 100);
-    });
+    })
 
     $('#searchP').keyup(function (e) {
         if (e.keyCode == 13) {
@@ -38,12 +66,6 @@ $(document).ready(function () {
         }
 
     })
-
-    function test() {
-        var query = $('#searchP').val();
-
-
-    }
 
     alertMSG = $('#status').attr('dataMSG');
     alertID = $('#status').attr('dataID');
@@ -97,19 +119,42 @@ $(document).ready(function () {
                 else {
                     vanillaAlert(1, 'Something went wrong. Please try again later.');
                 }
-
             });
-
     });
+
+    //         
+
+
+
+    // if ($('#locationData').attr('data-pro') != '0') {
+    //     $('#provinceS').val($('#locationData').attr('data-pro'));
+    //     autocomplete(document.getElementById("provinceS"), 0, provinces);
+
+    // }
+    // if ($('#locationData').attr('data-dis') != '0') {
+    //     $('#districtS').val($('#locationData').attr('data-dis'));
+    //     autocomplete(document.getElementById("provinceS"), 0, provinces);
+    //     autocomplete(document.getElementById("districtS"), 1, districts);
+    // }
+    // if ($('#locationData').attr('data-cit') != '0') {
+    //     $('#cityS').val($('#locationData').attr('data-cit'));
+    //     autocomplete(document.getElementById("provinceS"), 0, provinces);
+    //     autocomplete(document.getElementById("districtS"), 1, districts);
+    //     autocomplete(document.getElementById("cityS"), 2, cities);
+    // }
+
 
     $(window).scroll(function () {
         if ($(window).scrollTop() >= 36) {
             $('#fixed-header').addClass('fixed-header');
             $('.site-container').css('margin-top', '140px');
+            $('#loading').addClass('loader-top');
+
         }
         else {
             $('#fixed-header').removeClass('fixed-header');
             $('.site-container').css('margin-top', '0px');
+            $('#loading').removeClass('loader-top');
         }
     });
 
@@ -182,11 +227,30 @@ $(document).ready(function () {
         $('#city-angle-icon').removeClass('fa-angle-up').addClass('fa-angle-down');
     });
 
+    $('.location-select-div .btn-home').click(function () {
+        $.post("/customer-location-reset", {
+            "_token": post_token,
+        },
+            function (data) {
+                if (data) {
+                    location.reload(true);
+                }
+                else {
+                    vanillaAlert(1, 'Something went wrong. Please try again later.');
+                }
+            });
+    })
+    autocompleteLocation(document.getElementById("provinceS"), 0, provinces);
+    autocompleteLocation(document.getElementById("districtS"), 1, districts);
+    autocompleteLocation(document.getElementById("cityS"), 2, cities);
+
+    autocompleteSearch(document.getElementById("searchP"));
+
 
 });
 
 
-function autocomplete(inp, tmpParam, arr) {
+function autocompleteLocation(inp, tmpParam, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
@@ -204,7 +268,6 @@ function autocomplete(inp, tmpParam, arr) {
                 $('#cityS').val(null);
 
             }
-
 
         }
         if (tmpParam == 2) {
@@ -479,9 +542,7 @@ function getDistrictCities(dis_name) {
     });
 }
 
-autocomplete(document.getElementById("provinceS"), 0, provinces);
-autocomplete(document.getElementById("districtS"), 1, districts);
-autocomplete(document.getElementById("cityS"), 2, cities);
+
 
 function autocompleteSearch(inp) {
 
@@ -517,6 +578,7 @@ function autocompleteSearch(inp) {
             // if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
             b = document.createElement("DIV");
             b.innerHTML = arr[i];
+            b.classList.add('selected-search');
 
             b.innerHTML += "<input type='hidden' class='searchAutocomplete-ID' data-id='" + arrId[i] + "' value='" + arr[i] + "'>";
 
@@ -570,9 +632,9 @@ function autocompleteSearch(inp) {
         }
     }
 
-    document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-    });
+    // document.addEventListener("click", function (e) {
+    //     closeAllLists(e.target);
+    // });
 }
 
 var proNames = []
@@ -624,5 +686,3 @@ function getSearchProducts(value, category) {
     //     });
     return [proNames, proId];
 }
-
-autocompleteSearch(document.getElementById("searchP"));

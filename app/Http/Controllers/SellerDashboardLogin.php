@@ -64,6 +64,7 @@ class SellerDashboardLogin extends Controller
 
                 Cookie::queue(Cookie::make('valSideBar', '0'));
                 $req->session()->put('seller', $seller->id);
+                $req->session()->put('sellerDelivery', $seller->is_cod_available);
                 return redirect('seller/dashboard');
             }
         }

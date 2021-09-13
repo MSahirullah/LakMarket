@@ -61,7 +61,7 @@ class SellerDashboardStock extends Controller
 
         if ($tableType == 'summery-stock') {
             $dataQ->select('stocks.id', DB::raw('SUM(stocks.added_stock) as added_stock'), DB::raw('SUM(stocks.stock_usage) as stock_usage'), 'stocks.outof_stock', 'stocks.created_at', 'stocks.product_id', 'stocks.product_color',  'products.name as product_name')
-                ->groupBy('stocks.product_id', 'stocks.product_color');
+                ->groupBy('stocks.product_id', 'stocks.product_color')->orderBy('created_at', 'DESC');
 
             $data = $dataQ->get();
 
@@ -243,8 +243,7 @@ class SellerDashboardStock extends Controller
             $val = 1;
         }
 
-
-        $affected = DB::table('stocks')->where('id', $sid)
+        $affected = DB::table('stocks')->where([['product_id', '=', $data->product_id], ['product_color', '=', $data->product_color]])
             ->update(['outof_stock' => $val]);
 
         if ($affected) {

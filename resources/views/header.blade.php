@@ -35,14 +35,16 @@
                         @if((Session::has('customer')))
                         <form id=" logout-form" action="{{route('logout')}}" method="POST">
                             @csrf
-                    <li class="nav-item dropdown p-0">
+                    <li class="nav-item dropdown p-0 logged-user">
                         <a class="nav-link dropdown-toggle a-nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{Session::get('customer')['first_name']}}'s Account
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item f-upp" href="#">My Account</a>
+                            <a class="dropdown-item f-upp" href="#"><i class="fas fa-user-circle"></i> My Account</a>
                             <div class="dropdown-divider"></div>
-                            <button type="submit" class="dropdown-item " href="#">Logout</button>
+                            <button type="submit" class="dropdown-item " href="#"><i class="fas fa-box"></i> My Orders</button>
+                            <div class="dropdown-divider"></div>
+                            <button type="submit" class="dropdown-item " href="#"><i class="fas fa-sign-out-alt"></i> Logout</button>
 
                         </div>
                     </li>
@@ -67,12 +69,13 @@
                 </a>
 
                 <div class="nav-search">
+                    <span id="searchCato" data-cato="{{Session::has('searchCato')?Session::get('searchCato'):''}}"></span>
                     <form autocomplete="off" action="{{route('search')}}" class="nav justify-content-cente">
                         <span class="nav-item dropdown search-bar ">
 
-                            <input type="text" class=" typeahead form-control search-input" name="q" id="searchP" placeholder="Search..." onClick="this.select();" required value="{{ app('request')->input('q') }}" />
-                            <select class="selectpicker select-cato f-cpt" id="select-search-cato">
-                                <option value='All Categories'>All Categories</option>
+                            <input type="text" class=" typeahead form-control search-input" name="q" id="searchP" placeholder="Search..." onClick="this.select();" value="{{ app('request')->input('q') }}" data-q="{{Session::has('query') ? Session::get('query') : ''}}" aria-label="Search" />
+                            <select class=" selectpicker select-cato f-cpt" id="select-search-cato" name='category'>
+                                <option value='All Categories' selected>All Categories</option>
                                 <option value='Pharmacies'>Pharmacies</option>
                                 <option value='Book Shops'>Book Shops</option>
                                 <option value='Computer Shops'>Computer Shops</option>
@@ -199,7 +202,11 @@
                 </ul>
 
                 <div class="nav-item dropdown city-wapper">
-                    <input type="text" id="CityInputTxt" class="form-control city-input" placeholder="All Provinces" value="{{Session::has('customer-city')?Session::get('customer-city'):'All of Sri Lanka'}}" READONLY>
+                    <input type="text" id="CityInputTxt" class="form-control city-input" placeholder="All Provinces" value="{{Session::has('customer-city')?Session::get('customer-city')['0']:'All of Sri Lanka'}}" READONLY aria-label="Location">
+                    <span id="locationData" data-pro="{{Session::has('customer-city')?Session::get('customer-city')['2'][0]:'All of Sri Lanka'}}" data-dis="{{Session::has('customer-city')?Session::get('customer-city')['2'][1]:'All Districts'}}" data-cit="{{Session::has('customer-city')?Session::get('customer-city')['2'][2]:'All Cities'}}"></span>
+
+
+
                     <i class="fa fa-map-marker-alt city-icon" aria-hidden="true"></i>
                     <i class="fa fa-angle-down city-angle-icon" id='city-angle-icon' aria-hidden="true"></i>
 

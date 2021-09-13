@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-// use App\Http\Controllers\CommonController;
+use App\Http\Controllers\CommonController;
 
 class AdminDashboardProfile extends Controller
 {
@@ -15,7 +15,7 @@ class AdminDashboardProfile extends Controller
         $adminId = Session::get('admin');
 
         if (!$adminId) {
-            CommonController::checkAdmin('/admin/login');
+            // CommonController::checkAdmin('/admin/login');
         }
 
         $data = DB::table('administrators')

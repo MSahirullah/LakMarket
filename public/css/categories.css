@@ -9,11 +9,12 @@
 }
 
 .category-shops {
-    height: 300px;
+    height: 310px;
+    border: 1px solid #dadada;
 }
 
 .category-shops:hover {
-    box-shadow: rgb(0 0 0 / 15%) 0px 6px 8px 2px;
+    box-shadow: rgb(0 0 0 / 15%) 0px 1px 6px 1px;
 }
 
 .category-shops .search-tile-get-direction {
@@ -35,4 +36,32 @@
 
 .category-tile .home-tile-shop-img {
     height: 200px;
+}
+
+.store-categories .home-tile-title-h {
+    font-size: 14px;
+}
+.store-categories .home-tile-title-p {
+    font-size: 12px;
+}
+.store-categories .home-tile-rating {
+    font-size: 13px;
+}
+.store-categories .home-tile-title {
+    overflow: hidden;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.store-categories .search-tile-body:hover .home-tile-shop-img {
+    filter: brightness(70%);
+}
+.store-categories .home-tile-title-h,
+.store-categories .home-tile-title-p {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.store-categories .no-result .noResult {
+    margin-top: 40px;
+    margin-bottom: 110px !important;
 }

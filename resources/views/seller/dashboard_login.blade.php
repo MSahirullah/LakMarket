@@ -63,7 +63,7 @@
 
                 <div class="mb-3">
                     <label for="d-email">{{ __('Email') }} <span class="required"></span> </label>
-                    <input type="d-email" class="form-control sign-input" name="d-email" value="{{ old('email') }}" autofocus id="d-email" placeholder="Enter your email" required><br />
+                    <input type="email" class="form-control sign-input" name="d-email" value="{{ old('email') }}" autofocus id="d-email" placeholder="Enter your email" required><br />
 
 
                     <label for="d-password">{{ __('Password') }} <span class="required"></span> </label>

@@ -8,7 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+
+
+    <title>@yield('title') Lak Market</title>
     <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
 
     <!-- Fonts -->
@@ -46,15 +48,19 @@
     <link href="{{ URL::asset('css/categories.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/store.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/products.css') }}" rel="stylesheet">
-
+    <script src="https://kit.fontawesome.com/8cb45c8c3b.js" crossorigin="anonymous"></script>
 
     @yield('css')
 
 </head>
 
-<body class="home" id="body">
+<body class="home" id="body" onload="loading()">
+
+    @yield('loader')
     <div id="app"></div>
+
     {{View::make('header')}}
+    <div id='loading'></div>
     <main class="py-3 main-py">
         @yield('content')
     </main>
@@ -66,7 +72,6 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/8cb45c8c3b.js" crossorigin="anonymous"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
 
@@ -85,6 +90,12 @@
 
 <script>
     var post_token = "{{ csrf_token() }}";
+
+    function loading() {
+        // load.style.display = 'none';
+        $('#loading').fadeOut("slow");
+
+    }
 </script>
 @yield('scripts')
 
