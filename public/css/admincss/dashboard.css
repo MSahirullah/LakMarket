@@ -15,16 +15,6 @@ a {
     transition: 0.3s;
 }
 
-.toasts-top-right {
-    top: 50px;
-    right: 0;
-    z-index: 2000;
-}
-
-.vanillatoasts-toast {
-    box-shadow: rgb(0 0 0 / 15%) 0px 4px 8px 0px;
-}
-
 .online-status {
     height: 10px;
     width: 10px;
@@ -39,7 +29,7 @@ a {
     font-size: 13px;
 }
 
-.online-admin-name {
+.online-seller-name {
     margin-bottom: -4px;
     transition: 0.3s;
 }
@@ -67,6 +57,7 @@ a {
     border-bottom: 1px solid #4b545c;
     height: 75px;
     padding-top: 2px !important;
+    color: #c2c7d0;
 }
 
 .na-sign-out-icon {
@@ -334,9 +325,9 @@ body {
 }
 
 .menu-collapse-state .brand-text,
-.menu-collapse-state .online-admin-name,
+.menu-collapse-state .online-seller-name,
 .menu-collapse-state .online-status,
-.menu-collapse-state .online-status-admin {
+.menu-collapse-state .online-status-seller {
     display: none !important;
 }
 
@@ -362,13 +353,7 @@ body {
 .menu-collapse-width-status .main-footer {
     margin-left: 4.6rem !important;
 }
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    border: 3px solid white;
-}
+
 /* .menu-collapse .nav-link p,
 .menu-collapse .brand-text,
 .menu-collapse .online-seller-name,
@@ -418,4 +403,63 @@ body {
 .modal-content {
     border: 0px !important;
     border-radius: 0.3rem 0.3rem 0 0 !important;
+}
+
+.toasts-top-right {
+    top: 50px;
+    right: 0;
+    z-index: 2000;
+}
+
+.vanillatoasts-toast {
+    box-shadow: rgb(0 0 0 / 15%) 0px 4px 8px 0px;
+}
+
+.settings-icon {
+    transition: 0.3s;
+}
+
+.settings-icon:hover {
+    transform: rotate(90deg);
+}
+
+.change-pswrd {
+    cursor: pointer;
+}
+
+#changeThePassword .modal-header,
+.bs-logout-modal-sm .modal-header {
+    background-color: #031aa3bd;
+    color: white;
+}
+
+.bs-logout-modal-sm .fa-sign-out-alt {
+    font-size: 17px;
+    padding-left: 5px;
+}
+
+.sign-field-icon {
+    float: right;
+    margin-right: 12px;
+    margin-top: -24px;
+    position: relative;
+    z-index: 2;
+    font-size: 14px;
+}
+
+#changeThePassword input,
+#changeThePassword label {
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+
+#changeThePassword input,
+.mismatch-msg {
+    padding: 1px 10px;
+    font-size: 15px;
+    margin-top: 8px;
+}
+
+.logout-link {
+    cursor: pointer;
 }

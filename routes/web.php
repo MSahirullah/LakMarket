@@ -224,9 +224,27 @@ Route::post('/admin/dashboard/change-sidebar-status', [AdminDashboard::class, 'c
 Route::post('/admin/dashboard/clear-session', [AdminDashboard::class, 'clearSession']);
 
 /* Route::get('/admin/dashboard/admins', [AdminDashboardAdmins::class, 'adminAdmins'])->name('admin.admins'); */
-Route::get('/admin/dashboard/sellers', [AdminDashboardSellers::class, 'adminSellers'])->name('admin.sellers');
+/* Route::get('/admin/dashboard/sellers', [AdminDashboardSellers::class, 'adminSellers'])->name('admin.sellers'); */
 Route::get('/admin/dashboard/products', [AdminDashboardProducts::class, 'adminProducts'])->name('admin.products');
 Route::get('/admin/dashboard/customers', [AdminDashboardCustomers::class, 'adminCustomers'])->name('admin.customers');
 
-Route::post('/admin/dashboard/admins-add-new', [AdminDashboardAdmins::class, 'addNewAdmin'])->name('admin.add');
+Route::post('/admin/dashboard/admins/admin-add-new', [AdminDashboardAdmins::class, 'addNewAdmin'])->name('admin.add');
 Route::post('/admin/dashboard/admins-delete', [AdminDashboardAdmins::class, 'deleteAdmin'])->name('admin.destroy');
+Route::post('/admin/dashboard/admins-blacklist', [AdminDashboardAdmins::class, 'blacklistAdmin'])->name('admin.blacklist');
+Route::post('/admin/dashboard/admins-add-new', [AdminDashboardAdmins::class, 'viewDeletedAdmins'])->name('admin.view_deleted');
+
+Route::post('/admin/dashboard/profile/change-linkedin-link', [AdminDashboardProfile::class, 'adminLLChange'])->name('admin.editLinkedIn');
+Route::post('/admin/dashboard/admin-details', [AdminDashboardAdmins::class, 'adminDetails'])->name('admin.details');
+Route::post('/admin/dashboard/update/admin-details', [AdminDashboardAdmins::class, 'updateAdminDetails'])->name('admin.update');
+Route::post('/admin/dashboard/admins/admin-password-reset', [AdminDashboardAdmins::class, 'changePassword'])->name('admin.passchange');
+
+Route::get('/admin/dashboard/sellers',  [AdminDashboardSellers::class, 'index'])->name('admin.sellers');
+Route::post('/admin/dashboard/sellers-delete', [AdminDashboardSellers::class, 'deleteSeller'])->name('seller.destroy');
+Route::post('/admin/dashboard/sellers-blacklist', [AdminDashboardSellers::class, 'blacklistSeller'])->name('seller.blacklist');
+
+Route::get('/admin/dashboard/products',  [AdminDashboardProducts::class, 'index'])->name('admin.products');
+Route::post('/admin/dashboard/products-delete', [AdminDashboardProducts::class, 'deleteProduct'])->name('product.destroy');
+
+Route::get('/admin/dashboard/customers',  [AdminDashboardCustomers::class, 'index'])->name('admin.customers');
+Route::post('/admin/dashboard/customers-delete', [AdminDashboardCustomers::class, 'deleteCustomer'])->name('customer.destroy');
+Route::post('/admin/dashboard/customers-blacklist', [AdminDashboardCustomers::class, 'blacklistCustomer'])->name('customer.blacklist');

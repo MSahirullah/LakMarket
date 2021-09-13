@@ -95,6 +95,10 @@ div.dataTables_wrapper div.dataTables_length select {
     text-align: center;
     padding: 10px;
 }
+.dataTable td:nth-child(10) {
+    text-align: center;
+    padding: 10px;
+}
 /* .createBtn {
     position: absolute;
     margin-left: 185px;
@@ -340,7 +344,4 @@ input[type="number"] {
     color: #1f1f1f;
     text-decoration: underline;
     cursor: pointer;
-}
-
-#blacklistbutton {
 }

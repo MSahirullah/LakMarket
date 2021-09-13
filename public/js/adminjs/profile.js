@@ -19,7 +19,7 @@ $(document).ready(function(){
     });
 
     
-    $(".change_store_img").on('click', function() {
+    $(".change_profile_img").on('click', function() {
         $(".store-img-input").click();
     });
 

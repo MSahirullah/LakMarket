@@ -35,25 +35,38 @@ class AdminDashboardProfile extends Controller
     public function adminProfileChange(Request $request)
     {
         $adminId = Session::get('admin');
-        $file = $request->file('profile_photo');
-        $uploadedFiles = "";
+        $validate = $request->validate([
+            'profile_photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        $destinationPath = 'admin/images/' . $adminId . '/profile';
-        $file->move($destinationPath, $file->getClientOriginalName());
-        $uploadedFiles = $destinationPath . '/' . $file->getClientOriginalName();
+        if ($validate) {
 
-        $affected = DB::table('administrators')->where('id', $adminId)
-            ->update(['profile_photo' => $uploadedFiles]);
+            $file = $request->file('profile_photo');
+            $uploadedFiles = "";
+            $destinationPath = 'admin/images/' . $adminId . '/profile';
+            $file->move($destinationPath, $file->getClientOriginalName());
+            $uploadedFiles = $destinationPath . '/' . $file->getClientOriginalName();
 
-        if ($affected) {
-            $request->session()->put('adminImage', '/' . $uploadedFiles);
+            $affected = DB::table('administrators')->where('id', $adminId)
+                ->update(['profile_photo' => $uploadedFiles]);
 
-            Session::flash('status', ['0', "Profile picture updated!"]);
+            if ($affected) {
+                $request->session()->put('adminImage', '/' . $uploadedFiles);
+
+                Session::flash('status', ['0', "Profile picture updated!"]);
+                return redirect()->back();
+            } else {
+                Session::flash('status', ['1', "Please do not insert the same image!"]);
+                return redirect()->back();
+            }
+        } else {
+            Session::flash('status', ['1', "something went wrong please try again!"]);
             return redirect()->back();
         }
-        Session::flash('status', ['1', "Something went wrong. Please try again later!"]);
-        return redirect()->back();
+
+        dd($validate);
     }
+
 
     public function sellerStoreChange(Request $request)
     {
@@ -79,20 +92,20 @@ class AdminDashboardProfile extends Controller
 
 =======
 >>>>>>> 4190b601d9ab0cf1792bf70970257364617f83f1 */
-    public function sellerHotlineChange(Request $request)
+    public function adminLLChange(Request $request)
     {
-        $sellerId = Session::get('seller');
-        $hotline = $request->hotline;
+        $adminId = Session::get('admin');
+        $linkedin = $request->get('linkedin');
 
-        $hotline = "+94$hotline";
-
-        $affected = DB::table('sellers')->where('id', $sellerId)
-            ->update(['hotline' => $hotline]);
+        $affected = DB::table('administrators')->where('id', $adminId)
+            ->update(['LinkedIn' => $linkedin]);
 
         if ($affected) {
-            return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Hotline updated!']));
+            Session::flash('status', ['0', "LinkedIn Link updated!"]);
+            return redirect()->back();
         }
-        return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
+        Session::flash('status', ['1', "Something went wrong. Please try again later!"]);
+        return redirect()->back();
     }
 
     public function sellerDDChange(Request $request)
@@ -109,5 +122,16 @@ class AdminDashboardProfile extends Controller
             return redirect()->back()->with(session()->put(['alert' => 'success', 'message' => 'Delivering districts updated!']));
         }
         return redirect()->back()->with(session()->put(['alert' => 'error', 'message' => 'Something went wrong. Please try again later!']));
+    }
+    public function adminDetails(Request $request)
+    {
+        $aid = $request->get('rowid');
+
+        $data = DB::table('administrators')
+            ->where('id', $aid)
+            ->select('*')
+            ->get();
+
+        return $data;
     }
 }

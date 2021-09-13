@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -19,12 +20,13 @@ class AdminDashboard extends Controller
 
         $data = DB::table('administrators')
             ->where('id', "=",  $adminId)
-            ->select('first_name','last_name', 'profile_photo')
+            ->select('full_name', 'profile_photo')
             ->get();
 
         $data[0]->profile_photo = "/" . $data[0]->profile_photo;
 
-        $request->session()->put('adminName', $data[0]->first_name.' '.$data[0]->last_name);
+        $request->session()->put('adminName', $data[0]->full_name);
+
         $request->session()->put('adminImage', $data[0]->profile_photo);
 
         return (view('admin.dashboard_home'));

@@ -248,7 +248,7 @@
         });
 
 
-        $('.bd-edit').on('click', function() {
+          $('.bd-edit').on('click', function() {
 
             var sellerBD = "<?php echo $sellerData->birthday == null ? "xxxx" : $sellerData->birthday; ?>";
 
@@ -259,7 +259,7 @@
             $('#editBdayDetails').modal('show')
 
 
-        });
+        }); 
 
         $('#_submit-temp-bday').click(function() {
 
@@ -313,9 +313,9 @@
                 $('#_submit').trigger('click');
             }
         }
-    });
+    }); 
 
-    $('select').on('change', function() {
+     $('select').on('change', function() {
 
         var check = 0;
 
@@ -346,9 +346,9 @@
             $('#delivery_districts').selectpicker('val', 'All Island');
             $('#delivery_districts').selectpicker('refresh');
         }
-    });
+    }); 
 
-    var marker = false;
+     var marker = false;
 
     function initMap() {
         var lo = "<?php echo $sellerData->longitude; ?>";
@@ -367,7 +367,7 @@
         });
 
         _marker.setMap(map);
-    }
+    } 
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHQxriVKFmURanWzX7-k-WG1gdN30drD4&callback=initMap&libraries=&v=weekly" async></script>

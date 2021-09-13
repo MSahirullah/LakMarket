@@ -54,24 +54,13 @@ class AdminDashboardLogin extends Controller
             if ($admin->blacklisted) {
                 Session::flash('status', ['1', "Sorry you can't login with this email address. (RSN : Blacklisted)"]);
                 return redirect()->back();
-            } else if (!$admin->is_verified) {
-
-                $admin->verification_code = bin2hex(random_bytes(32));
-                $admin->save();
-
-                $name = $admin->first_name . ' ' . $admin->last_name;
-                MailController::sendAdminVerificationMail($name, $admin->email, $admin->verification_code);
-
-                Session::flash('status', ['2', 'Please verify your email account.', $admin->id]);
-                return view('auth.admin_verify');
-
-            } else if ($admin->password != $password) {
-                Session::flash('status', ['1', "The password you entered is incorrect."]);
-                return redirect()->back();
-            } else {
+            } else if (Hash::check($password, $admin->password)) {
                 Cookie::queue(Cookie::make('valSideBar', '0'));
                 $req->session()->put('admin', $admin->id);
                 return redirect('admin/dashboard');
+            } else {
+                Session::flash('status', ['1', "The password you entered is incorrect."]);
+                return redirect()->back();
             }
         }
 
