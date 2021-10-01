@@ -33,9 +33,8 @@
                     @else
                     <li class="nav-item">
                         @if((Session::has('customer')))
-                        <form id=" logout-form" action="{{route('logout')}}" method="POST">
-                            @csrf
-                    <li class="nav-item dropdown p-0 logged-user">
+
+                    <li class="nav-item dropdown logged-user">
                         <a class="nav-link dropdown-toggle a-nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{Session::get('customer')['first_name']}}'s Account
                         </a>
@@ -44,16 +43,18 @@
                             <div class="dropdown-divider"></div>
                             <button type="submit" class="dropdown-item " href="#"><i class="fas fa-box"></i> My Orders</button>
                             <div class="dropdown-divider"></div>
-                            <button type="submit" class="dropdown-item " href="#"><i class="fas fa-sign-out-alt"></i> Logout</button>
-
+                            <form id=" logout-form" action="{{route('logout')}}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item " href="#"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                            </form>
                         </div>
                     </li>
-                    </form>
+
                     @endif
                     </li>
                     @endguest
                     <li class=" nav-item">
-                        <a class="nav-link a-nav-link become-a-seller" href="{{route('seller.register')}}">Become A Seller</a>
+                        <a class="nav-link a-nav-link become-a-seller" href="{{route('store.register')}}">Become A Seller</a>
                     </li>
                 </ul>
             </div>

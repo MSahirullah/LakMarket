@@ -113,6 +113,9 @@
 .pl--5 {
     padding-left: 5px !important;
 }
+.pr--5 {
+    padding-right: 5px !important;
+}
 
 .pt-15 {
     padding-top: 15px !important;
@@ -289,4 +292,46 @@
 
 .pl-45 {
     padding-left: 45px !important;
+}
+
+#backToTopBtn {
+    display: inline-block;
+    background-color: #ff9800;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+#backToTopBtn::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+}
+#backToTopBtn:hover {
+    cursor: pointer;
+    background-color: #031893;
+    text-decoration: none !important;
+}
+#backToTopBtn:active {
+    background-color: #031162;
+}
+#backToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mb-pt-1 {
+    margin-bottom: 18px;
+    padding-bottom: 5px;
 }

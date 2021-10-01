@@ -50,7 +50,6 @@ $(document).ready(function () {
 
 
     $(document).on('click', '.selected-search', function () {
-        console.log(1);
         setTimeout(() => {
             $('#searchSubmitBtn').trigger('click');
         }, 100);

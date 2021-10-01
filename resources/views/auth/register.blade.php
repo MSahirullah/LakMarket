@@ -126,7 +126,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
             variant: 10,
             slide: 1,
             escClose: 1,
-            content: "<div class='hide-mobile p-sm-8 pop-up-img-div'><img src='/img/img-3.png' align='center' class='responsive pop-up-img'></div> <div> <div class='corner-container'><p class='corner-head'> BECOME A SELLER ON <br> LAK MARKET </p><a href='{{route('seller.register')}}' onclick='loginCall();' class='corner-btn-close'>Create Your Business Account</a></div></div>",
+            content: "<div class='hide-mobile p-sm-8 pop-up-img-div'><img src='/img/img-3.png' align='center' class='responsive pop-up-img'></div> <div> <div class='corner-container'><p class='corner-head'> BECOME A SELLER ON <br> LAK MARKET </p><a href='{{route('store.register')}}' onclick='loginCall();' class='corner-btn-close'>Create Your Business Account</a></div></div>",
         });
         localStorage.setItem("popup", true);
     }

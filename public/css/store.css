@@ -236,3 +236,60 @@
     box-shadow: inset 0 100px 0 0 #f6be00;
     color: white !important;
 }
+
+.store-container .result-count {
+    display: block;
+    justify-content: unset;
+    margin-bottom: 18px;
+    font-family: sans-serif;
+}
+
+.store-container .view-buttons {
+    float: right;
+    margin-top: -30px;
+}
+
+.store-container .view-buttons span {
+    margin-top: -2px;
+}
+
+.store-container .search-tile-title h4 {
+    padding-top: 2px !important;
+}
+
+.store-container .search-tile-title {
+    height: 16px;
+}
+
+.view-buttons-2 {
+    position: absolute !important;
+    right: 16px !important;
+    top: 17px !important;
+    margin-top: 0px !important;
+}
+
+.red-selected {
+    color: rgb(255, 72, 72) !important;
+    text-decoration: none !important;
+    pointer-events: none;
+    cursor: default;
+}
+
+#searchSubmitBtnTemp {
+    border-radius: 0px 4px 4px 0px;
+}
+
+.store-container .back-text {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: #757575;
+}
+
+.back-text-div a:hover {
+    text-decoration: none;
+}
+
+.back-text-div a:hover p {
+    color: #042863;
+}

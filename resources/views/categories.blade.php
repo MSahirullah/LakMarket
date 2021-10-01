@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{$q}} in Sri Lanka
+{{$q}} in Sri Lanka |
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
     </div>
     <div class="site-container container">
 
-        <div class="search-result store-categories">
+        <div class="sr store-categories">
             <div class="row">
                 <div class="filter-col">
                     <div class="filter-item mt-0">
@@ -179,9 +179,9 @@
         y = document.createElement("DIV");
         y.setAttribute("class", 'resultSummery ');
         if (storeCount > 1) {
-            y.innerHTML = '<h5 class="search-result-title"> ' + storeCount + ' Shops found for "' + q + '"</h5>';
+            y.innerHTML = '<h5 class="sr-title"> ' + storeCount + ' Shops found for "' + q + '"</h5>';
         } else {
-            y.innerHTML = '<h5 class="search-result-title"> ' + storeCount + ' Shop found for "' + q + '"</h5>';
+            y.innerHTML = '<h5 class="sr-title"> ' + storeCount + ' Shop found for "' + q + '"</h5>';
         }
         $('.result-count').append(y);
     }
@@ -196,10 +196,10 @@
             name = value.store_name.length > 32 ? value.store_name.substr(0, 32) + "..." : value.store_name;
             ld = value.city + ', ' + value.district + ' District';
             location_d = ld.length > 32 ? ld.substr(0, 32) + "..." : ld;
+            rating = (value.rating.toString()).length > 1 ? value.rating : value.rating + '.0';
 
-            console.log(location_d);
 
-            d.innerHTML += '<div class="category-tile"><div class="search-tile-body category-shops"><a href="/store/' + value.url + '"><img src="/' + value.store_logo + '" alt="' + imageAlt + '" class="home-tile-img home-tile-shop-img"></a><div class="home-tile-title"><a href="value.url" class="home-tile-title-h">' + name + '</a><div><span class="home-tile-title-p">' + location_d + '</span></div><div class="home-tile-rating"><i class="fas fa-star rating-star-icon"></i><span class="rating-value">(4.5)</span></div></div><div class="search-tile-button"><a href="/store/' + value.url + '" class="search-tile-visit"><i class="fas fa-shopping-cart shop-icon"></i>Show Now</a><a href="https://maps.google.com/?q=' + value.longitude + ',' + value.latitude + '" target="_blank" class="search-tile-get-direction"><i class="fas fa-directions direction-icon"></i>Get Direction</a></div></div></div>';
+            d.innerHTML += '<div class="category-tile"><div class="search-tile-body category-shops"><a target="_blank" href="/store/' + value.url + '"><img src="/' + value.store_logo + '" alt="' + imageAlt + '" class="home-tile-img home-tile-shop-img"></a><div class="home-tile-title"><a target="_blank" href="/store/' + value.url + '" class="home-tile-title-h">' + name + '</a><div><span class="home-tile-title-p">' + location_d + '</span></div><div class="home-tile-rating"><i class="fas fa-star rating-star-icon"></i><span class="rating-value">(' + rating + ')</span></div></div><div class="search-tile-button"><a target="_blank" href="/store/' + value.url + '" class="search-tile-visit"><i class="fas fa-shopping-cart shop-icon"></i>Show Now</a><a href="https://maps.google.com/?q=' + value.longitude + ',' + value.latitude + '" target="_blank" class="search-tile-get-direction"><i class="fas fa-directions direction-icon"></i>Get Direction</a></div></div></div>';
         });
         $('#storesC').append(d);
     }

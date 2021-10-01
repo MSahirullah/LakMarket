@@ -31,7 +31,7 @@
     margin-right: 10px;
     flex: 0 0 32.19% !important;
     max-width: 32.19% !important;
-    margin-bottom: 22px;
+    margin-bottom: 60px;
 }
 
 .category-tile .home-tile-shop-img {
@@ -41,20 +41,25 @@
 .store-categories .home-tile-title-h {
     font-size: 14px;
 }
+
 .store-categories .home-tile-title-p {
     font-size: 12px;
 }
+
 .store-categories .home-tile-rating {
     font-size: 13px;
 }
+
 .store-categories .home-tile-title {
     overflow: hidden;
     margin-left: 10px;
     margin-right: 10px;
 }
+
 .store-categories .search-tile-body:hover .home-tile-shop-img {
     filter: brightness(70%);
 }
+
 .store-categories .home-tile-title-h,
 .store-categories .home-tile-title-p {
     margin-left: 0px;
@@ -64,4 +69,12 @@
 .store-categories .no-result .noResult {
     margin-top: 40px;
     margin-bottom: 110px !important;
+}
+
+.store-categories .home-tile-rating {
+    margin-right: 0px !important;
+}
+
+.mb-5p {
+    margin-bottom: 5px !important;
 }

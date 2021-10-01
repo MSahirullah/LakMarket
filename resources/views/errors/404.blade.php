@@ -26,7 +26,7 @@
 			</div>
 			<h2>404 - Page not found</h2>
 			<p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
-			<a href="{{ $exception->getMessage() }}">Go To {{$exception->getMessage()=='/seller/login'? 'Login Page': 'Home Page'}} </a>
+			<a href="/">Go To Home Page</a>
 		</div>
 	</div>
 

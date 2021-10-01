@@ -61,6 +61,7 @@
 
     {{View::make('header')}}
     <div id='loading'></div>
+    <a id="backToTopBtn"></a>
     <main class="py-3 main-py">
         @yield('content')
     </main>

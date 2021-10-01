@@ -12,8 +12,6 @@ $(document).ready(function () {
         }
     });
 
-    console.log($('#stock').attr('data-stock') == '0');
-
     if ($('#stock').attr('data-stock') == '0') {
         $('#btnCart').attr('disabled', 'disabled');
         $('#btnBuy').attr('disabled', 'disabled');

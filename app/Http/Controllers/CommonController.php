@@ -54,11 +54,6 @@ class CommonController extends Controller
         return $cities;
     }
 
-    public static function checkSeller($url)
-    {
-        abort(404, $url);
-    }
-
     // public function searchAutocomplete(Request $request)
     // {
     //     $data = SellerProducts::select("name")

@@ -47,6 +47,10 @@ class SubCategoryController extends Controller
         $productLen = $result[3] ? $result[3] : 0;
         $shop_proCatoList = $result[4] ? $result[4] : [];
 
+        foreach ($productList as $product) {
+            $product->discounted_price = number_format(floatval($product->discounted_price), 2);
+            $product->unit_price = number_format(floatval($product->unit_price), 2);
+        }
 
         return view('search', [
             'stores' => $sellerList,

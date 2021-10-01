@@ -1,0 +1,111 @@
+.con-banner {
+    padding: 2px 0px 4px 0px;
+}
+.con-banner .banner {
+    height: 102px;
+    width: 100%;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.con-banner .banner-1 {
+    background-image: url("/img/banner/1.jpg");
+}
+.con-banner .banner-2 {
+    background-image: url("/img/banner/2.jpg");
+}
+.con-banner .banner-3 {
+    background-image: url("/img/banner/3.jpg");
+}
+
+.con-banner .banner-text {
+    font-family: verdana;
+    font-size: 3.9rem;
+    font-weight: 700;
+    color: #f5f5f5;
+    text-shadow: 3px 3px #919191;
+    opacity: 0.85;
+    transition: 0.3s;
+    padding-left: 1.75rem;
+}
+
+.con-banner:hover .banner-text {
+    opacity: 1;
+    transition: 0.3s;
+    transform: scale(1.05) translate(25px, 0px);
+}
+
+.deals .resultSummery {
+    height: 28px;
+}
+
+.deals .view-buttons {
+    float: none;
+    margin-top: 0;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.image-container {
+    position: relative;
+}
+
+.ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 999;
+}
+
+.ribbon span {
+    position: absolute;
+    display: block;
+    width: 260px;
+
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 672 15px/1 "Lato", sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.rtr2 span {
+    padding: 2px 115px;
+    background-color: #db3434;
+}
+
+.rtr1 span {
+    padding: 2px 103px;
+    background-color: #3498db;
+}
+
+/* top right*/
+.ribbon-top-right {
+    top: -10px;
+    right: 0px;
+}
+
+.ribbon-top-right::before,
+.ribbon-top-right::after {
+    border-top-color: transparent;
+    border-right-color: transparent;
+}
+.ribbon-top-right::before {
+    top: 0;
+    left: 0;
+}
+
+.ribbon-top-right::after {
+    bottom: 0;
+    right: 0;
+}
+
+.ribbon-top-right span {
+    left: -25px;
+    top: 30px;
+    transform: rotate(45deg);
+}

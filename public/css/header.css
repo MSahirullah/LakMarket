@@ -892,3 +892,7 @@
 .logged-user .fas {
     padding-right: 5px;
 }
+
+#header {
+    z-index: 9999;
+}

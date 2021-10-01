@@ -28,7 +28,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
                         <hr>
 
                         <div id="accountTab">
-                            <form method="POST" action="{{route('register.seller')}}" id="verifySellerForm">
+                            <form method="POST" action="{{route('store.registerProcess')}}" id="verifySellerForm">
                                 @csrf
                                 <div class="row">
                                     <div class=" col-md-12 pr-25">
@@ -50,7 +50,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
                                 </div>
                             </form>
                             <div id="verifyCode" style="display:none;">
-                                <form method="POST" action="{{route('verify.seller')}}" id="VerifyCodeSellerForm" class="digit-group mb-100" data-group-name="digits" data-autosubmit="false" autocomplete="off">
+                                <form method="POST" action="{{route('store.verify')}}" id="VerifyCodeSellerForm" class="digit-group mb-100" data-group-name="digits" data-autosubmit="false" autocomplete="off">
 
                                     <div class="row jc-c">
                                         <div class="col-md-12 pr-25">
@@ -80,7 +80,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
 
                         </div>
                         <div id="businessTab" style="display:none">
-                            <form method="POST" action="{{route('submit.seller')}}" id="submitSellerDetails">
+                            <form method="POST" action="{{route('store.submitDetails')}}" id="submitSellerDetails">
                                 <div class="row">
                                     <div class="col">
                                         <label for="first-name">{{ __('Seller Full Name') }} <span class="required"></span> </label>

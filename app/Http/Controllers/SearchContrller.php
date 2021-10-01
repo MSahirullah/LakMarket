@@ -54,6 +54,8 @@ class SearchContrller extends Controller
         $query = $request->q;
 
         $sort = $request->sort;
+        $priceMin = $request->priceMin;
+        $priceMax = $request->priceMax;
 
         if ($sort == "Price High to Low") {
             $orderBy = 'discounted_price';
@@ -79,7 +81,7 @@ class SearchContrller extends Controller
 
         $deliveryS = $request->deliveryStatus;
 
-        $result = $this->searchResult($query, $orderBy, $orderByVal, $catoQ, $deliveryS);
+        $result = $this->searchResult($query, $orderBy, $orderByVal, $catoQ, $deliveryS, $priceMin, $priceMax);
 
         $productList = $result[0] ? $result[0] : [];
         $sellerList = $result[1] ? $result[1] : [];
@@ -136,6 +138,11 @@ class SearchContrller extends Controller
         $productLen = $result[3] ? $result[3] : 0;
         $shop_proCatoList = $result[4] ? $result[4] : [];
 
+        foreach ($productList as $product) {
+            $product->discounted_price = number_format(floatval($product->discounted_price), 2);
+            $product->unit_price = number_format(floatval($product->unit_price), 2);
+        }
+
         return  [
             'stores' => $sellerList,
             'products' => $productList,
@@ -145,43 +152,6 @@ class SearchContrller extends Controller
             'q' => $request->q,
             'type' => 'search'
         ];
-    }
-
-    public function flashDeals()
-    {
-
-        $query = '';
-
-        $orderBy = 'name';
-        $orderByVal = 'ASC';
-
-        $cato = $request->category;
-        Session::flash('searchCato', $cato);
-        Session::flash('query', $query);
-
-        if ($cato != "All Categories") {
-            $catoQ = ['shop_categories.name', '=', $cato];
-        } else {
-            $catoQ = ['shop_categories.name', '!=', Null];
-        }
-
-        $result = $this->searchResult($query, $orderBy, $orderByVal, $catoQ);
-
-        $productList = $result[0] ? $result[0] : [];
-        $sellerList = $result[1] ? $result[1] : [];
-        $sellerLen = $result[2] ? $result[2] : 0;
-        $productLen = $result[3] ? $result[3] : 0;
-        $shop_proCatoList = $result[4] ? $result[4] : [];
-
-        return view('search', [
-            'stores' => $sellerList,
-            'products' => $productList,
-            'storeCount' => $sellerLen,
-            'productCount' => $productLen,
-            'categories' => $shop_proCatoList,
-            'q' => $query,
-            'type' => 'search'
-        ]);
     }
 
 
@@ -205,7 +175,7 @@ class SearchContrller extends Controller
         $query = $q;
 
         if ($deliveryS == '3' || $deliveryS == '0') {
-            $deliveryQ = ['products.cod', '!=', 'null'];
+            $deliveryQ = ['products.cod', '!=', null];
         } else if ($deliveryS == '1') {
             $deliveryQ = ['products.cod', '=', '0'];
         } else if ($deliveryS == '2') {
@@ -225,6 +195,7 @@ class SearchContrller extends Controller
         $productCatoList = [];
         $shop_proCatoList = [];
         $sellerList = [];
+        $sellers = [];
 
         $dataNames = DB::table('product_categories')
             ->join('shop_categories', 'shop_categories.id', '=', 'product_categories.shop_categories_id')
@@ -331,8 +302,22 @@ class SearchContrller extends Controller
                 ->whereBetween('products.discounted_price', [$priceMin, $priceMax])
                 ->get();
 
-
             foreach ($products as $product) {
+                if (!in_array($product, $productList)) {
+                    array_push($productList, $product);
+                }
+
+                if (!in_array(array($product->shop_cato_id, $product->shop_cato, $product->shop_url, $product->pro_cato), $shopCatoList)) {
+                    array_push($shopCatoList, array($product->shop_cato_id, $product->shop_cato, $product->shop_url, $product->pro_cato));
+                }
+
+                $temp_pro = [];
+                foreach ($productCatoList as $tmp) {
+                    $temp_pro[] = $tmp[1];
+                }
+
+                if (!in_array($product->pro_cato, $temp_pro)) {
+                }
 
                 if (!in_array(array($product->shop_cato_id, $product->shop_cato, $product->shop_url), $shopCatoList)) {
                     array_push($shopCatoList, array($product->shop_cato_id, $product->shop_cato, $product->shop_url));
@@ -341,71 +326,26 @@ class SearchContrller extends Controller
                 if (!in_array(array($product->shop_pro_cato_id, $product->pro_cato, $product->pro_url), $productCatoList)) {
                     array_push($productCatoList, array($product->shop_pro_cato_id, $product->pro_cato, $product->pro_url));
                 }
+            }
+        }
+
+        foreach ($productList as $product) {
+            $product_colors_stock = [];
+
+            $product->stock = 0;
+
+            if ($product->colors) {
+                $colors = $product->colors;
+                $colors = str_replace(" ", "", $colors);
+                $colors = explode(",", $colors);
 
                 $product_colors_stock = [];
 
-                $product->stock = 0;
-
-                if ($product->colors) {
-                    $colors = $product->colors;
-                    $colors = str_replace(" ", "", $colors);
-                    $colors = explode(",", $colors);
-
-                    $product_colors_stock = [];
-
-                    foreach ($colors as $color) {
-                        $stock = DB::table('stocks')
-                            ->where([
-                                ['product_id', '=', $product->id],
-                                ['product_color', '=', $color],
-                            ])
-                            ->select('*')
-                            ->get();
-
-                        if (sizeof($stock)) {
-
-                            $stock = $stock[0];
-
-                            if ($stock->outof_stock == '1') {
-
-                                $product_colors_stock[$color] = 0;
-                                //
-                            } else {
-                                $stock_added = DB::table('stocks')
-                                    ->where([
-                                        ['product_id', '=', $product->id],
-                                        ['product_color', '=', $color],
-                                    ])
-                                    ->sum('added_stock');
-
-                                $stock_usage = DB::table('stocks')
-                                    ->where([
-                                        ['product_id', '=', $product->id],
-                                        ['product_color', '=', $color],
-                                    ])
-                                    ->sum('stock_usage');
-
-                                if (($stock_added - $stock_usage) == 0) {
-                                    $product_colors_stock[$color] = 0;
-                                } else {
-                                    $product_colors_stock[$color] = $stock_added - $stock_usage;
-                                }
-                            }
-                        } else {
-                            $product_colors_stock[$color] = 0;
-                        }
-
-                        if ($product->stock == 0) {
-                            if ($product_colors_stock[$color] != 0) {
-                                $product->stock = 1;
-                            }
-                        }
-                    }
-                } else {
-
+                foreach ($colors as $color) {
                     $stock = DB::table('stocks')
                         ->where([
-                            ['product_id', '=', $product->id]
+                            ['product_id', '=', $product->id],
+                            ['product_color', '=', $color],
                         ])
                         ->select('*')
                         ->get();
@@ -414,57 +354,125 @@ class SearchContrller extends Controller
 
                         $stock = $stock[0];
 
-                        if ($stock->outof_stock == '0') {
+                        if ($stock->outof_stock == '1') {
+
+                            $product_colors_stock[$color] = 0;
                             //
+                        } else {
                             $stock_added = DB::table('stocks')
                                 ->where([
                                     ['product_id', '=', $product->id],
+                                    ['product_color', '=', $color],
                                 ])
                                 ->sum('added_stock');
 
                             $stock_usage = DB::table('stocks')
                                 ->where([
                                     ['product_id', '=', $product->id],
+                                    ['product_color', '=', $color],
                                 ])
                                 ->sum('stock_usage');
 
-                            if (($stock_added - $stock_usage) != 0) {
-                                $product->stock = 1;
+                            if (($stock_added - $stock_usage) == 0) {
+                                $product_colors_stock[$color] = 0;
+                            } else {
+                                $product_colors_stock[$color] = $stock_added - $stock_usage;
                             }
+                        }
+                    } else {
+                        $product_colors_stock[$color] = 0;
+                    }
+
+                    if ($product->stock == 0) {
+                        if ($product_colors_stock[$color] != 0) {
+                            $product->stock = 1;
                         }
                     }
                 }
+            } else {
 
+                $stock = DB::table('stocks')
+                    ->where([
+                        ['product_id', '=', $product->id]
+                    ])
+                    ->select('*')
+                    ->get();
 
-                // if ($product_colors_stock) {
-                //     $product->colors = $product_colors_stock;
-                // }
+                if (sizeof($stock)) {
 
-                if (!in_array($product, $productList)) {
-                    array_push($productList, $product);
+                    $stock = $stock[0];
+
+                    if ($stock->outof_stock == '0') {
+                        //
+                        $stock_added = DB::table('stocks')
+                            ->where([
+                                ['product_id', '=', $product->id],
+                            ])
+                            ->sum('added_stock');
+
+                        $stock_usage = DB::table('stocks')
+                            ->where([
+                                ['product_id', '=', $product->id],
+                            ])
+                            ->sum('stock_usage');
+
+                        if (($stock_added - $stock_usage) != 0) {
+                            $product->stock = 1;
+                        }
+                    }
                 }
             }
 
-            foreach ($shopCatoList as $d) {
+            $rating_temp = DB::table('reviews')
+                ->where([
+                    ['reviews.product_id', '=', $product->id],
+                    ['reviews.delete_status', '=', '0']
+                ])
+                ->select('rating')
+                ->get();
 
-                $temp = array();
-                foreach ($productCatoList as $p) {
+            if (sizeof($rating_temp)) {
+                $product->rating  = round(DB::table('reviews')
+                    ->where(
+                        [
+                            ['product_id', '=', $product->id],
+                            ['delete_status', '=', '0']
+                        ]
+                    )
+                    ->avg('rating'), 1);
+            } else {
+                $product->rating = '0.0';
+            }
 
-                    if ($d[0] == $p[0]) {
-                        if (!in_array([$p[1], $p[2]], $temp)) {
-                            array_push($temp, [$p[1], $p[2]]);
-                        }
+            $product->discounted_price = number_format(floatval($product->discounted_price), 2);
+            $product->unit_price = number_format(floatval($product->unit_price), 2);
+
+            if (!in_array($product, $productList)) {
+                array_push($productList, $product);
+            }
+        }
+
+        foreach ($shopCatoList as $d) {
+
+            $temp = array();
+            foreach ($productCatoList as $p) {
+
+                if ($d[0] == $p[0]) {
+                    if (!in_array([$p[1], $p[2]], $temp)) {
+                        array_push($temp, [$p[1], $p[2]]);
                     }
                 }
+            }
 
-                if (!in_array([$d[2], $temp], $shop_proCatoList)) {
-                    $shop_proCatoList[$d[1]] = [$d[2], $temp];
-                }
+            if (!in_array([$d[2], $temp], $shop_proCatoList)) {
+                $shop_proCatoList[$d[1]] = [$d[2], $temp];
             }
         }
 
         $x = 0;
+
         foreach ($shop_proCatoList as $key => $value) {
+
             $pro = $productList[$x];
 
             $sellers = DB::table('sellers')
@@ -473,7 +481,7 @@ class SearchContrller extends Controller
                 ->join('products', 'products.seller_id', '=', 'sellers.id')
                 ->where(
                     [
-                        ['shop_categories.name', '=', $key],
+                        // ['shop_categories.name', '=', $key],
                         ['products.seller_id', '=', $pro->seller_id]
                     ]
                 )
@@ -486,8 +494,31 @@ class SearchContrller extends Controller
             }
             $x++;
         }
+        if (sizeof($sellerList)) {
+            foreach ($sellerList as $seller) {
 
+                $rating_temp = DB::table('reviews')
+                    ->join('products', 'products.id', '=', 'reviews.product_id')
+                    ->where([
+                        ['products.seller_id', '=', $seller->id],
+                        ['reviews.delete_status', '=', '0']
+                    ])
+                    ->select('rating')
+                    ->get();
 
+                if (sizeof($rating_temp)) {
+                    $seller->rating = round(DB::table('reviews')
+                        ->join('products', 'products.id', '=', 'reviews.product_id')
+                        ->where([
+                            ['products.seller_id', '=', $seller->id],
+                            ['reviews.delete_status', '=', '0']
+                        ])
+                        ->avg('rating'), 1);
+                } else {
+                    $seller->rating  = '0.0';
+                }
+            }
+        }
         $sellerLen = sizeof($sellerList);
         $productLen = sizeof($productList);
 

@@ -11,7 +11,7 @@
     </div>
     <div class="site-container container">
 
-        <div class="search-result">
+        <div class="sr">
             <div class="row">
                 <div class="filter-col">
                     <div class="filter-item mt-0">
@@ -91,7 +91,7 @@
                 <div class="result-col">
                     <div class="result-count">
                         <div>
-                            <h5 class="search-result-title"> {{$storeCount}} Shops and {{$productCount}} Products found for "{{$q}}"</h5>
+                            <h5 class="sr-title"> {{$storeCount}} Shops and {{$productCount}} Products found for "{{$q}}"</h5>
                         </div>
                     </div>
                     <div class="h-line">
@@ -101,7 +101,7 @@
 
                         <div class="no-result-img"></div>
                         <div class="no-result-h">No Result For Search...</div>
-                        <div class="no-result-p">We're sorry. Your search "{{$q}}" did not match any products.Please try again.</div>
+                        <div class="no-result-p">We're sorry. "{{$q}}" did not match any products. Please try again.</div>
                     </div>
 
                     @else

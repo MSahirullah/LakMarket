@@ -90,6 +90,33 @@ class CategoryController extends Controller
             ->orderBy('product_categories.name')
             ->get();
 
+        if (sizeof($stores)) {
+            foreach ($stores as $store) {
+
+                $rating_temp = DB::table('reviews')
+                    ->join('products', 'products.id', '=', 'reviews.product_id')
+                    ->where([
+                        ['products.seller_id', '=', $store->id],
+                        ['reviews.delete_status', '=', '0']
+                    ])
+                    ->select('rating')
+                    ->get();
+
+                if (sizeof($rating_temp)) {
+                    $store->rating = round(DB::table('reviews')
+                        ->join('products', 'products.id', '=', 'reviews.product_id')
+                        ->where([
+                            ['products.seller_id', '=', $store->id],
+                            ['reviews.delete_status', '=', '0']
+                        ])
+                        ->avg('rating'), 1);
+                } else {
+                    $store->rating  = '0.0';
+                }
+            }
+        }
+
+
         $storesCount = sizeof($stores);
 
         $name = DB::table('shop_categories')

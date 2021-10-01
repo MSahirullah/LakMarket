@@ -18,7 +18,7 @@ class SellerDashboardCategories extends Controller
         $sellerId = Session::get('seller');
 
         if (!$sellerId) {
-            CommonController::checkSeller('/seller/login');
+            return redirect()->route('seller.loginV');
         }
 
         $data = SellerDashboard::checkSellerInfo();
@@ -98,7 +98,7 @@ class SellerDashboardCategories extends Controller
                 ->make(true);
         }
 
-        
+
 
         return view('seller.dashboard_categories', ['categories' => $categories]);
     }
