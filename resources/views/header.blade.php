@@ -102,11 +102,11 @@
                         <div class="cart">
                             <span class="left-border"></span>
                             <img src="/img/cart-icon.png" alt="Cart Icon" class="cart-icon">
-                            <span class="cart-count">0</span>
+                            <span id="cartCount" class="cart-count">0</span>
                         </div>
                         @if ((Session::has('customer')))
                     </a>
-                    <div class="cart-block ">
+                    <!-- <div class="cart-block ">
                         <div class="cart-block-content">
                             <div class="cart-title">
                                 <h5><span>2</span> items in my cart </h5>
@@ -143,7 +143,7 @@
                                 <a href="https://bigdeals.lk/cart/order/summery" class="btn-check-out"><button> Checkout </button></a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     @endif
                     <div>
                     </div>

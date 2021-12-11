@@ -59,6 +59,7 @@ class ProductController extends Controller
                         ->where([
                             ['product_id', '=', $product[0]->id],
                             ['product_color', '=', $color],
+                            ['delete_status', '!=', '1']
                         ])
                         ->select('*')
                         ->get();
@@ -75,6 +76,7 @@ class ProductController extends Controller
                                 ->where([
                                     ['product_id', '=', $product[0]->id],
                                     ['product_color', '=', $color],
+                                    ['delete_status', '!=', '1']
                                 ])
                                 ->sum('added_stock');
 
@@ -82,6 +84,7 @@ class ProductController extends Controller
                                 ->where([
                                     ['product_id', '=', $product[0]->id],
                                     ['product_color', '=', $color],
+                                    ['delete_status', '!=', '1']
                                 ])
                                 ->sum('stock_usage');
 
@@ -105,10 +108,13 @@ class ProductController extends Controller
 
                 $stock = DB::table('stocks')
                     ->where([
-                        ['product_id', '=', $product[0]->id]
+                        ['product_id', '=', $product[0]->id],
+                        ['delete_status', '!=', '1']
+                        
                     ])
                     ->select('*')
                     ->get();
+                $product[0]->stock = 0;
 
                 if (sizeof($stock)) {
 
@@ -119,12 +125,14 @@ class ProductController extends Controller
                         $stock_added = DB::table('stocks')
                             ->where([
                                 ['product_id', '=', $product[0]->id],
+                                ['delete_status', '!=', '1']
                             ])
                             ->sum('added_stock');
 
                         $stock_usage = DB::table('stocks')
                             ->where([
                                 ['product_id', '=', $product[0]->id],
+                                ['delete_status', '!=', '1']
                             ])
                             ->sum('stock_usage');
 
@@ -133,7 +141,6 @@ class ProductController extends Controller
                         }
                     }
                 }
-                $product[0]->stock = 0;
             }
 
 
@@ -251,6 +258,7 @@ class ProductController extends Controller
                                 ->where([
                                     ['product_id', '=', $val->id],
                                     ['product_color', '=', $color],
+                                    ['delete_status', '!=', '1']
                                 ])
                                 ->select('*')
                                 ->get();
@@ -268,6 +276,7 @@ class ProductController extends Controller
                                         ->where([
                                             ['product_id', '=', $val->id],
                                             ['product_color', '=', $color],
+                                            ['delete_status', '!=', '1']
                                         ])
                                         ->sum('added_stock');
 
@@ -275,6 +284,7 @@ class ProductController extends Controller
                                         ->where([
                                             ['product_id', '=', $val->id],
                                             ['product_color', '=', $color],
+                                            ['delete_status', '!=', '1']
                                         ])
                                         ->sum('stock_usage');
 
@@ -298,7 +308,8 @@ class ProductController extends Controller
 
                         $stock = DB::table('stocks')
                             ->where([
-                                ['product_id', '=', $val->id]
+                                ['product_id', '=', $val->id],
+                                ['delete_status', '!=', '1']
                             ])
                             ->select('*')
                             ->get();
@@ -312,6 +323,7 @@ class ProductController extends Controller
                                 $stock_added = DB::table('stocks')
                                     ->where([
                                         ['product_id', '=', $val->id],
+                                        ['delete_status', '!=', '1']
                                     ])
                                     ->sum('added_stock');
 
@@ -320,6 +332,7 @@ class ProductController extends Controller
                                         ['product_id', '=', $val->id],
                                     ])
                                     ->sum('stock_usage');
+
 
                                 if (($stock_added - $stock_usage) != 0) {
                                     $val->stock = 1;
@@ -443,6 +456,7 @@ class ProductController extends Controller
             ->where([
                 ['product_id', '=', $pid],
                 ['product_color', '=', $color],
+                ['delete_status', '!=', '1']
             ])
             ->select('*')
             ->get();
@@ -452,6 +466,7 @@ class ProductController extends Controller
                 ->where([
                     ['product_id', '=', $pid],
                     ['product_color', '=', $color],
+                    ['delete_status', '!=', '1']
                 ])
                 ->sum('added_stock');
 
@@ -459,6 +474,7 @@ class ProductController extends Controller
                 ->where([
                     ['product_id', '=', $pid],
                     ['product_color', '=', $color],
+                    ['delete_status', '!=', '1']
                 ])
                 ->sum('stock_usage');
 

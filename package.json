@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "bootstrap-icons": "^1.7.2",
         "micromodal": "^0.4.6"
     }
 }

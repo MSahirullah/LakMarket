@@ -4,7 +4,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
 @endsection
 @section('content')
 
-<div class="content site-container" style="background-image:url('/img/sign-bg.png');background-size: contain; padding-bottom: 150px;">
+<div class="content site-container" style="padding-bottom: 150px;">
     @if(Session::has('regStatus'))
     <div id="regStatus" dataMSG="{{Session::get('regStatus')[1]}}" dataID="{{Session::get('regStatus')[0]}}"></div>
     @endif

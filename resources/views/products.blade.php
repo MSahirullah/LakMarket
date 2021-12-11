@@ -141,7 +141,7 @@
                 </div>
                 <div class="hr-line"></div>
                 <div class="product-details-div-4">
-                    <div class="product-btn">
+                    <div class="product-btn" id="productURLP" url={{$product->url}}>
                         <button class="add-to-wishlist"><i class="far fa-heart" aria-hidden="true"></i></button>
                         <button id="btnCart" class="add-to-cart-btn">Add to Cart</button>
                         <button id="btnBuy" class="buy-now">Buy Now</button>
@@ -447,7 +447,6 @@
                         _token: post_token,
                     },
                     function(data) {
-
                         $('#qtyInput').attr('dataMax', data)
                         $('#qtyInput').val('1')
 
@@ -460,11 +459,13 @@
                             $('#stockStatus').addClass('instock');
                             $('#stockStatus').removeAttr('style');
 
+                            $('#btnBuy').text('Buy Now');
                             $('#btnCart').removeAttr('disabled');
                             $('#btnBuy').removeAttr('disabled');
 
                             $('#btnCart').removeClass('add-to-cart-btn-color');
                             $('#btnBuy').removeClass('buy-now-color');
+
 
                         } else {
                             $('#OutofStock').hide();
@@ -475,6 +476,7 @@
                             $('#stockStatus').addClass('outofstock');
                             $('#stockStatus').removeAttr('style');
 
+                            $('#btnBuy').text('Sold Out');
                             $('#btnCart').attr('disabled', 'disabled');
                             $('#btnBuy').attr('disabled', 'disabled');
 

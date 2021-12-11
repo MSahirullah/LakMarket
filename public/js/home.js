@@ -75,4 +75,13 @@ $(document).ready(function () {
         $(this).attr('style', 'border:1px solid #dcdcdc;');
     })
 
+    $(document).on('click', ' #addToCartBtn', function () {
+
+        var parent = $(this).parent().parent().parent();
+        var url = $("#productURL", parent).attr("href").substring(9);
+
+        handleCart(url);
+
+    });
+
 });

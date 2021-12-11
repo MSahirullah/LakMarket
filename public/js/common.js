@@ -96,4 +96,40 @@ function vanillaAlert(inp, msg, time = 6000) {
     });
 }
 
+function handleCart(url, color = '', qty = 1) {
 
+    if (logged != '') {
+
+        $.post("/cart/add/",
+            {
+                _token: post_token,
+                url: url,
+                color: color,
+                quantity: qty
+            },
+            function (data) {
+
+                vanillaAlert(data[0], data[1]);
+                checkCartStatus();
+
+            });
+    }
+    else {
+        window.location.href = "/login";
+    }
+}
+
+function checkCartStatus() {
+
+    if (logged != '') {
+        $.post("/cart/status/",
+            {
+                _token: post_token,
+            },
+            function (data) {
+
+                $("#cartCount").text(data);
+
+            });
+    }
+}

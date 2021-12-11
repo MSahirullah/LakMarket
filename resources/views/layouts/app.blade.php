@@ -35,6 +35,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillatoasts@1.4.0/vanillatoasts.min.css">
     <link rel="stylesheet" href="/css/corner-popup/corner-popup.css">
     <link rel="stylesheet" href="/css/jquery.inputpicker.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+
 
     <link href="{{ URL::asset('css/common.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
@@ -48,6 +51,7 @@
     <link href="{{ URL::asset('css/categories.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/store.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/products.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/loading.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/8cb45c8c3b.js" crossorigin="anonymous"></script>
 
     @yield('css')
@@ -83,14 +87,22 @@
 <script src="https://cdn.jsdelivr.net/npm/vanillatoasts@1.4.0/vanillatoasts.min.js"></script>
 <script src="/js/corner-popup/corner-popup.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
 <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 <script src="{{ asset('js/jquery.inputpicker.js') }}" defer></script>
+
+<!-- for loading js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easy-loading/1.1.0/jquery.loading.min.js" integrity="sha512-kzHcRCAeEDmMuB0y2qa+brwMIpRGyZ+k8Eikgdw8u1iAsSirPBQLzgkoLyXh6UvwWrJSm07IRDJrXwJ+LOxVxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="{{ asset('js/header.js') }}" defer></script>
 <script src="{{ asset('js/common.js') }}" defer></script>
 
 <script>
     var post_token = "{{ csrf_token() }}";
+    var logged = "{{Session::has('customer')}}";
+
 
     function loading() {
         // load.style.display = 'none';

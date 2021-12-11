@@ -89,7 +89,7 @@ class LoginController extends Controller
                 $value['2'] = array($location['province'], $location['district'],  $location['city']);
                 $req->session()->put('customer-city', $value);
 
-                return redirect()->route('home');
+                return redirect()->back();
             }
             Session::flash('loginStatus', 'The passowrd is incorrect.');
             return redirect()->back();

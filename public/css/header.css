@@ -24,7 +24,7 @@
 
 .a-nav-link:hover {
     color: #042863 !important;
-    text-decoration: underline;
+    text-decoration: none;
     transition: 0.3s;
 }
 
@@ -895,4 +895,8 @@
 
 #header {
     z-index: 9999;
+}
+
+.logged-user .dropdown-menu {
+    margin-top: -8px;
 }

@@ -140,7 +140,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
                     <div class="col-md home-tile home-flashDeals">
                         <div class="home-tile-body home-product">
                             <div class="image">
-                                <a href="/product/{{$value['url']}}"> <img src="{{$value['images']}}" alt="{{strlen($value['name']) > 10 ? substr($value['name'], 0 , 10).'...' : $value['name']}}" class="home-tile-img"></a>
+                                <a id="productURL" href="/product/{{$value['url']}}"> <img src="{{$value['images']}}" alt="{{strlen($value['name']) > 10 ? substr($value['name'], 0 , 10).'...' : $value['name']}}" class="home-tile-img"></a>
                             </div>
                             <div class="product-rating-div">
                                 <i class="fas fa-star rating-star-icon"></i><span class="rating-value">({{strlen($value['rating'])>1 ? $value['rating'] : $value['rating'].'.0'}})</span>
@@ -157,7 +157,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
                                 </div>
                                 <div class="option-btn" style="display: none;">
                                     <button class="option-btn-1"><i class="fas fa-heart"></i></button>
-                                    <button class="option-btn-2"><i class="fas fa-cart-plus"></i></button>
+                                    <button id="addToCartBtn" class="option-btn-2"><i class="fas fa-cart-plus"></i></button>
                                 </div>
                                 <div class="by-now-btn">
                                     <button>Buy Now</button>
@@ -244,7 +244,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
             <div class="row home-tile-div {{sizeof($topRProducts) > 4 ? 'owl-carousel owl-theme owl-c-6' : 'owl-carousel owl-theme owl-c-6-ii'}}">
                 @foreach($topRProducts as $value)
 
-                <div class="col-md home-tile">
+                <div class="col-md home-tile home-topRatedProduct">
                     <div class="home-tile-body home-product">
                         <div class="image">
                             @if($value['type'] == "Imported Product")
@@ -252,7 +252,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
                             @elseif($value['type'] == "Local Product")
                             <div class="ribbon ribbon-top-right rtr2"><span>Local</span></div>
                             @endif
-                            <a href="/product/{{$value['url']}}"> <img src="{{$value['images']}}" alt="{{strlen($value['name']) > 10 ? substr($value['name'], 0 , 10).'...' : $value['name']}}" class="home-tile-img"></a>
+                            <a id="productURL" href="/product/{{$value['url']}}"> <img src="{{$value['images']}}" alt="{{strlen($value['name']) > 10 ? substr($value['name'], 0 , 10).'...' : $value['name']}}" class="home-tile-img"></a>
                         </div>
                         <div class="product-rating-div">
                             <i class="fas fa-star rating-star-icon"></i><span class="rating-value">({{strlen($value['rating'])>1 ? $value['rating'] : $value['rating'].'.0'}})</span>
@@ -269,7 +269,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
                             </div>
                             <div class="option-btn" style="display: none;">
                                 <button class="option-btn-1"><i class="fas fa-heart"></i></button>
-                                <button class="option-btn-2"><i class="fas fa-cart-plus"></i></button>
+                                <button id="addToCartBtn" class="option-btn-2"><i class="fas fa-cart-plus"></i></button>
                             </div>
                             <div class="by-now-btn">
                                 <button>Buy Now</button>
@@ -389,4 +389,6 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
         @section('scripts')
 
         <script src="{{ asset('js/home.js') }}" defer></script>
+
+
         @endsection

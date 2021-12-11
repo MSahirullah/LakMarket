@@ -2,6 +2,14 @@ $(document).ready(function () {
 
   $('#sort-filter-select').selectpicker();
 
+  $(document).on('click', ' #addToCartBtn', function () {
+
+    var parent = $(this).parent().parent().parent();
+    var url = $("#productURL", parent).attr("href").substring(9);
+
+    handleCart(url);
+
+  });
 
   $(document).on('mouseover', '.search-product', function () {
     $(".option-btn", this).show();

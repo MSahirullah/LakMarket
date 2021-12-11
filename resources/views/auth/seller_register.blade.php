@@ -7,7 +7,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
 @endsection
 
 @section('content')
-<div class="content site-container" style="background-image:url('/img/sign-bg.png');background-size: contain;">
+<div class="content site-container">
     <div class="form-content">
         <div class="container">
             <div class="row jc-c">

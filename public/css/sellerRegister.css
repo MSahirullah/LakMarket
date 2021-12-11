@@ -52,7 +52,7 @@
     position: relative;
     font-weight: 400;
     text-align: center;
-    z-index: 2;
+    z-index: 1;
 }
 
 #progressbar #account:before {
@@ -248,7 +248,6 @@
     width: 225px;
     background-repeat: no-repeat;
     background-size: 225px;
-    
 }
 
 .success-text .text1 {
@@ -262,7 +261,6 @@
     font-weight: 600;
     line-height: 25px;
 }
-
 
 #confirmTab button {
     font-size: 14px;

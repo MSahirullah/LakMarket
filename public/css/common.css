@@ -234,6 +234,9 @@
 .mt-22 {
     margin-top: -22px;
 }
+.mt-16 {
+    margin-top: -16px;
+}
 
 .mt-145 {
     margin-top: 145px !important;
@@ -334,4 +337,28 @@
 .mb-pt-1 {
     margin-bottom: 18px;
     padding-bottom: 5px;
+}
+
+.pbb-5 {
+    padding-bottom: 5px;
+}
+
+.c-a {
+    color: #444343 !important;
+}
+
+.mbb-5 {
+    margin-bottom: 5px !important;
+}
+
+.prl-5 {
+    padding: 0 5px !important;
+}
+
+.bg-def {
+    background-color: #f2f2f2 !important;
+}
+
+.bg-w {
+    background-color: white;
 }

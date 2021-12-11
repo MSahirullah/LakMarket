@@ -114,6 +114,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/status', [CartController::class, 'cartStatus'])->name('cart.status');
+    Route::post('/cart/update', [CartController::class, 'cartUpdate'])->name('cart.update');
+    Route::post('/cart/total', [CartController::class, 'cartPriceUpdate'])->name('cart.update');
+    Route::post('/cart/remove/product', [CartController::class, 'cartRemoveProduct'])->name('cart.removeProduct');
+    Route::post('/cart/remove/all', [CartController::class, 'cartRemoveAllProduct'])->name('cart.removeAllProduct');
+    Route::post('/cart/move/wishlist', [CartController::class, 'cartMoveToWishlist'])->name('cart.moveToWishlist');
+
 
     Route::post('/report/review', [ReviewController::class, 'reportReview'])->name('report.review');
     Route::get('/report', function () {
@@ -165,7 +173,6 @@ Route::post('/seller/dashboard/change-stock-status', [SellerDashboardStock::clas
 
 Route::post('/seller/dashboard/clear-session', [SellerDashboard::class, 'clearSession']);
 Route::post('/seller/dashboard/change-sidebar-status', [SellerDashboard::class, 'changeSideBarStatus']);
-
 
 Route::get('/seller/dashboard/orders', [SellerDashboardOrders::class, 'index'])->name('orders.list');
 

@@ -1,6 +1,9 @@
 
 $(document).ready(function () {
 
+
+    checkCartStatus();
+
     // $.post("/customer-product-categories", {
     //     "_token": post_token,
     //     "location": $('#CityInputTxt').val()
