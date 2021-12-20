@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminDashboard;
 use App\Http\Controllers\AdminDashboardAdmins;
 use App\Http\Controllers\AdminDashboardCustomers;
@@ -12,11 +13,13 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomeDealsController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ReviewController;
@@ -109,19 +112,29 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/customer-location-reset', [CommonController::class, 'locationReset']);
-
+    Route::post('/customer/account/shipping-address/add', [AccountController::class, 'addAddress']);
+    Route::post('/customer/account/shipping-address/edit', [AccountController::class, 'editAddress']);
+    Route::post('/customer/account/shipping-address/remove', [AccountController::class, 'removeAddress']);
 
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    Route::get('/cart', [CartController::class, 'index'])->name('cart');
-    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
-    Route::post('/cart/status', [CartController::class, 'cartStatus'])->name('cart.status');
-    Route::post('/cart/update', [CartController::class, 'cartUpdate'])->name('cart.update');
-    Route::post('/cart/total', [CartController::class, 'cartPriceUpdate'])->name('cart.update');
-    Route::post('/cart/remove/product', [CartController::class, 'cartRemoveProduct'])->name('cart.removeProduct');
-    Route::post('/cart/remove/all', [CartController::class, 'cartRemoveAllProduct'])->name('cart.removeAllProduct');
-    Route::post('/cart/move/wishlist', [CartController::class, 'cartMoveToWishlist'])->name('cart.moveToWishlist');
+    Route::get('/customer/myaccount/{valueCustomer}', [OrderController::class, 'index'])->name('orders.index');
 
+    Route::get('/shoppingCart', [CartController::class, 'index'])->name('cart');
+    Route::post('/shoppingCart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/shoppingCart/status', [CartController::class, 'cartStatus'])->name('cart.status');
+    Route::post('/shoppingCart/update', [CartController::class, 'cartUpdate'])->name('cart.update');
+    Route::post('/shoppingCart/total', [CartController::class, 'cartPriceUpdate'])->name('cart.update');
+    Route::post('/shoppingCart/remove/product', [CartController::class, 'cartRemoveProduct'])->name('cart.removeProduct');
+    Route::post('/shoppingCart/remove/all', [CartController::class, 'cartRemoveAllProduct'])->name('cart.removeAllProduct');
+    Route::post('/shoppingCart/move/wishlist', [CartController::class, 'cartMoveToWishlist'])->name('cart.moveToWishlist');
+    Route::post('/shoppingCart/customer', [CartController::class, 'cartCustomer'])->name('cart.customer');
+
+    Route::get('/checkout/notify', [CheckoutController::class, 'checkoutNotify'])->name('checkout.notify');
+    Route::get('/checkout/success', [CheckoutController::class, 'checkoutSuccess'])->name('checkout.success');
+    Route::get('/checkout/cancelled', [CheckoutController::class, 'checkoutCancelled'])->name('checkout.cancelled');
+
+    Route::post('/order/add', [OrderController::class, 'addToOrder'])->name('order.add');
 
     Route::post('/report/review', [ReviewController::class, 'reportReview'])->name('report.review');
     Route::get('/report', function () {

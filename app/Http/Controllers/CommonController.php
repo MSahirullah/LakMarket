@@ -15,7 +15,7 @@ use Session;
 class CommonController extends Controller
 {
 
-    public function getProvinces()
+    public static function getProvinces()
     {
         $provinces = DB::table('lkprovinces')
             ->select('name_en', 'id')
@@ -37,7 +37,7 @@ class CommonController extends Controller
         return $districts;
     }
 
-    public function getDistricts()
+    public static function getDistricts()
     {
         $districts = Lkdistricts::all('id', 'name_en');
         return $districts;
@@ -47,7 +47,7 @@ class CommonController extends Controller
     {
         $district_id = $req->get('dis_id');
         $cities = DB::table('lkcities')
-            ->select('name_en')
+            ->select('id', 'name_en', 'postal_code')
             ->where('district_id', $district_id)
             ->get();
 

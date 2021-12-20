@@ -23,7 +23,7 @@
 #progressbar li {
     list-style-type: none;
     font-size: 15px;
-    width: 25%;
+    width: 33.33%;
     float: left;
     position: relative;
     font-weight: 400;
@@ -384,4 +384,91 @@
 .remove--icon:hover {
     opacity: 0.8;
     transition: 0.3s;
+}
+
+.delivery-form {
+    font-family: "Open Sans", sans-serif;
+}
+
+.delivery-form .card-div {
+    transition: 0.3s;
+    margin-left: 2rem;
+    margin-right: 1rem;
+}
+
+.delivery-form .add-new-address:hover {
+    border-color: #c5c5c5;
+    transition: 0.3s;
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%) !important;
+}
+
+.selected-card {
+    border-color: #c5c5c5;
+    box-shadow: 0 0.25rem 0.25rem 0.1rem rgb(0 0 0 / 8%) !important;
+}
+
+.delivery-form .card-title {
+    font-size: 0.9rem !important;
+    font-weight: 600;
+}
+.delivery-form .card-text {
+    font-size: 0.85rem !important;
+}
+
+.delivery-form .card-btn {
+    font-size: 0.8rem !important;
+    color: #212529;
+    border: 1px solid #808080;
+    padding: 2px 15px;
+}
+
+.delivery-form .card-label {
+    color: #8b8b8b !important;
+}
+
+.delivery-form .card-content:hover {
+    cursor: pointer;
+}
+
+.delivery-form .add-new-address {
+    color: #575757;
+}
+
+.address-modal {
+    font-family: "Roboto", sans-serif;
+    color: #484848 !important;
+}
+
+.c-48 {
+    color: #484848 !important;
+}
+
+.selector {
+    width: 100% !important;
+}
+
+.selector button {
+    border-radius: 5px;
+    font-size: 14px;
+    height: 38px;
+    color: #484848 !important;
+    border: 1px solid #ced4da !important;
+}
+
+.selector .dropdown-menu li a {
+    font-size: 13px !important;
+}
+
+#addEditAddressModal .btn-modal {
+    width: 7rem;
+}
+
+.disabled-button {
+    background-color: #ff4747 !important;
+}
+
+.pop-up-msg {
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 500;
 }

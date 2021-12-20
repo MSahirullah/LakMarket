@@ -14,7 +14,7 @@ class CartController extends Controller
     {
         $cartDetails = $this->getCartDetails();
 
-
+        $districts = CommonController::getDistricts();
 
         return view('cart', [
             'status' => $cartDetails['status'] == false ? 0 : 1,
@@ -23,8 +23,40 @@ class CartController extends Controller
             'item_count' => $cartDetails['count'],
             'total' =>  "0",
             'saved' => "0",
+            'districts' =>  $districts,
         ]);
     }
+
+    public function cartCustomer()
+    {
+        $customer = Session::get('customer');
+
+        $status = false;
+
+        $addresses = DB::table('customer_addresses')
+            ->join('lkcities', 'lkcities.id', '=', 'customer_addresses.city_id')
+            ->join('lkdistricts', 'lkdistricts.id', '=', 'customer_addresses.district_id')
+            ->join('lkprovinces', 'lkprovinces.id', '=', 'customer_addresses.province_id')
+            ->where('customer_id', $customer->id)
+            ->select('customer_addresses.id as id', 'address', 'full_name', 'lkcities.id as cityID', 'lkdistricts.id as districtID', 'lkcities.name_en as city', 'lkdistricts.name_en as district', 'lkprovinces.name_en as province', 'lkcities.postal_code as postal_code', 'label', 'mobile_no as phone', 'status')
+            ->get();
+
+
+        if (!sizeof($addresses)) {
+            $status = false;
+            return [
+                'status' => $status,
+            ];
+        } else {
+
+            $status = true;
+            return [
+                'status' => $status,
+                'addresses' => json_decode($addresses, true)
+            ];
+        }
+    }
+
     public function addToCart(Request $req)
     {
         $url = $req->url;
@@ -47,6 +79,7 @@ class CartController extends Controller
                 ->where([
                     ['product_id', '=', $product->id],
                     ['customer_id', '=', $customer->id],
+                    ['status', '=', '0'],
                     $cartColor
                 ])
                 ->select('*')
@@ -117,6 +150,7 @@ class CartController extends Controller
             ->where([
                 ['customer_id', '=', $customer->id],
                 ['products.url', '=', $url],
+                ['status', '=', '0'],
             ])->update(['quantity' => $value]);
 
         $cartDetails = $this->getCartDetails();
@@ -137,7 +171,8 @@ class CartController extends Controller
         $total_saved = 0;
 
         $productCount = DB::table('cart')->where([
-            ['customer_id', '=', $customer->id]
+            ['customer_id', '=', $customer->id],
+            ['status', '=', '0'],
         ])->count();
 
         return $productCount;
@@ -156,6 +191,7 @@ class CartController extends Controller
             ->where([
                 ['customer_id', '=', $customer->id],
                 ['products.url', '=', $url],
+                ['status', '=', '0'],
             ])
             ->select('cart.*')
             ->get();
@@ -164,10 +200,8 @@ class CartController extends Controller
 
             $cart = $cart[0];
 
-            $affected = DB::table('cart')
-                ->where([
-                    ['id', '=', $cart->id],
-                ])->delete();
+            $affected = Cart::where('id', $cart->id)
+                ->update(['status' => 1]);
 
             if ($affected) {
                 $newWishlistProduct = new Wishlist();
@@ -230,7 +264,11 @@ class CartController extends Controller
                     foreach ($products as $product) {
 
                         $cart = DB::table('cart')
-                            ->where([['product_id', '=', $product->id], ['customer_id', '=', $customer->id]])
+                            ->where([
+                                ['product_id', '=', $product->id],
+                                ['customer_id', '=', $customer->id],
+                                ['status', '=', '0'],
+                            ])
                             ->get();
                         $cart = $cart[0];
 
@@ -258,12 +296,13 @@ class CartController extends Controller
         $url = $request->url;
         $affected = 0;
 
-        $affected = DB::table('cart')
-            ->join('products', 'products.id', '=', 'cart.product_id')
+        $affected = Cart::join('products', 'products.id', '=', 'cart.product_id')
             ->where([
                 ['customer_id', '=', $customer->id],
                 ['products.url', '=', $url],
-            ])->delete();
+                ['status', '=', '0'],
+            ])
+            ->update(['status' => 1]);
 
         if ($affected) {
             $cartDetails = $this->getCartDetails();
@@ -294,9 +333,10 @@ class CartController extends Controller
             ->join('products', 'products.id', '=', 'cart.product_id')
             ->where([
                 ['customer_id', '=', $customer->id],
+                ['status', '=', '0'],
             ])
-            ->whereIn('url', $proURL)
-            ->delete();
+            ->whereIn('products.url', $proURL)
+            ->update(['status' => 1]);
 
         if ($affected) {
             $cartDetails = $this->getCartDetails();
@@ -328,7 +368,8 @@ class CartController extends Controller
 
         $cart_list = DB::table('cart')
             ->where([
-                ['customer_id', '=', $customer->id]
+                ['customer_id', '=', $customer->id],
+                ['status', '=', '0'],
             ])
             ->select('*')
             ->get();

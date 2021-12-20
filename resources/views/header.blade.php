@@ -38,10 +38,10 @@
                         <a class="nav-link dropdown-toggle a-nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{Session::get('customer')['first_name']}}'s Account
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
                             <a class="dropdown-item f-upp" href="#"><i class="fas fa-user-circle"></i> My Account</a>
                             <div class="dropdown-divider"></div>
-                            <button type="submit" class="dropdown-item " href="#"><i class="fas fa-box"></i> My Orders</button>
+                            <a class="dropdown-item f-upp" href="{{route('orders.index', 'orders')}}"><i class="fas fa-user-circle"></i> My Orders</a>
                             <div class="dropdown-divider"></div>
                             <form id=" logout-form" action="{{route('logout')}}" method="POST">
                                 @csrf

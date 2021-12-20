@@ -362,3 +362,11 @@
 .bg-w {
     background-color: white;
 }
+
+.pr-p5 {
+    padding-right: 0.5rem !important;
+}
+
+.fs-1rem {
+    font-size: 1rem !important;
+}
