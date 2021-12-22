@@ -219,7 +219,6 @@ class AdminDashboardAdmins extends Controller
             'phone_number' => $request->get('phone_number'),
             'date_of_birth' => $request->get('dob'),
             'address' => $request->get('address'),
-            'LinkedIn' => $request->get('linkedin'),
         ];
 
         $files = $request->file('images');

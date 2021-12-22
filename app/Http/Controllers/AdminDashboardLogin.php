@@ -54,19 +54,16 @@ class AdminDashboardLogin extends Controller
             if ($admin->blacklisted) {
                 Session::flash('status', ['1', "Sorry you can't login with this email address. (RSN : Blacklisted)"]);
                 return redirect()->back();
-            } else if (Hash::check($password, $admin->password)) {
+            } elseif (!Hash::check($password, $admin->password)) {
+                Session::flash('status', ['1', "The password you entered is incorrect."]);
+                return redirect()->back();
+            } else {
                 Cookie::queue(Cookie::make('valSideBar', '0'));
                 $req->session()->put('admin', $admin->id);
                 return redirect('admin/dashboard');
-            } else {
-                Session::flash('status', ['1', "The password you entered is incorrect."]);
-                return redirect()->back();
             }
         }
-
         Session::flash('status', ['1', "The email doen't have a Lak Market Admin account."]);
         return redirect()->back();
     }
 }
-
-//if (!$seller || !Hash::check($password, $seller->password)) {

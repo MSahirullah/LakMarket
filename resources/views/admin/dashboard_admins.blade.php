@@ -30,7 +30,7 @@
                                 <th>Mobile Number</th>
                                 <th>DOB</th>
                                 <th>Address</th>
-                                <th>LinkedIn</th>
+                                
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -67,7 +67,7 @@
                             <div class="col">
                                 <label for="full_name" class="col-form-label">Full name</label>
                                 <span class="required"></span>
-                                <input type="text" name="full_name" class="form-control p-input validate-input" id="full_name" onkeypress="return /[a-z]/i.test(event.key)" pattern="[a-zA-Z ]*"required>
+                                <input type="text" name="full_name" class="form-control p-input validate-input" id="full_name" onkeypress="return /^[a-zA-Z ]*$/.test(event.key)" pattern="[a-zA-Z ]*"required>
                             </div>
                         </div>
                         <div class="row">
@@ -155,10 +155,6 @@
                 {
                     data: 'address',
                     name: 'address'
-                },
-                {
-                    data: 'LinkedIn',
-                    name: 'LinkedIn'
                 },
                 {
                     data: 'status',

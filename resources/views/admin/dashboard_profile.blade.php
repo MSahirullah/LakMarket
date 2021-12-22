@@ -50,12 +50,6 @@
                                 <th>Birthday</th>
                                 <td id="admin_birthday">{{$AdminData->date_of_birth}}</td>
                             </tr>
-                            <tr>
-                                <th>LinkedIn</th>
-                                <td id="admin_LinkedIn">{{$AdminData->LinkedIn}}
-                                    <i class="fas fa-edit linkedin-edit"></i>
-                                </td>
-                            </tr>
                         </table>
                     </div>
                 </div>
@@ -97,50 +91,13 @@
 <button type="button" id="edit_profile_details" data-toggle="modal" data-target="#editProfileDetails" style="display: none;">
 </button>
 
-<!-- Modal -->
-<div class="modal fade" id="editProfileDetails" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="" enctype="multipart/form-data" method="post" id="adminDetailForm">
-                @csrf
-                <div class="modal-body">
-                    <div class="row linkedin-row">
-                        <div class="col">
-                            <label for="linkedin" class="col-form-label">LinkedIn Link</label>
-                            <input name="linkedin" type="text"class="form-control p-input" id="linkedin" pattern="^(www\.)?linkedin\.com\/in\/.+$">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary button-1" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary button-2" id="_submit-temp">Update</button>
-                    <button type="submit" style="display:none;" id="_submit"></button>
-            </form>
-        </div>
-    </div>
-</div>
+
 
 
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $('.linkedin-edit').on('click', function() {
 
-            var linkedin = "<?php echo $AdminData->LinkedIn; ?>"
-
-            $('#linkedin').val(linkedin);
-
-            $('.linkedin-row').show();
-            $('.modal-title').text('Edit LinkedIn Link');
-            $('#edit_profile_details').trigger('click');
-            $('#_submit-temp').addClass('linkedin-submit');
-        });
     });
 
     var msg = $('#pPStatus').attr('data-status-message');
@@ -151,21 +108,7 @@
     }
 
 
-    $('#_submit-temp').on('click', function(e) {
 
-        e.preventDefault();
-
-        var linkedin = $('#linkedin').val();
-        var sll = "<?php echo $AdminData->LinkedIn; ?>";
-
-        if (linkedin != sll) {
-            $('#adminDetailForm').attr('action', 'profile/change-linkedin-link');
-            $('#_submit').trigger('click');
-        } else {
-            alert("Please make any changes.");
-            $('select').val('');
-        }
-    });
 
 </script>
 
