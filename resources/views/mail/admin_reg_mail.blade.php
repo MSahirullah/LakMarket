@@ -61,7 +61,7 @@
                                             <tr>
                                                 <td align="center">
                                                     <div>
-                                                        <a href="http://127.0.0.1:8000/verify?code={{$email_data['verification_code']}}" style="display: inline-block;
+                                                        <a href="http://www.lakmarket.store/verify?code={{$email_data['verification_code']}}" style="display: inline-block;
                                              width: 200px;
                                              background-color: #414ef9;
                                              border-radius: 3px;
@@ -103,7 +103,7 @@
                                           line-height: 1.5em;
                                           text-align: left;
                                           " class="sub">
-                                                        <a href="http://127.0.0.1:8000/verify?code={{$email_data['verification_code']}}">http://127.0.0.1:8000/verify</a>
+                                                        <a href="http://www.lakmarket.store/verify?code={{$email_data['verification_code']}}">http://www.lakmarket.store/verify?code={{$email_data['verification_code']}}</a>
                                                     </p>
                                                 </td>
                                             </tr>

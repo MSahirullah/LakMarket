@@ -54,7 +54,7 @@
                                             <tr>
                                                 <td align="center">
                                                     <div>
-                                                        <a href="http://127.0.0.1:8000/password-reset?token={{$email_data['resetLink']}}" style="display: inline-block;
+                                                        <a href="http://www.lakmarket.store/password-reset?token={{$email_data['resetLink']}}" style="display: inline-block;
         width: 200px;
         background-color: #414ef9;
         border-radius: 3px;
@@ -97,7 +97,7 @@
         line-height: 1.5em;
         text-align: left;
         font-size:14px;" class="sub">
-                                                        <a href="http://127.0.0.1:8000/password-reset?token={{$email_data['resetLink']}}">http://127.0.0.1:8000/password-reset</a>
+                                                        <a href="http://www.lakmarket.store/password-reset?token={{$email_data['resetLink']}}">http://www.lakmarket.store/password-reset?token={{$email_data['resetLink']}}</a>
                                                     </p>
                                                 </td>
                                             </tr>

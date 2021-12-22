@@ -52,6 +52,7 @@
                     <div class="product-name">
                         <h3>{{$product->name}}</h3>
                         <a href="/category/{{$product->surl}}/{{$product->purl}}" class="p-cato">{{$product->pcategory}}</a>
+                        <span class="typeP"> | {{$product->type}}</span>
                     </div>
                     <div class="product-ratings">
                         <div class="ratings">
@@ -140,7 +141,7 @@
                 </div>
                 <div class="hr-line"></div>
                 <div class="product-details-div-4">
-                    <div class="product-btn">
+                    <div class="product-btn" id="productURLP" url={{$product->url}}>
                         <button class="add-to-wishlist"><i class="far fa-heart" aria-hidden="true"></i></button>
                         <button id="btnCart" class="add-to-cart-btn">Add to Cart</button>
                         <button id="btnBuy" class="buy-now">Buy Now</button>
@@ -176,7 +177,7 @@
                 <div class="hr-line"></div>
                 <div class="seller-details">
                     <div class="sold-by">Sold by</div>
-                    <a href="/store/{{$product->storeurl}}">
+                    <a target="_blank" href="/store/{{$product->storeurl}}">
 
                         <h6>{{$product->store}}</h6>
                     </a>
@@ -185,7 +186,7 @@
                     <div class="pos-ratings"> Positive Seller Ratings </div>
                     <div class="pos-ratings-num">{{$sellerP}}<span class="prc">%</span></div>
                     <div class="product-btn p-b-2">
-                        <a href="/store/{{$product->storeurl}}" target="_blank"><button class="visit-store"><i class="fas fa-shopping-cart shop-icon" aria-hidden="true"></i>Visit Store</button></a>
+                        <a target="_blank" href="/store/{{$product->storeurl}}" target="_blank"><button class="visit-store"><i class="fas fa-shopping-cart shop-icon" aria-hidden="true"></i>Visit Store</button></a>
                         <a href="https://maps.google.com/?q={{$product->storelog}},{{$product->storelat}}" target="_blank"><button class="get-direction"><i class="fas fa-location-arrow location-icon" aria-hidden="true"> </i> Get direction</button></a>
                     </div>
                 </div>
@@ -446,7 +447,6 @@
                         _token: post_token,
                     },
                     function(data) {
-
                         $('#qtyInput').attr('dataMax', data)
                         $('#qtyInput').val('1')
 
@@ -459,11 +459,13 @@
                             $('#stockStatus').addClass('instock');
                             $('#stockStatus').removeAttr('style');
 
+                            $('#btnBuy').text('Buy Now');
                             $('#btnCart').removeAttr('disabled');
                             $('#btnBuy').removeAttr('disabled');
 
                             $('#btnCart').removeClass('add-to-cart-btn-color');
                             $('#btnBuy').removeClass('buy-now-color');
+
 
                         } else {
                             $('#OutofStock').hide();
@@ -474,6 +476,7 @@
                             $('#stockStatus').addClass('outofstock');
                             $('#stockStatus').removeAttr('style');
 
+                            $('#btnBuy').text('Sold Out');
                             $('#btnCart').attr('disabled', 'disabled');
                             $('#btnBuy').attr('disabled', 'disabled');
 

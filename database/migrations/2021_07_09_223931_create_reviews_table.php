@@ -19,7 +19,7 @@ class CreateReviewsTable extends Migration
             $table->foreignId('customer_id')->constrained('customers')->onUpdate('cascade')->onDelete('cascade');
             $table->string('rating')->nullable();
             $table->string('review')->nullable();
-            
+            $table->boolean('delete_status')->default(0);
             $table->timestamps();
         });
     }

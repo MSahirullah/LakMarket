@@ -7,6 +7,7 @@
 
 @section('content')
 
+
 <div class="site-wrapper pt-16">
 
     @if($type == "search")
@@ -28,7 +29,7 @@
     @endif
 
     <div class="site-container container">
-        <div class="search-result">
+        <div class="sr">
             <div class="row">
                 <div class="filter-col">
                     <div class="filter-item mt-0">
@@ -185,13 +186,13 @@
         y.setAttribute("class", 'resultSummery');
 
         if ((storeCount > 1) && (productCount > 1)) {
-            y.innerHTML = '<h5 class="search-result-title"> ' + storeCount + ' Shops and ' + productCount + ' Products found for "' + q + '"</h5>';
+            y.innerHTML = '<h5 class="sr-title"> ' + storeCount + ' Shops and ' + productCount + ' Products found for "' + q + '"</h5>';
         } else if ((storeCount > 1) && !(productCount > 1)) {
-            y.innerHTML = '<h5 class="search-result-title"> ' + storeCount + ' Shops and ' + productCount + ' Product found for "' + q + '"</h5>';
+            y.innerHTML = '<h5 class="sr-title"> ' + storeCount + ' Shops and ' + productCount + ' Product found for "' + q + '"</h5>';
         } else if (!(storeCount > 1) && (productCount > 1)) {
-            y.innerHTML = '<h5 class="search-result-title"> ' + storeCount + ' Shop and ' + productCount + ' Products found for "' + q + '"</h5>';
+            y.innerHTML = '<h5 class="sr-title"> ' + storeCount + ' Shop and ' + productCount + ' Products found for "' + q + '"</h5>';
         } else if (!(storeCount > 1) && !(productCount > 1)) {
-            y.innerHTML = '<h5 class="search-result-title"> ' + storeCount + ' Shop and ' + productCount + ' Product found for "' + q + '"</h5>';
+            y.innerHTML = '<h5 class="sr-title"> ' + storeCount + ' Shop and ' + productCount + ' Product found for "' + q + '"</h5>';
         }
         $('.result-count').append(y);
 
@@ -209,7 +210,7 @@
         if (productCount == '0') {
             z = document.createElement("DIV");
             z.setAttribute("class", 'noResult');
-            z.innerHTML = '<div class="no-result-img"></div><div class="no-result-h">No Result For Search...</div><div class="no-result-p">We\'re sorry. Your search "' + q + '" did not match any products.Please try again.</div>';
+            z.innerHTML = '<div class="no-result-img"></div><div class="no-result-h">No Result For Search...</div><div class="no-result-p">We\'re sorry. "' + q + '" did not match any products. Please try again.</div>';
 
             $('.result-col .products-menu').hide();
             $('.result-col .products').hide();
@@ -254,7 +255,10 @@
             a.setAttribute("class", 'search-tile-div row mr-0 ml-0 storesWO');
 
             $.each(stores, function(index, value) {
-                a.innerHTML += ' <div class="col-md-3 home-tile stores"> <div class="home-tile-body"> <a href="/store/' + value.url + '"> <img src="/' + value.store_logo + '" alt="' + value.store_name + '" class="home-tile-img home-tile-shop-img"> </a> <div class="home-tile-title"> <a href="/store/' + value.url + '" class="home-tile-title-h">' + value.store_name + '</a> <p class="home-tile-title-p">' + value.city + '</p> <div class="home-tile-rating"> <i class="fas fa-star rating-star-icon"></i><span class="rating-value">(4.5)</span> </div> </div> <div class="search-tile-button"> <a href="/store/' + value.url + '" class="search-tile-visit"><i class="fas fa-shopping-cart shop-icon"></i>Visit</a> <a href="https://maps.google.com/?q=' + value.longitude + ',' + value.latitude + '" target="_blank" class="search-tile-get-direction"><i class="fas fa- directions direction-icon"></i>Direction</a> </div> </div> </div>';
+
+                rating = (value.rating.toString()).length > 1 ? value.rating : value.rating + '.0';
+
+                a.innerHTML += ' <div class="col-md-3 home-tile stores"> <div class="home-tile-body str-store"> <a target="_blank" href="/store/' + value.url + '"> <img src="/' + value.store_logo + '" alt="' + value.store_name + '" class="home-tile-img home-tile-shop-img"> </a> <div class="home-tile-title"> <a target="_blank" href="/store/' + value.url + '" class="home-tile-title-h">' + value.store_name + '</a> <p class="home-tile-title-p">' + value.city + '</p> <div class="home-tile-rating"> <i class="fas fa-star rating-star-icon"></i><span class="rating-value">(' + rating + ')</span> </div> </div> <div class="search-tile-button"> <a target="_blank" href="/store/' + value.url + '" class="search-tile-visit"><i class="fas fa-shopping-cart shop-icon"></i>Visit</a> <a href="https://maps.google.com/?q=' + value.longitude + ',' + value.latitude + '" target="_blank" class="search-tile-get-direction"><i class="fas fa-directions direction-icon"></i>Direction</a> </div> </div> </div>';
             });
 
             $('#search-stores').append(a);
@@ -264,7 +268,10 @@
             a.setAttribute("class", 'search-tile-div owl-carousel owl-theme owl-c-4 owl-c-4-1 stores');
 
             $.each(stores, function(index, value) {
-                a.innerHTML += ' <div class="col-md home-tile stores"> <div class="home-tile-body"> <a href="/store/' + value.url + '"> <img src="/' + value.store_logo + '" alt="' + value.store_name + '" class="home-tile-img home-tile-shop-img"> </a> <div class="home-tile-title"> <a href="/store/' + value.url + '" class="home-tile-title-h">' + value.store_name + '</a> <p class="home-tile-title-p">' + value.city + '</p> <div class="home-tile-rating"> <i class="fas fa-star rating-star-icon"></i><span class="rating-value">(4.5)</span> </div> </div> <div class="search-tile-button"> <a href="/store/' + value.url + '" class="search-tile-visit"><i class="fas fa-shopping-cart shop-icon"></i>Visit</a> <a href="https://maps.google.com/?q=' + value.longitude + ',' + value.latitude + '" target="_blank" class="search-tile-get-direction"><i class="fas fa- directions direction-icon"></i>Direction</a> </div> </div> </div>';
+
+                rating = (value.rating.toString()).length > 1 ? value.rating : value.rating + '.0';
+
+                a.innerHTML += ' <div class="col-md home-tile stores"> <div class="home-tile-body"> <a target="_blank" href="/store/' + value.url + '"> <img src="/' + value.store_logo + '" alt="' + value.store_name + '" class="home-tile-img home-tile-shop-img"> </a> <div class="home-tile-title"> <a target="_blank" href="/store/' + value.url + '" class="home-tile-title-h">' + value.store_name + '</a> <p class="home-tile-title-p">' + value.city + '</p> <div class="home-tile-rating"> <i class="fas fa-star rating-star-icon"></i><span class="rating-value">(' + rating + ')</span> </div> </div> <div class="search-tile-button"> <a target="_blank" href="/store/' + value.url + '" class="search-tile-visit"><i class="fas fa-shopping-cart shop-icon"></i>Visit</a> <a href="https://maps.google.com/?q=' + value.longitude + ',' + value.latitude + '" target="_blank" class="search-tile-get-direction"><i class="fas fa- directions direction-icon"></i>Direction</a> </div> </div> </div>';
             });
 
 
@@ -299,6 +306,7 @@
     }
 
     function showResult(products) {
+
         b = document.createElement("DIV");
         b.setAttribute("class", 'search-tile-product-div products');
 
@@ -309,11 +317,12 @@
 
             image = (value.images).split(",")[0].replaceAll("\\", '').replaceAll("[\"", '').replaceAll("\"]", '');
             imageAlt = value.name.length > 10 ? value.name.substr(0, 10) + "..." : value.name;
-            name = value.name.length > 50 ? value.name.substr(0, 50) + "..." : value.name;
+            name = value.name.length > 40 ? value.name.substr(0, 40) + "..." : value.name;
             price = value.discounted_price;
             unitP = value.discount != '0.00' ? '<p class="home-tile-d-price-rs mb-8">Rs. <span class="home-tile-d-price">' + value.unit_price + '</span></p>' : '';
+            rating = (value.rating.toString()).length > 1 ? value.rating : value.rating + '.0';
 
-            b.innerHTML += '<div class="search-tile"><div class="search-tile-body search-product"> ' + discount + '' + stock + ' <div class="image-container"> <a href="/product/' + value.url + '"><img src="/' + image + '" alt="' + imageAlt + '" class="home-tile-img p-0"></a> </div><div class="product-rating-div-search"> <i class="fas fa-star rating-star-icon"></i><span class="rating-value">(4.5)</span> </div> <div class="home-tile-title text-center mb-10"> <div class="product_name"> <a href="/product/' + value.url + '" class="home-tile-title-h price-tile"> ' + name + ' </a> </div> <div class="home-tile-price"> <p class="home-tile-price-rs">Rs. <span class="home-tile-price">' + price + '</span></p><div class="product-price"> ' + unitP + ' </div></div> <div class="option-btn" style="display:none"> <button class="option-btn-1"><i class="fas fa-heart"></i></button> <button class="option-btn-2"><i class="fas fa-cart-plus"></i></button> </div> <div class="by-now-btn"> <button>Buy Now</button> </div> </div></div>  </div> ';
+            b.innerHTML += '<div class="search-tile"><div class="search-tile-body search-product"> ' + discount + '' + stock + ' <div class="image-container"> <a id="productURL"   href="/product/' + value.url + '"><img src="/' + image + '" alt="' + imageAlt + '" class="home-tile-img p-0"></a> </div><div class="product-rating-div-search"> <i class="fas fa-star rating-star-icon"></i><span class="rating-value">(' + rating + ')</span> </div> <div class="home-tile-title text-center mb-10"> <div class="product_name"> <a  href="/product/' + value.url + '" class="home-tile-title-h price-tile"> ' + name + ' </a> </div> <div class="home-tile-price"> <p class="home-tile-price-rs">Rs. <span class="home-tile-price">' + price + '</span></p><div class="product-price"> ' + unitP + ' </div></div> <div class="option-btn" style="display:none"> <button class="option-btn-1"><i class="fas fa-heart"></i></button> <button id="addToCartBtn" class="option-btn-2"><i class="fas fa-cart-plus"></i></button> </div> <div class="by-now-btn"> <button>Buy Now</button> </div> </div></div>  </div> ';
         });
         $('#product-tile').append(b);
 
@@ -327,12 +336,13 @@
 
             image = (value.images).split(",")[0].replaceAll("\\", '').replaceAll("[\"", '').replaceAll("\"]", '');
             imageAlt = value.name.length > 10 ? value.name.substr(0, 10) + "..." : value.name;
-            name = value.name.length > 50 ? value.name.substr(0, 50) + "..." : value.name;
+            name = value.name.length > 60 ? value.name.substr(0, 60) + "..." : value.name;
             price = value.discounted_price;
             long_desc = value.long_desc.length > 140 ? value.long_desc.substr(0, 140) + "..." : value.long_desc;
             unitP = value.discount != '0.00' ? '<p class="home-tile-d-price-rs mb-8">Rs. <span class="home-tile-d-price">' + value.unit_price + '</span></p>' : ''
+            rating = (value.rating.toString()).length > 1 ? value.rating : value.rating + '.0';
 
-            x.innerHTML += '<div class="search-tile-hr"><div class="row search-tile-body search-product menu-product"><div class="col-md-c-3"> ' + discount + '' + stock + '<div class="image-container"><a href="/product/' + value.url + '"><img src="/' + image + '"  alt="' + imageAlt + '" class="home-tile-img p-0"></a></div><div class="product-rating-div-search"><i class="fas fa-star rating-star-icon"></i><span class="rating-value">(4.5)</span></div></div><div class="home-tile-title col-md-7"><a href="/product/' + value.url + '" class="home-tile-title-h price-tile">' + name + '</a><div class="product-desc"><div class="shor-desc">' + value.short_desc + '</div><div class="long-desc">' + long_desc + '</div></div><div class="shop-name"><a href="/store/' + value.sellerURL + '">' + value.seller + '</a></div><div class="district-city"><span class="district">' + value.district + '</span><span">, </span><span class="city">' + value.city + '</span></div></div><div class="col-md-c-2  text-center"><div class="home-tile-price pt-10"><p class="home-tile-price-rs">Rs. <span class="home-tile-price">' + price + '</span></p><div class="product-price">' + unitP + '</div></div><div class="option-btn" style="display:none;"><button style="margin: 0px 8px 0px 7px;"><i class="fas fa-heart"></i></button><button style="margin: 0px 5px 0px 10px"><i class="fas fa-cart-plus"></i></button></div><div class="by-now-btn"><button>Buy Now</button></div></div></div></div>';
+            x.innerHTML += '<div class="search-tile-hr"><div class="row search-tile-body search-product menu-product"><div class="col-md-c-3"> ' + discount + '' + stock + '<div class="image-container"><a id="productURL" href="/product/' + value.url + '"><img src="/' + image + '"  alt="' + imageAlt + '" class="home-tile-img p-0"></a></div><div class="product-rating-div-search"><i class="fas fa-star rating-star-icon"></i><span class="rating-value">(' + rating + ')</span></div></div><div class="home-tile-title col-md-7"><a  href="/product/' + value.url + '" class="home-tile-title-h price-tile">' + name + '</a><div class="product-desc"><div class="shor-desc">' + value.short_desc + '</div><div class="long-desc">' + long_desc + '</div></div><div class="shop-name"><a target="_blank" href="/store/' + value.sellerURL + '">' + value.seller + '</a></div><div class="district-city"><span class="district">' + value.district + '</span><span">, </span><span class="city">' + value.city + '</span></div></div><div class="col-md-c-2  text-center"><div class="home-tile-price pt-10"><p class="home-tile-price-rs">Rs. <span class="home-tile-price">' + price + '</span></p><div class="product-price">' + unitP + '</div></div><div class="option-btn" style="display:none;"><button style="margin: 0px 8px 0px 7px;"><i class="fas fa-heart"></i></button><button id="addToCartBtn" style="margin: 0px 5px 0px 10px"><i class="fas fa-cart-plus"></i></button></div><div class="by-now-btn"><button>Buy Now</button></div></div></div></div>';
         });
         $('#product-menu').append(x);
     }

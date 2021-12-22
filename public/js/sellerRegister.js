@@ -1,40 +1,41 @@
 
-$(document).ready(function(){
+$(document).ready(function () {
+
 
     alertMSG = $('#regStatus').attr('dataMSG');
     alertID = $('#regStatus').attr('dataID');
-    if(alertMSG){
+    if (alertMSG) {
         vanillaAlert(alertID, alertMSG);
     }
 
-    $(".reg-button-2").click(function(){
+    $(".reg-button-2").click(function () {
         sendRegMail();
-      });
+    });
 
-    $('.button-3').click(function() {
-        if($('#timer').text() == 0){
+    $('.button-3').click(function () {
+        if ($('#timer').text() == 0) {
             sendRegMail();
         }
     });
 
-    $('.digit-group').find('input').each(function() {
+    $('.digit-group').find('input').each(function () {
         $(this).attr('maxlength', 1);
-        $(this).on('keyup', function(e) {
+        $(this).on('keyup', function (e) {
             var parent = $($(this).parent());
-            
-            if(e.keyCode === 8 || e.keyCode === 37) {
+
+            if (e.keyCode === 8 || e.keyCode === 37) {
                 var prev = parent.find('input#' + $(this).data('previous'));
-                
-                if(prev.length) {
+
+                if (prev.length) {
                     $(prev).select();
                 }
-            } else if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105) || e.keyCode === 39) {
+            } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105) || e.keyCode === 39) {
                 var next = parent.find('input#' + $(this).data('next'));
-                
-                if(next.length) {
+
+                if (next.length) {
                     $(next).select();
                 } else {
-                    if(parent.data('autosubmit')) {
+                    if (parent.data('autosubmit')) {
                         parent.submit();
                     }
                 }
@@ -42,7 +43,7 @@ $(document).ready(function(){
         });
     });
 
-    $('.reg-button-3').click(function(){
+    $('.reg-button-3').click(function () {
 
         var digit_1 = $('#digit-1').val();
         var digit_2 = $('#digit-2').val();
@@ -52,59 +53,59 @@ $(document).ready(function(){
         var digit_6 = $('#digit-6').val();
         var email = $('#dataEmail').attr('data-email');
 
-        if (digit_1 && digit_2 && digit_3 && digit_4 && digit_5 && digit_6){
+        if (digit_1 && digit_2 && digit_3 && digit_4 && digit_5 && digit_6) {
             $.post($('#VerifyCodeSellerForm').attr('action'),
-            {
-                "_token": post_token,
-                "digit_1" : digit_1,
-                "digit_2" : digit_2,
-                "digit_3" : digit_3,
-                "digit_4" : digit_4,
-                "digit_5" : digit_5,
-                "digit_6" : digit_6,
-                "email" : email,
-            },
-            function(data){
-              vanillaAlert(data[0], data[1]);
-              if(data[0] == 0){
-                $('#personal').addClass('active');
-                $('#accountTab').hide(500);
-                $('#businessTab').show(500);
-                $("html, body").animate({ scrollTop: 0 }, "slow");
-              }
-            });
+                {
+                    "_token": post_token,
+                    "digit_1": digit_1,
+                    "digit_2": digit_2,
+                    "digit_3": digit_3,
+                    "digit_4": digit_4,
+                    "digit_5": digit_5,
+                    "digit_6": digit_6,
+                    "email": email,
+                },
+                function (data) {
+                    vanillaAlert(data[0], data[1]);
+                    if (data[0] == 0) {
+                        $('#personal').addClass('active');
+                        $('#accountTab').hide(500);
+                        $('#businessTab').show(500);
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                    }
+                });
         }
     });
 
     alertMSG = $('#regStatus').attr('dataMSG');
     alertID = $('#regStatus').attr('dataID');
-    if(alertMSG){
+    if (alertMSG) {
         vanillaAlert(alertID, alertMSG);
     }
 
-    for(var i=60; i>=0; i--){
+    for (var i = 60; i >= 0; i--) {
         $('#timer').val(i);
     }
-    
-    $('body:not(#corner-popup)').click(function(){
-        $('#corner-popup').hide(); 
+
+    $('body:not(#corner-popup)').click(function () {
+        $('#corner-popup').hide();
     });
 
 
-    
 
-    function autocomplete(inp, tmpParam ,arr) {
+
+    function autocomplete(inp, tmpParam, arr) {
         /*the autocomplete function takes two arguments,
         the text field element and an array of possible autocompleted values:*/
         var currentFocus;
         /// RND Start
 
-        inp.addEventListener("focusin", function(e) {
+        inp.addEventListener("focusin", function (e) {
 
-            if (tmpParam){
+            if (tmpParam) {
                 arr = cities;
                 var selectedDis = $("#reg-district").val();
-                if (!selectedDis || !districts.includes(selectedDis)){
+                if (!selectedDis || !districts.includes(selectedDis)) {
                     arr = [];
                     arr.push(" -- Please select district first -- ");
                     inp.val = null;
@@ -125,22 +126,22 @@ $(document).ready(function(){
             this.parentNode.appendChild(a);
 
             for (i = 0; i < arr.length; i++) {
-                if (arr[i] == " -- Please select district first -- "){
+                if (arr[i] == " -- Please select district first -- ") {
                     b = document.createElement("DIV");
                     b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                     b.innerHTML += arr[i].substr(val.length);
                     b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                 } else {
-                    
+
                     if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
                         b = document.createElement("DIV");
                         b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                         b.innerHTML += arr[i].substr(val.length);
                         b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                        b.addEventListener("click", function(e) {
+                        b.addEventListener("click", function (e) {
                             var selectedDis = this.getElementsByTagName("input")[0].value;
                             inp.value = selectedDis;
-                            if (!tmpParam){
+                            if (!tmpParam) {
                                 getDistrictCities(selectedDis);
                             }
                             closeAllLists();
@@ -152,46 +153,46 @@ $(document).ready(function(){
             }
 
         });
-        
-        inp.addEventListener('focusout',function(e) {
-            
+
+        inp.addEventListener('focusout', function (e) {
+
             var user_input_val = $(`#${inp.id}`).val();
-            if (arr.includes(user_input_val)){
+            if (arr.includes(user_input_val)) {
                 inp.value = user_input_val
-            }else {
+            } else {
                 inp.value = null;
-                if (!tmpParam){
+                if (!tmpParam) {
                     $("#reg-hometown").val('');
                 }
             }
 
-            setTimeout(function(){
+            setTimeout(function () {
                 closeAllLists();
-            },150);
+            }, 150);
 
-            setTimeout(function(){
+            setTimeout(function () {
                 $(`#${inp.id}`).removeClass('data-focused');
-            },500);
+            }, 500);
 
             $(`.${inp.id}-icon`).removeClass('fa-angle-up').addClass('fa-angle-down');
 
         });
 
-        $(`#${inp.id}-icon`).unbind().click(function() {
+        $(`#${inp.id}-icon`).unbind().click(function () {
 
-            if (  $(`#${inp.id}`).hasClass('data-focused')){
+            if ($(`#${inp.id}`).hasClass('data-focused')) {
                 $(`#${inp.id}`).focusout();
-            }else {
+            } else {
                 $(`#${inp.id}`).focus();
             }
         });
 
 
-        inp.addEventListener("input", function(e) {
+        inp.addEventListener("input", function (e) {
             var a, b, i, val = this.value;
-            
+
             closeAllLists();
-            
+
             currentFocus = -1;
             a = document.createElement("DIV");
             a.setAttribute("id", this.id + "autocomplete-list");
@@ -202,16 +203,16 @@ $(document).ready(function(){
                 for (i = 0; i < arr.length; i++) {
 
                     if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-        
+
                         b = document.createElement("DIV");
                         b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                         b.innerHTML += arr[i].substr(val.length);
                         b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
 
-                        b.addEventListener("click", function(e) {
+                        b.addEventListener("click", function (e) {
                             var selectedDis = this.getElementsByTagName("input")[0].value;
                             inp.value = selectedDis;
-                            if (!tmpParam){
+                            if (!tmpParam) {
                                 getDistrictCities(selectedDis);
                             }
                             closeAllLists();
@@ -224,18 +225,18 @@ $(document).ready(function(){
 
 
             for (i = 0; i < arr.length; i++) {
-                
+
                 if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-            
+
                     b = document.createElement("DIV");
                     b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
                     b.innerHTML += arr[i].substr(val.length);
                     b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
 
-                    b.addEventListener("click", function(e) {
+                    b.addEventListener("click", function (e) {
                         var selectedDis = this.getElementsByTagName("input")[0].value;
                         inp.value = selectedDis;
-                        if (!tmpParam){
+                        if (!tmpParam) {
                             getDistrictCities(selectedDis);
                         }
                         closeAllLists();
@@ -247,7 +248,7 @@ $(document).ready(function(){
         });
 
         /*execute a function presses a key on the keyboard:*/
-        inp.addEventListener("keydown", function(e) {
+        inp.addEventListener("keydown", function (e) {
             var x = document.getElementById(this.id + "autocomplete-list");
             if (x) x = x.getElementsByTagName("div");
             if (e.keyCode == 40) {
@@ -291,12 +292,12 @@ $(document).ready(function(){
         }
 
         function closeAllLists(elmnt) {
-            
-            var x = document.getElementsByClassName( `${inp.id}autocomplete-items`);
+
+            var x = document.getElementsByClassName(`${inp.id}autocomplete-items`);
 
             for (var i = 0; i < x.length; i++) {
                 if (elmnt != x[i] && elmnt != inp) {
-                        x[i].parentNode.removeChild(x[i]);
+                    x[i].parentNode.removeChild(x[i]);
                 }
             }
         }
@@ -308,22 +309,22 @@ $(document).ready(function(){
 
     cities.push(" -- Please select district first -- ")
 
-    $.post('/register-district',{"_token": post_token},function(data){
+    $.post('/register-district', { "_token": post_token }, function (data) {
         const iterator = data.values();
 
         for (const value of iterator) {
             districts_ids[value['name_en']] = value['id'];
             districts.push(value['name_en']);
         }
-        
+
     });
 
-    function getDistrictCities(dis_name){
+    function getDistrictCities(dis_name) {
 
         var dis_id = districts_ids[dis_name];
         cities = []
 
-        $.post('/register-cities',{'dis_id': dis_id,"_token": post_token},function(data){
+        $.post('/register-cities', { 'dis_id': dis_id, "_token": post_token }, function (data) {
             const iterator = data.values();
             for (const value of iterator) {
                 cities.push(value['name_en']);
@@ -332,11 +333,11 @@ $(document).ready(function(){
         });
     }
 
-    autocomplete(document.getElementById("reg-district"),0, districts);
-    autocomplete(document.getElementById("reg-hometown"),1, cities );
+    autocomplete(document.getElementById("reg-district"), 0, districts);
+    autocomplete(document.getElementById("reg-hometown"), 1, cities);
 
 
-    $('#businessTab #sellerDeailsSubmit').click(function(){
+    $('#businessTab #sellerDeailsSubmit').click(function () {
 
         var validate = true;
 
@@ -353,47 +354,47 @@ $(document).ready(function(){
         var cashOnDel = $('#cashOnDel').val();
         var email = $('#dataEmail').attr('data-email');
 
-        if(full_name.length < 2 || address.length < 2){
+        if (full_name.length < 2 || address.length < 2) {
             validate = false;
         }
-        else if(business_name.length < 2){
+        else if (business_name.length < 2) {
             validate = false;
         }
-        else if(bMobile.length < 10 ){
+        else if (bMobile.length < 10) {
             validate = false;
         }
-        else if(!(reg_district && reg_hometown)){
+        else if (!(reg_district && reg_hometown)) {
             validate = false;
         }
 
 
-        if (validate){
+        if (validate) {
             $.post($('#submitSellerDetails').attr('action'),
-            {
-                "_token": post_token,
-                'full_name' :full_name,
-                'business_name' :business_name,
-                'selectCategory' :selectCategory,
-                'bMobile' :bMobile,
-                'bHotline' :bHotline,
-                'address' :address,
-                'reg_district' :reg_district,
-                'reg_hometown' :reg_hometown,
-                'location_la' :location_lo,
-                'location_lo' :location_la,
-                'cashOnDel': cashOnDel ,
-                "email" : email,
-            },
-            function(data){
-                vanillaAlert(data[0], data[1]);
-              if(data[0] == 0){
-                $('#confirm').addClass('active');
-                $('#businessTab').hide(500);
-                $('#confirmTab').show(500);
-                $("html, body").animate({ scrollTop: 0 }, "slow");
-              }
-            });
-        }else{
+                {
+                    "_token": post_token,
+                    'full_name': full_name,
+                    'business_name': business_name,
+                    'selectCategory': selectCategory,
+                    'bMobile': bMobile,
+                    'bHotline': bHotline,
+                    'address': address,
+                    'reg_district': reg_district,
+                    'reg_hometown': reg_hometown,
+                    'location_la': location_lo,
+                    'location_lo': location_la,
+                    'cashOnDel': cashOnDel,
+                    "email": email,
+                },
+                function (data) {
+                    vanillaAlert(data[0], data[1]);
+                    if (data[0] == 0) {
+                        $('#confirm').addClass('active');
+                        $('#businessTab').hide(500);
+                        $('#confirmTab').show(500);
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                    }
+                });
+        } else {
 
             $('#submitSellerDetails .sellerDeailsSubmitBtn').removeAttr('disabled');
             $('#submitSellerDetails .sellerDeailsSubmitBtn').click();
@@ -402,6 +403,8 @@ $(document).ready(function(){
 
         }
     })
+
+
 
 });
 
@@ -412,7 +415,7 @@ function initMap() {
 
     lo = $('#storeLocation').attr('data-lo');
     la = $('#storeLocation').attr('data-la');
-    
+
     var centerOfMap = new google.maps.LatLng(lo, la);
     var map = new google.maps.Map(document.getElementById('storeLocation'), {
         center: centerOfMap,
@@ -435,18 +438,18 @@ function initMap() {
     });
 
     var _marker = new google.maps.Marker({
-        position: new google.maps.LatLng( $('#storeLocation').attr('data-lo'), $('#storeLocation').attr('data-la')),
+        position: new google.maps.LatLng($('#storeLocation').attr('data-lo'), $('#storeLocation').attr('data-la')),
         map: map,
-        draggable:true,
+        draggable: true,
         title: ''
     });
 
-    google.maps.event.addListener(_marker, 'dragend', function(marker) {
+    google.maps.event.addListener(_marker, 'dragend', function (marker) {
         var latLng = marker.latLng;
         $('#storeLocation').attr('data-lo', latLng.lat());
         $('#storeLocation').attr('data-la', latLng.lng());
-     }); 
-         
+    });
+
     _marker.setMap(map);
 
     google.maps.event.trigger(map, 'resize');
@@ -454,64 +457,69 @@ function initMap() {
 
 
 
-function sendRegMail(){
+function sendRegMail() {
     var email = $('#sellerEmail').val();
     var email = $('#sellerEmail').val();
 
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var value = re.test(String(email).toLowerCase());
 
-    if(value){
-        $.post($('#verifySellerForm').attr('action'),
-        {
-          "email" : email,
-          "_token": post_token,
-        },
-        function(data){
-          vanillaAlert(data[0], data[1]);
-          if (data[0] == 0){
-            
-            var email = $('#sellerEmail').val();
-              $('#dataEmail').attr('data-email', email);
-              $('#sellerRegSub').hide();
-              $('.button-3').attr('disabled', 'disabled');
-              $('.timer').show();
-              $('#timer').text(60);
-              $('#sellerRegResend').show();
-              var x = 1; 
-              for(var i = 59; i>=0; i--){
-                  x = x + 1;
-                  delay(i, x);
-              }
-          
-              function delay(i, x) {
-                  setTimeout(() => {
-                      $('#timer').text(i);
-                  }, 1000 * x);
-              }
-
-              setTimeout(() => {
-                $('.button-3').removeAttr('disabled');
-                $('.timer').hide();
-        
-            }, 62000);
-
-            $('#verifyCode').removeAttr('style');
-
-            $("html, body").animate({ scrollTop: 280 }, "slow");
-          }
+    if (value) {
+        $('.content').loading({
+            message: "Sending Your Email Verification Code..."
         });
+
+        $.post($('#verifySellerForm').attr('action'),
+            {
+                "email": email,
+                "_token": post_token,
+            },
+            function (data) {
+                vanillaAlert(data[0], data[1]);
+                if (data[0] == 0) {
+
+                    var email = $('#sellerEmail').val();
+                    $('#dataEmail').attr('data-email', email);
+                    $('#sellerRegSub').hide();
+                    $('.button-3').attr('disabled', 'disabled');
+                    $('.timer').show();
+                    $('#timer').text(60);
+                    $('#sellerRegResend').show();
+                    var x = 1;
+                    for (var i = 59; i >= 0; i--) {
+                        x = x + 1;
+                        delay(i, x);
+                    }
+
+                    function delay(i, x) {
+                        setTimeout(() => {
+                            $('#timer').text(i);
+                        }, 1000 * x);
+                    }
+
+                    setTimeout(() => {
+                        $('.button-3').removeAttr('disabled');
+                        $('.timer').hide();
+
+                    }, 62000);
+
+                    $('#verifyCode').removeAttr('style');
+
+                    $("html, body").animate({ scrollTop: 330 }, "slow");
+                }
+                $('.content').loading('stop');
+            });
     }
-    else{
+    else {
         $('#verifySellerForm .seller-submit').removeAttr('disabled')
         $('#verifySellerForm .seller-submit').click();
         $('#verifySellerForm .seller-submit').attr('disabled', 'disabled');
     }
 }
 
-$('.map-span').click(function(){
-    if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
+$('.map-span').click(function () {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
             $('#storeLocation').attr('data-la', position.coords.longitude);
             $('#storeLocation').attr('data-lo', position.coords.latitude);
 

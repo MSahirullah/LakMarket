@@ -11,7 +11,7 @@
     padding: 15px;
 }
 
-.search-result {
+.sr {
     font-family: "Roboto", sans-serif;
     padding-bottom: 20px;
 }
@@ -469,7 +469,7 @@ input::-webkit-inner-spin-button {
     padding: 1px 4px 2px 5px;
     position: relative;
     float: right;
-    font-size: 13px;
+    font-size: 12px;
     background: #042863;
     border-top-left-radius: 10px;
     color: white;
@@ -719,7 +719,7 @@ input::-webkit-inner-spin-button {
     color: #6c6c6c;
 }
 
-.search-result-title {
+.sr-title {
     color: #4f4f4f;
     font-family: Roboto, Helvetica, Arial, font-family;
     font-weight: 400;
@@ -776,6 +776,14 @@ input::-webkit-inner-spin-button {
 
 .storesWO .stores {
     margin-right: 10px;
+}
+
+.str-store {
+    border: 1px solid #dadada;
+}
+
+.str-store:hover {
+    border: 1px solid #dadada !important;
 }
 
 .products-menu .outofstock,

@@ -33,27 +33,28 @@
                     @else
                     <li class="nav-item">
                         @if((Session::has('customer')))
-                        <form id=" logout-form" action="{{route('logout')}}" method="POST">
-                            @csrf
-                    <li class="nav-item dropdown p-0 logged-user">
+
+                    <li class="nav-item dropdown logged-user">
                         <a class="nav-link dropdown-toggle a-nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{Session::get('customer')['first_name']}}'s Account
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
                             <a class="dropdown-item f-upp" href="#"><i class="fas fa-user-circle"></i> My Account</a>
                             <div class="dropdown-divider"></div>
-                            <button type="submit" class="dropdown-item " href="#"><i class="fas fa-box"></i> My Orders</button>
+                            <a class="dropdown-item f-upp" href="{{route('orders.index', 'orders')}}"><i class="fas fa-user-circle"></i> My Orders</a>
                             <div class="dropdown-divider"></div>
-                            <button type="submit" class="dropdown-item " href="#"><i class="fas fa-sign-out-alt"></i> Logout</button>
-
+                            <form id=" logout-form" action="{{route('logout')}}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item " href="#"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                            </form>
                         </div>
                     </li>
-                    </form>
+
                     @endif
                     </li>
                     @endguest
                     <li class=" nav-item">
-                        <a class="nav-link a-nav-link become-a-seller" href="{{route('seller.register')}}">Become A Seller</a>
+                        <a class="nav-link a-nav-link become-a-seller" href="{{route('store.register')}}">Become A Seller</a>
                     </li>
                 </ul>
             </div>
@@ -101,11 +102,11 @@
                         <div class="cart">
                             <span class="left-border"></span>
                             <img src="/img/cart-icon.png" alt="Cart Icon" class="cart-icon">
-                            <span class="cart-count">0</span>
+                            <span id="cartCount" class="cart-count">0</span>
                         </div>
                         @if ((Session::has('customer')))
                     </a>
-                    <div class="cart-block ">
+                    <!-- <div class="cart-block ">
                         <div class="cart-block-content">
                             <div class="cart-title">
                                 <h5><span>2</span> items in my cart </h5>
@@ -142,7 +143,7 @@
                                 <a href="https://bigdeals.lk/cart/order/summery" class="btn-check-out"><button> Checkout </button></a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     @endif
                     <div>
                     </div>

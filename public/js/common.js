@@ -1,3 +1,31 @@
+$(document).ready(function () {
+    var btn = $('#backToTopBtn');
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > 300) {
+            btn.addClass('show');
+        } else {
+            btn.removeClass('show');
+        }
+    });
+
+    btn.on('click', function (e) {
+        e.preventDefault();
+        $('html, body').animate({ scrollTop: 0 }, '300');
+    });
+
+    $("input").on("click", function () {
+        $(this).select();
+    });
+    $("input").focus(function () {
+        $(this).select();
+    });
+    $("input").focusin(function () {
+        $(this).select();
+    });
+
+});
+
 
 function configOwl(item_2, item_3, time_1, time_2) {
     return ({
@@ -24,19 +52,19 @@ function configOwl(item_2, item_3, time_1, time_2) {
     });
 }
 
-function checkDeliveryStatus() {
+function checkDeliveryStatus(pid = '#paidDelivery', cid = '#cashOnDelivery') {
     data = '';
 
-    if ($('#paidDelivery').prop("checked") == true && $('#cashOnDelivery').prop("checked") == true) {
+    if ($(pid).prop("checked") == true && $(cid).prop("checked") == true) {
         data = '3';
     }
-    if (!$('#paidDelivery').prop("checked") == true && !$('#cashOnDelivery').prop("checked") == true) {
+    if (!$(pid).prop("checked") == true && !$(cid).prop("checked") == true) {
         data = '0';
     }
-    else if ($('#paidDelivery').prop("checked") == true && !$('#cashOnDelivery').prop("checked") == true) {
+    else if ($(pid).prop("checked") == true && !$(cid).prop("checked") == true) {
         data = '1';
     }
-    else if (!$('#paidDelivery').prop("checked") == true && $('#cashOnDelivery').prop("checked") == true) {
+    else if (!$(pid).prop("checked") == true && $(cid).prop("checked") == true) {
         data = '2';
     }
 
@@ -68,4 +96,40 @@ function vanillaAlert(inp, msg, time = 6000) {
     });
 }
 
+function handleCart(url, color = '', qty = 1) {
 
+    if (logged != '') {
+
+        $.post("/shoppingCart/add/",
+            {
+                _token: post_token,
+                url: url,
+                color: color,
+                quantity: qty
+            },
+            function (data) {
+
+                vanillaAlert(data[0], data[1]);
+                checkCartStatus();
+
+            });
+    }
+    else {
+        window.location.href = "/login";
+    }
+}
+
+function checkCartStatus() {
+
+    if (logged != '') {
+        $.post("/shoppingCart/status/",
+            {
+                _token: post_token,
+            },
+            function (data) {
+
+                $("#cartCount").text(data);
+
+            });
+    }
+}

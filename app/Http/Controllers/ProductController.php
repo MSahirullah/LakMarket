@@ -43,6 +43,8 @@ class ProductController extends Controller
 
         if (sizeof($product)) {
 
+            $product[0]->discounted_price = number_format($product[0]->discounted_price, 2);
+            $product[0]->unit_price = number_format($product[0]->unit_price, 2);
 
             if ($product[0]->colors) {
                 $colors = $product[0]->colors;
@@ -57,6 +59,7 @@ class ProductController extends Controller
                         ->where([
                             ['product_id', '=', $product[0]->id],
                             ['product_color', '=', $color],
+                            ['delete_status', '!=', '1']
                         ])
                         ->select('*')
                         ->get();
@@ -73,6 +76,7 @@ class ProductController extends Controller
                                 ->where([
                                     ['product_id', '=', $product[0]->id],
                                     ['product_color', '=', $color],
+                                    ['delete_status', '!=', '1']
                                 ])
                                 ->sum('added_stock');
 
@@ -80,6 +84,7 @@ class ProductController extends Controller
                                 ->where([
                                     ['product_id', '=', $product[0]->id],
                                     ['product_color', '=', $color],
+                                    ['delete_status', '!=', '1']
                                 ])
                                 ->sum('stock_usage');
 
@@ -103,10 +108,13 @@ class ProductController extends Controller
 
                 $stock = DB::table('stocks')
                     ->where([
-                        ['product_id', '=', $product[0]->id]
+                        ['product_id', '=', $product[0]->id],
+                        ['delete_status', '!=', '1']
+                        
                     ])
                     ->select('*')
                     ->get();
+                $product[0]->stock = 0;
 
                 if (sizeof($stock)) {
 
@@ -117,12 +125,14 @@ class ProductController extends Controller
                         $stock_added = DB::table('stocks')
                             ->where([
                                 ['product_id', '=', $product[0]->id],
+                                ['delete_status', '!=', '1']
                             ])
                             ->sum('added_stock');
 
                         $stock_usage = DB::table('stocks')
                             ->where([
                                 ['product_id', '=', $product[0]->id],
+                                ['delete_status', '!=', '1']
                             ])
                             ->sum('stock_usage');
 
@@ -131,7 +141,6 @@ class ProductController extends Controller
                         }
                     }
                 }
-                $product[0]->stock = 0;
             }
 
 
@@ -196,6 +205,7 @@ class ProductController extends Controller
                 } else {
                     $pro->rating = 0;
                 }
+                $pro->discounted_price = number_format($pro->discounted_price, 2);
             }
 
 
@@ -248,6 +258,7 @@ class ProductController extends Controller
                                 ->where([
                                     ['product_id', '=', $val->id],
                                     ['product_color', '=', $color],
+                                    ['delete_status', '!=', '1']
                                 ])
                                 ->select('*')
                                 ->get();
@@ -265,6 +276,7 @@ class ProductController extends Controller
                                         ->where([
                                             ['product_id', '=', $val->id],
                                             ['product_color', '=', $color],
+                                            ['delete_status', '!=', '1']
                                         ])
                                         ->sum('added_stock');
 
@@ -272,6 +284,7 @@ class ProductController extends Controller
                                         ->where([
                                             ['product_id', '=', $val->id],
                                             ['product_color', '=', $color],
+                                            ['delete_status', '!=', '1']
                                         ])
                                         ->sum('stock_usage');
 
@@ -295,7 +308,8 @@ class ProductController extends Controller
 
                         $stock = DB::table('stocks')
                             ->where([
-                                ['product_id', '=', $val->id]
+                                ['product_id', '=', $val->id],
+                                ['delete_status', '!=', '1']
                             ])
                             ->select('*')
                             ->get();
@@ -309,6 +323,7 @@ class ProductController extends Controller
                                 $stock_added = DB::table('stocks')
                                     ->where([
                                         ['product_id', '=', $val->id],
+                                        ['delete_status', '!=', '1']
                                     ])
                                     ->sum('added_stock');
 
@@ -317,6 +332,7 @@ class ProductController extends Controller
                                         ['product_id', '=', $val->id],
                                     ])
                                     ->sum('stock_usage');
+
 
                                 if (($stock_added - $stock_usage) != 0) {
                                     $val->stock = 1;
@@ -333,6 +349,9 @@ class ProductController extends Controller
                     }
                     return ($a['stock'] > $b['stock']) ? -1 : 1;
                 });
+
+                $val->discounted_price = number_format($val->discounted_price, 2);
+                $val->unit_price = number_format($val->unit_price, 2);
             }
 
             $reviews = DB::table('reviews')
@@ -410,7 +429,7 @@ class ProductController extends Controller
         // dd(sizeof($images));
         // dd(sizeof($product_4));
 
-
+        $sellerP = number_format($sellerP, 2);
 
         return view('products', [
             'product' => $product,
@@ -437,6 +456,7 @@ class ProductController extends Controller
             ->where([
                 ['product_id', '=', $pid],
                 ['product_color', '=', $color],
+                ['delete_status', '!=', '1']
             ])
             ->select('*')
             ->get();
@@ -446,6 +466,7 @@ class ProductController extends Controller
                 ->where([
                     ['product_id', '=', $pid],
                     ['product_color', '=', $color],
+                    ['delete_status', '!=', '1']
                 ])
                 ->sum('added_stock');
 
@@ -453,6 +474,7 @@ class ProductController extends Controller
                 ->where([
                     ['product_id', '=', $pid],
                     ['product_color', '=', $color],
+                    ['delete_status', '!=', '1']
                 ])
                 ->sum('stock_usage');
 

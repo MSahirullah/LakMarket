@@ -12,7 +12,7 @@ class SellerDashboardNewsletters extends Controller
         $sellerId = Session::get('seller');
 
         if (!$sellerId) {
-            CommonController::checkSeller('/seller/login');
+            return redirect()->route('seller.loginV');
         }
 
         $data = SellerDashboard::checkSellerInfo();

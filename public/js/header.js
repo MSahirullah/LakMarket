@@ -1,6 +1,9 @@
 
 $(document).ready(function () {
 
+
+    checkCartStatus();
+
     // $.post("/customer-product-categories", {
     //     "_token": post_token,
     //     "location": $('#CityInputTxt').val()
@@ -50,7 +53,6 @@ $(document).ready(function () {
 
 
     $(document).on('click', '.selected-search', function () {
-        console.log(1);
         setTimeout(() => {
             $('#searchSubmitBtn').trigger('click');
         }, 100);

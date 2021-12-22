@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminDashboard;
 use App\Http\Controllers\AdminDashboardAdmins;
 use App\Http\Controllers\AdminDashboardCustomers;
@@ -12,10 +13,13 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeDealsController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ReviewController;
@@ -51,6 +55,14 @@ use Illuminate\Support\Facades\Session;
 //  =========================== Customer ===========================
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/flash-deals', [HomeDealsController::class, 'flashDeals'])->name('flash.deals');
+Route::post('/flash-deals/filter/', [HomeDealsController::class, 'flashDealsFiler']);
+
+Route::get('/top-rated-products', [HomeDealsController::class, 'topRatedProductsF'])->name('topRated.products');
+Route::post('/top-rated-products/filter/', [HomeDealsController::class, 'topRatedProductsFfileter']);
+
+Route::get('/top-rated-shops', [HomeDealsController::class, 'topRatedShop'])->name('topRated.shops');
+Route::post('/top-rated-shops/filter/', [HomeDealsController::class, 'topRatedShopFileter']);
 
 Route::post('/register-cities', [CommonController::class, 'getCities']);
 Route::post('/register-district', [CommonController::class, 'getDistricts']);
@@ -65,31 +77,22 @@ Route::post('/forget-password', [ForgotPasswordController::class, 'postEmail'])-
 Route::get('/password-reset', [ResetPasswordController::class, 'getPassword']);
 Route::post('/password-reset', [ResetPasswordController::class, 'updatePassword'])->name('update.password');
 
-Route::get('/seller/register', [SellerRegister::class, 'index'])->name('seller.register');
-Route::post('/seller/registration', [RegisterController::class, 'sellerRegister'])->name('register.seller');
-Route::post('/seller/verification', [RegisterController::class, 'sellerVerify'])->name('verify.seller');
-Route::post('/seller/details-submit', [RegisterController::class, 'sellerSubmit'])->name('submit.seller');
+Route::get('/store/register', [SellerRegister::class, 'index'])->name('store.register');
+Route::post('/store/registration', [RegisterController::class, 'sellerRegister'])->name('store.registerProcess');
+Route::post('/store/verification', [RegisterController::class, 'sellerVerify'])->name('store.verify');
+Route::post('/store/details-submit', [RegisterController::class, 'sellerSubmit'])->name('store.submitDetails');
 
+Route::get('/store/{name}/', [StoreController::class, 'index'])->name('store.index');
+Route::post('/store/product/filter/', [StoreController::class, 'storeProductFilter']);
+Route::get('/store/{store}/category/{category}/', [StoreController::class, 'storeCategoryProducts'])->name('store.category');
+Route::get('/store/{store}/search/', [StoreController::class, 'storeSearchProducts'])->name('store.search');
 
 Route::get('/category/{category}', [CategoryController::class, 'index']);
 Route::post('/category/filter/', [CategoryController::class, 'shopCategoryFilter']);
-
 Route::get('/category/{category}/{subCategory}', [SubCategoryController::class, 'index']);
 
-
-Route::get('/flash-deals', [SearchContrller::class, 'flashDeals'])->name('flash.deals');
-
-
-Route::get('/store/{name}', [StoreController::class, 'index']);
-
-// Route::get('/product-category/{category}', [CategoryController::class, 'index']);
-// Route::get('/product/{category}', [CategoryController::class, 'index']);
 Route::post('/customer-location-change', [CommonController::class, 'changeCustomerLocation']);
 Route::get('/customer-search-products', [SearchContrller::class, 'searchAutocomplete']);
-
-// Route::post('/customer-product-categories', [CommonController::class, 'getCategories']);
-
-// Route::get('autocomplete', [CommonController::class, 'searchAutocomplete'])->name('customer.search');
 
 Route::get('/search', [SearchContrller::class, 'search'])->name('search');
 Route::post('/search/filter/sort-by', [SearchContrller::class, 'searchFilterSort']);
@@ -98,28 +101,40 @@ Route::post('/search/filter/', [SearchContrller::class, 'searchFilter']);
 Route::get('/product/{pURL}', [ProductController::class, 'index']);
 Route::post('/product/color/stock', [ProductController::class, 'changeStock']);
 
-
-Auth::routes();
-
-
-
 Route::get('/customer-care', [EnquiryController::class, 'index'])->name('customer-care');
 Route::post('/customer-care', [EnquiryController::class, 'sendEnquiry'])->name('send-enquiry');
 
 Route::post('/newsletter-add', [NewsletterController::class, 'addNewsletter'])->name('add.newsletter');
 
-
-
+Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/customer-location-reset', [CommonController::class, 'locationReset']);
-
+    Route::post('/customer/account/shipping-address/add', [AccountController::class, 'addAddress']);
+    Route::post('/customer/account/shipping-address/edit', [AccountController::class, 'editAddress']);
+    Route::post('/customer/account/shipping-address/remove', [AccountController::class, 'removeAddress']);
 
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::get('/customer/myaccount/{valueCustomer}', [OrderController::class, 'index'])->name('orders.index');
+
+    Route::get('/shoppingCart', [CartController::class, 'index'])->name('cart');
+    Route::post('/shoppingCart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/shoppingCart/status', [CartController::class, 'cartStatus'])->name('cart.status');
+    Route::post('/shoppingCart/update', [CartController::class, 'cartUpdate'])->name('cart.update');
+    Route::post('/shoppingCart/total', [CartController::class, 'cartPriceUpdate'])->name('cart.update');
+    Route::post('/shoppingCart/remove/product', [CartController::class, 'cartRemoveProduct'])->name('cart.removeProduct');
+    Route::post('/shoppingCart/remove/all', [CartController::class, 'cartRemoveAllProduct'])->name('cart.removeAllProduct');
+    Route::post('/shoppingCart/move/wishlist', [CartController::class, 'cartMoveToWishlist'])->name('cart.moveToWishlist');
+    Route::post('/shoppingCart/customer', [CartController::class, 'cartCustomer'])->name('cart.customer');
+
+    Route::get('/checkout/notify', [CheckoutController::class, 'checkoutNotify'])->name('checkout.notify');
+    Route::get('/checkout/success', [CheckoutController::class, 'checkoutSuccess'])->name('checkout.success');
+    Route::get('/checkout/cancelled', [CheckoutController::class, 'checkoutCancelled'])->name('checkout.cancelled');
+
+    Route::post('/order/add', [OrderController::class, 'addToOrder'])->name('order.add');
 
     Route::post('/report/review', [ReviewController::class, 'reportReview'])->name('report.review');
     Route::get('/report', function () {
@@ -133,31 +148,9 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-
-
-
-
-
-
-
 Route::get('/about', function () {
     return view('about');
 })->name('about');
-
-
-Route::get('/sc', function () {
-    return view('sub-categories');
-});
-
-Route::get('/a', function () {
-    return view('auth.login_register');
-});
-
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-
 
 //  =========================== SELLER ===========================
 
@@ -194,7 +187,6 @@ Route::post('/seller/dashboard/change-stock-status', [SellerDashboardStock::clas
 Route::post('/seller/dashboard/clear-session', [SellerDashboard::class, 'clearSession']);
 Route::post('/seller/dashboard/change-sidebar-status', [SellerDashboard::class, 'changeSideBarStatus']);
 
-
 Route::get('/seller/dashboard/orders', [SellerDashboardOrders::class, 'index'])->name('orders.list');
 
 Route::get('/seller/dashboard/newsletters', [SellerDashboardNewsletters::class, 'index'])->name('newsletter.requests');
@@ -204,7 +196,7 @@ Route::get('/seller/dashboard/discounts', [SellerDashboardDiscounts::class, 'ind
 
 Route::get('/seller/login', function () {
     return view('seller.dashboard_login');
-});
+})->name('seller.loginV');
 
 
 Route::post('/seller/login',  [SellerDashboardLogin::class, 'login'])->name('seller.login');
