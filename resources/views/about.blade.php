@@ -47,21 +47,7 @@ About |
                 Our Team
             </div>
             <div class="about-text-2">
-                <div class="team-details row jc-c">
-                    <div class="member col">
-                        <div class="photo" style="background-image:url('/img/danushka.png')">
-                        </div>
-                        <div class="name">
-                            K.B.T.D Rathnaweera
-                        </div>
-                        <div class="about-social">
-                            <a href="https://www.facebook.com/thisaradanushka.danushka"><i class="fab fa-facebook-square"></i></a>
-                            <!-- <a href="#"><i class="fab fa-instagram-square"></i></a> -->
-                            <!-- <a href="#"><i class="fab fa-linkedin"></i></a> -->
-                            <!-- <a href="#"><i class="fab fa-github-square mr-0"></i></a> -->
-                        </div>
-                    </div>
-                </div>
+
                 <div class="team-details row jc-c">
                     <div class="member col">
                         <div class="photo" style="background-image:url('/img/sahiru.png')">
@@ -80,7 +66,7 @@ About |
                         <div class="photo" style="background-image:url('/img/gimhan.png')">
                         </div>
                         <div class="name">
-                            K.G.M. Rajapaksha
+                            K.G.M Rajapaksha
                         </div>
                         <div class="about-social">
                             <!-- <a href="#"><i class="fab fa-facebook-square"></i></a> -->
