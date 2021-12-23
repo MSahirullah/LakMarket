@@ -11,7 +11,10 @@ class CheckoutController extends Controller
 {
     public function checkoutNotify(Request $request)
     {
-        dd($request);
+        return view('coming_soon', [
+            'status' => '-',
+            'msg' => '-'
+        ]);
     }
     public function checkoutSuccess(Request $request)
     {
@@ -42,11 +45,16 @@ class CheckoutController extends Controller
             ->where('id', $orderID)
             ->update(['payment_status' => 1]);
 
-
-        dd($affected);
+        return view('coming_soon', [
+            'status' => '0',
+            'msg' => 'Payment successfull. Your order has been received.'
+        ]);
     }
     public function checkoutCancelled(Request $request)
     {
-        dd($request);
+        return view('coming_soon', [
+            'status' => '-',
+            'msg' => '-'
+        ]);
     }
 }

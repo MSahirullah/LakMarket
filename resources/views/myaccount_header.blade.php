@@ -3,32 +3,32 @@
 </div>
 <div class="my-account-subtitle mb-1">
     <div class="subtitle-text">
-        <a href="{{route('orders.index', 'profile')}}" class="subtitle-link" data-type='profile'>Profile</a>
+        <a href="{{route('myaccount.index', 'profile')}}" class="subtitle-link" data-type='profile'>Profile</a>
     </div>
 </div>
 <div class="my-account-subtitle mb-1">
     <div class="subtitle-text">
-        <a href="{{route('orders.index', 'shipping-address')}}" class="subtitle-link" data-type='shippingAddress'>Shipping Address</a>
+        <a href="{{route('myaccount.index', 'shipping-address')}}" class="subtitle-link" data-type='shippingAddress'>Shipping Address</a>
     </div>
 </div>
 <div class="my-account-subtitle mb-1">
     <div class="subtitle-text">
-        <a href="{{route('orders.index', 'orders')}}" class="subtitle-link" data-type='orders'>Orders</a>
+        <a href="{{route('myaccount.index', 'orders')}}" class="subtitle-link" data-type='orders'>Orders</a>
     </div>
 </div>
 <div class="my-account-subtitle mb-1">
     <div class="subtitle-text">
-        <a href="{{route('orders.index', 'wishlist')}}" class="subtitle-link" data-type='wishlist'>Wishlist</a>
+        <a href="{{route('myaccount.index', 'wishlist')}}" class="subtitle-link" data-type='wishlist'>Wishlist</a>
     </div>
 </div>
 <div class="my-account-subtitle mb-1">
     <div class="subtitle-text">
-        <a href="{{route('orders.index', 'reviews')}}" class="subtitle-link" data-type='reviews'>Reviews</a>
+        <a href="{{route('myaccount.index', 'reviews')}}" class="subtitle-link" data-type='reviews'>Reviews</a>
     </div>
 </div>
 <div class="my-account-subtitle mb-1">
     <div class="subtitle-text">
-        <a href="{{route('orders.index', 'followed-stores')}}" class="subtitle-link" data-type='followedStores'>Followed Stores</a>
+        <a href="{{route('myaccount.index', 'followed-stores')}}" class="subtitle-link" data-type='followedStores'>Followed Stores</a>
     </div>
 </div>
 <div class="my-account-subtitle mb-1">

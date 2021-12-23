@@ -12,6 +12,18 @@ use Illuminate\Support\Facades\Session as Session;
 
 class SellerDashboard extends Controller
 {
+
+    public function contactUs()
+    {
+        $sellerId = Session::get('seller');
+
+        if (!$sellerId) {
+            return redirect()->route('seller.loginV');
+        }
+
+        return (view('seller.dashboard_contact'));
+    }
+
     function index(Request $request, Response $response)
     {
 

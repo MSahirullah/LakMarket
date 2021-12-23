@@ -100,7 +100,7 @@ function handleCart(url, color = '', qty = 1) {
 
     if (logged != '') {
 
-        $.post("/shoppingCart/add/",
+        $.post("/shoppingCart/add",
             {
                 _token: post_token,
                 url: url,
@@ -122,7 +122,7 @@ function handleCart(url, color = '', qty = 1) {
 function checkCartStatus() {
 
     if (logged != '') {
-        $.post("/shoppingCart/status/",
+        $.post("/shoppingCart/status",
             {
                 _token: post_token,
             },

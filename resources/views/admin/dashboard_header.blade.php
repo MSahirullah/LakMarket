@@ -1,4 +1,3 @@
-
 <div class="wrapper">
     <div id="bodyContent">
         <span id="collapseStatus"></span>
@@ -10,19 +9,19 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" id="sideBarToggle" data-widget="pushmenu" href="#" role="button" data-toggle-status = {{request()->cookie('valSideBar')}} onclick="ocMiniSideMenu()"><i class="fas fa-bars"></i></a>
+                    <a class="nav-link" id="sideBarToggle" data-widget="pushmenu" href="#" role="button" data-toggle-status={{request()->cookie('valSideBar')}} onclick="ocMiniSideMenu()"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/admin/dashboard" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="{{route('admin.contact')}}" class="nav-link">Contact</a>
                 </li>
             </ul>
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                
+
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -131,19 +130,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('discounts.list')}}" class="nav-link" id="sidebarMenuQueries">
+                            <a href="{{route('admin.queries')}}" class="nav-link" id="sidebarMenuQueries">
                                 <i class="fad fa-user-headset"></i>
                                 <span>Queries</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('newsletter.requests')}}" class="nav-link" id="sidebarMenuReviews">
+                            <a href="{{route('admin.reviews')}}" class="nav-link" id="sidebarMenuReviews">
                                 <i class="far fa-comments"></i>
                                 <span>Reviews</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('newsletter.requests')}}" class="nav-link" id="sidebarMenuNewsletters">
+                            <a href="{{route('admin.newsletterRequests')}}" class="nav-link" id="sidebarMenuNewsletters">
                                 <i class="fas fa-file-export"></i>
                                 <span>Newsletters</span>
                             </a>

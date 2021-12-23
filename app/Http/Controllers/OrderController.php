@@ -13,8 +13,12 @@ class OrderController extends Controller
 
     public function index($valueCustomer)
     {
-        return view('ac_orders', [
-            'type' => 'orders'
+        // return view('ac_orders', [
+        //     'type' => 'orders'
+        // ]);
+        return view('coming_soon', [
+            'status' => '-',
+            'msg' => '-'
         ]);
     }
 

@@ -64,7 +64,7 @@ $(document).ready(function () {
     if (isNaN(priceMax))
       priceMax = 1000000.0;
 
-    $.post("/store/product/filter/",
+    $.post("/store/product/filter",
       {
         storeId: $('#storeD').attr('sid'),
         sort: data,
@@ -188,7 +188,7 @@ function filterPOST(top = 0) {
   if (isNaN(priceMax))
     priceMax = 1000000.0;
 
-  $.post("/store/product/filter/",
+  $.post("/store/product/filter",
     {
       sort: $('#sort-filter-select').val(),
       storeId: $('#storeD').attr('sid'),

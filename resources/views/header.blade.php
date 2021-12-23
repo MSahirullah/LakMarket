@@ -10,7 +10,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <div class="nav-item">
 
-                    <a class="nav-link a-nav-link" href="#"><i class="fas fa-mobile-alt"></i>Get The Mobile App</a>
+                    <a class="nav-link a-nav-link" href="{{route('myaccount.index', 'mobile-app')}}"><i class="fas fa-mobile-alt"></i>Get The Mobile App</a>
                 </div>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -35,17 +35,17 @@
                         @if((Session::has('customer')))
 
                     <li class="nav-item dropdown logged-user">
-                        <a class="nav-link dropdown-toggle a-nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle a-nav-link" href="{{route('myaccount.index', 'orders')}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{Session::get('customer')['first_name']}}'s Account
                         </a>
                         <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item f-upp" href="#"><i class="fas fa-user-circle"></i> My Account</a>
+                            <a class="dropdown-item f-upp" href="{{route('myaccount.index', 'profile')}}"><i class="fas fa-user-circle"></i> My Account</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item f-upp" href="{{route('orders.index', 'orders')}}"><i class="fas fa-user-circle"></i> My Orders</a>
+                            <a class="dropdown-item f-upp" href="{{route('myaccount.index', 'orders')}}"><i class="fas fa-user-circle"></i> My Orders</a>
                             <div class="dropdown-divider"></div>
                             <form id=" logout-form" action="{{route('logout')}}" method="POST">
                                 @csrf
-                                <button type="submit" class="dropdown-item " href="#"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                                <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</button>
                             </form>
                         </div>
                     </li>
@@ -152,7 +152,7 @@
             <div class="container pl-0">
                 <ul class="navbar-nav">
                     <li class="nav-item" id="logo-hider" style="display:none;">
-                        <a class="navbar-brand" href="#">
+                        <a class="navbar-brand" href="/">
                             <img src="/img/weblogo_2.png" class="header-img-2" alt="LAK MARKET LOGO">
                         </a>
                     </li>
@@ -162,7 +162,7 @@
                     </li>
                     @if (Request::route()->getName() != 'home')
                     <li class="nav-item cato-drop-down cato-link ">
-                        <span class="nav-link a-link-2 " href="#">CATEGORIES
+                        <span class="nav-link a-link-2 ">CATEGORIES
                             <i class="fas fa-chevron-down cato-icon"></i>
                             <i class="fas fa-chevron-up cato-icon" style="display:none;"></i>
 
@@ -198,7 +198,7 @@
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link a-link-2" href="#">WISHLIST <img src="/img/wishlist-icon.png" alt="Wishlist Icon" class="wishlist-icon"></a>
+                        <a class="nav-link a-link-2" href="{{route('myaccount.index', 'wishlist')}}">WISHLIST <img src="/img/wishlist-icon.png" alt="Wishlist Icon" class="wishlist-icon"></a>
                     </li>
                 </ul>
 

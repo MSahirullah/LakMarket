@@ -8,7 +8,7 @@ $(document).ready(function () {
 
 function filterPOST() {
     $('#loading').show();
-    $.post("/top-rated-shops/filter/",
+    $.post("/top-rated-shops/filter",
         {
             deliveryStatus: checkDeliveryStatus(),
             _token: post_token,

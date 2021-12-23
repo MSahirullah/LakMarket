@@ -138,4 +138,12 @@ class CommonController extends Controller
 
         return 1;
     }
+
+    public static function comingSoon($status, $msg)
+    {
+        return view('coming_soon', [
+            'status' => $status,
+            'msg' => $msg,
+        ]);
+    }
 }

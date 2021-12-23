@@ -177,7 +177,7 @@ function filterPOST(view = 'tile') {
   if (isNaN(priceMax))
     priceMax = 1000000.0;
 
-  $.post("/search/filter/",
+  $.post("/search/filter",
     {
       sort: $('#sort-filter-select').val(),
       deliveryStatus: checkDeliveryStatus(),

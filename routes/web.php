@@ -118,7 +118,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    Route::get('/customer/myaccount/{valueCustomer}', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/customer/myaccount/{valueCustomer}', [OrderController::class, 'index'])->name('myaccount.index');
 
     Route::get('/shoppingCart', [CartController::class, 'index'])->name('cart');
     Route::post('/shoppingCart/add', [CartController::class, 'addToCart'])->name('cart.add');
@@ -157,6 +157,7 @@ Route::get('/about', function () {
 
 
 Route::get('/seller/dashboard', [SellerDashboard::class, 'index'])->name('seller.dashboard');
+Route::get('/seller/dashboard/contact-us', [SellerDashboard::class, 'contactUs'])->name('seller.contact');
 
 Route::get('/seller/dashboard/profile', [SellerDashboardProfile::class, 'sellerProfile'])->name('seller.profile');
 // Route::post('/seller/dashboard/profile/change-profile-image', [SellerDashboardProfile::class, 'sellerProfileChange']);
@@ -220,7 +221,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/admin/login', function () {
     return view('admin.dashboard_login');
-});
+})->name('admin.loginV');
 
 Route::post('/admin/login',  [AdminDashboardLogin::class, 'login'])->name('admin.login');
 Route::post('/admin/verification-resend', [AdminDashboardAdmins::class, 'resendVerification'])->name('admin.verification_resend');
@@ -266,3 +267,8 @@ Route::post('/admin/dashboard/products-delete', [AdminDashboardProducts::class, 
 Route::get('/admin/dashboard/customers',  [AdminDashboardCustomers::class, 'index'])->name('admin.customers');
 Route::post('/admin/dashboard/customers-delete', [AdminDashboardCustomers::class, 'deleteCustomer'])->name('customer.destroy');
 Route::post('/admin/dashboard/customers-blacklist', [AdminDashboardCustomers::class, 'blacklistCustomer'])->name('customer.blacklist');
+
+Route::get('/admin/dashboard/newsletter-requests',  [AdminDashboard::class, 'newsletterRequests'])->name('admin.newsletterRequests');
+Route::get('/admin/dashboard/reviews',  [AdminDashboard::class, 'reviews'])->name('admin.reviews');
+Route::get('/admin/dashboard/queries',  [AdminDashboard::class, 'queries'])->name('admin.queries');
+Route::get('/admin/dashboard/contact-us', [AdminDashboard::class, 'contactUs'])->name('admin.contact');
