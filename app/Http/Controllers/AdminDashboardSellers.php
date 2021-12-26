@@ -147,4 +147,45 @@ class AdminDashboardSellers extends Controller
 
         return $status;
     }
+
+    public function sellerDetails(Request $request)
+    {
+        $sid = $request->get('rowid');
+
+        $data = DB::table('sellers')
+            ->where('sellers.id', $sid)
+            ->select('*')
+            ->get();
+
+        return $data;
+    }
+
+    public function updateSellerDetails(Request $request)
+    {
+
+        $sid = $request->get('sid');
+        $status = 0;
+
+        $updateDetails = [
+            'full_name' => $request->get('full_name'),
+            'business_mobile' => $request->get('phone_number'),
+            'birthday' => $request->get('dob'),
+            'address' => $request->get('address'),
+            'hotline' => $request->get('hotline_number'),
+            'store_name' => $request->get('store_name'),
+        ];
+
+        $files = $request->file('images');
+        $uploadedFiles = [];
+
+        $affected = DB::table('sellers')
+            ->where('id', $sid)
+            ->update($updateDetails);
+
+        if ($affected) {
+            $status = 1;
+        }
+
+        return $status;
+    }
 }

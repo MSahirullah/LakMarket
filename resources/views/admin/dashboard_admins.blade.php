@@ -91,10 +91,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col linkedin-col">
-                                <label for="linkedin" class="col-form-label">LinkedIn Link</label>
-                                <input name="linkedin" type="text"class="form-control p-input validate-input" id="linkedin" pattern='www.linkedin.com/in/[a-zA-Z0-9\-]*'>
-                            </div>
                             <div class="col password-col">
                                 <label for="ad-password" class="col-form-label">Password</label>
                                 <span class="required"></span>
@@ -199,7 +195,7 @@
 
                 $('#modalLabel').text($('.editBtn').attr('data-title'));
                 $('.btnSubmit').attr('id', $('.editBtn').attr('data-button'));
-                $('.linkedin-col').show();
+                //$('.linkedin-col').show();
                 $('.password-col').hide();
 
                 $('#full_name').val(data[0].full_name);
@@ -207,7 +203,7 @@
                 $('#phone_number').val(data[0].phone_number);
                 $('#dob').val(data[0].date_of_birth);
                 $('#address').val(data[0].address);
-                $('#linkedin').val(data[0].LinkedIn)
+                //$('#linkedin').val(data[0].LinkedIn)
             
                 $('#email').attr('disabled', 'disabled');
 

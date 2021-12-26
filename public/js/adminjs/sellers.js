@@ -16,7 +16,7 @@ $(document).ready(function () {
 
        $(".createBtn").click(function () {
           $("#detailsForm .modal-body input, #detailsForm .modal-body full_name").val('');
-          $('#Full_name, #phone_number, #address').val('');
+          $('#Full_name, #phone_number, #address', '#hotline_number', '#store_name').val('');
           $('#email,#DOB,#ad-password').removeAttr('disabled');
           $('#modalLabel').text($(this).attr('data-title'));
           $('.btnSubmit').text($(this).attr('data-button'));

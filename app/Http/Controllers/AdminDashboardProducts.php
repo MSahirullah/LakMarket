@@ -134,4 +134,43 @@ class AdminDashboardProducts extends Controller
 
         return $status;
     }
+
+    public function productDetails(Request $request)
+    {
+        $pid = $request->get('rowid');
+
+        $data = DB::table('products')
+            ->join('sellers', 'sellers.id', '=', 'products.seller_id')
+            ->where('products.id', $pid)
+            ->select('products.*', 'sellers.full_name as seller_name',)
+            ->get();
+
+        return $data;
+    }
+
+    public function updateProductDetails(Request $request)
+    {
+
+        $pid = $request->get('pid');
+        $status = 0;
+
+        $updateDetails = [
+            'name' => $request->get('item_name'),
+            'code' => $request->get('product_code'),
+            //'product_catrgory_id' => $request->get('product_category'),
+        ];
+
+        $files = $request->file('images');
+        $uploadedFiles = [];
+
+        $affected = DB::table('products')
+            ->where('id', $pid)
+            ->update($updateDetails);
+
+        if ($affected) {
+            $status = 1;
+        }
+
+        return $status;
+    }
 }
