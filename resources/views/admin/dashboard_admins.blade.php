@@ -183,6 +183,10 @@
 
             var aid = $(this).attr('data-id');
 
+            $('.btnSubmit').text($(this).attr('data-button'));
+            $('#modalLabel').text($(this ).attr('data-title'));
+            $('.btnSubmit').attr('id', $(this).attr('data-button'));
+
             $('#aid').val(aid);
             $.post("{{ route('admin.details') }}", {
                 rowid: aid,
@@ -190,11 +194,6 @@
             }, function(data) {
 
                 // console.log(this);
-
-                $('.btnSubmit').text($('.editBtn').attr('data-button'));
-
-                $('#modalLabel').text($('.editBtn').attr('data-title'));
-                $('.btnSubmit').attr('id', $('.editBtn').attr('data-button'));
                 //$('.linkedin-col').show();
                 $('.password-col').hide();
 

@@ -52,7 +52,7 @@
         <div class="modal-content">
             <form action= "{{route('admin.add')}}"  method="POST" enctype="multipart/form-data" id="detailsForm">
                 @csrf
-                <input type="hidden" name="aid" id="aid">
+                <input type="hidden" name="pid" id="pid">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalLabel">Add New Admin</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -182,6 +182,10 @@
         $(document).on('click', '.editBtn', function() {
 
             var pid = $(this).attr('data-id');
+            $('.btnSubmit').text($(this).attr('data-button'));
+
+            $('#modalLabel').text($(this ).attr('data-title'));
+            $('.btnSubmit').attr('id', $(this).attr('data-button'));
 
             $('#pid').val(pid);
             $.post("{{ route('product.details') }}", {
@@ -190,11 +194,6 @@
             }, function(data) {
 
                 // console.log(this);
-
-                $('.btnSubmit').text($('.editBtn').attr('data-button'));
-
-                $('#modalLabel').text($('.editBtn').attr('data-title'));
-                $('.btnSubmit').attr('id', $('.editBtn').attr('data-button'));
                 //$('.linkedin-col').show();
                 //$('.password-col').hide();
 

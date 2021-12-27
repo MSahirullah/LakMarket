@@ -269,6 +269,8 @@ Route::post('/admin/dashboard/update/products-details', [AdminDashboardProducts:
 Route::post('/admin/dashboard/products-delete', [AdminDashboardProducts::class, 'deleteProduct'])->name('product.destroy');
 
 Route::get('/admin/dashboard/customers',  [AdminDashboardCustomers::class, 'index'])->name('admin.customers');
+Route::post('/admin/dashboard/customers-details', [AdminDashboardCustomers::class, 'customerDetails'])->name('customer.details');
+Route::post('/admin/dashboard/update/customers-details', [AdminDashboardCustomers::class, 'updateCustomerDetails'])->name('customer.update');
 Route::post('/admin/dashboard/customers-delete', [AdminDashboardCustomers::class, 'deleteCustomer'])->name('customer.destroy');
 Route::post('/admin/dashboard/customers-blacklist', [AdminDashboardCustomers::class, 'blacklistCustomer'])->name('customer.blacklist');
 

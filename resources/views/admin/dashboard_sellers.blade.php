@@ -193,9 +193,14 @@
            blacklistAction(pid, "{{ route('seller.blacklist') }}", table)
         });
         
+        formChange = false;
         $(document).on('click', '.editBtn', function() {
 
                 var sid = $(this).attr('data-id');
+                $('.btnSubmit').text($(this).attr('data-button'));
+
+                $('#modalLabel').text($(this ).attr('data-title'));
+                $('.btnSubmit').attr('id', $(this).attr('data-button'));
 
                 $('#sid').val(sid);
                 $.post("{{ route('seller.details') }}", {
@@ -205,10 +210,7 @@
 
                     // console.log(this);
 
-                    $('.btnSubmit').text($('.editBtn').attr('data-button'));
-
-                    $('#modalLabel').text($('.editBtn').attr('data-title'));
-                    $('.btnSubmit').attr('id', $('.editBtn').attr('data-button'));
+                    
                     //$('.linkedin-col').show();
                     $('.password-col').hide();
 
@@ -242,12 +244,12 @@
                 var phoneValidate1 = new RegExp('[1]{2}[0-9]{7}');
 
                 if (!phoneValidate.test(phoneNum)) {
-                    vanillaAlert(1, 'The phone number you entered does not match.');
+                    vanillaAlert(1, 'The Business number you entered does not match.');
                     return false;
                 }
 
                 if (!phoneValidate1.test(phoneNum1)) {
-                    if(!phoneValidate1.test(phoneNum1)){
+                    if(!phoneValidate.test(phoneNum1)){
                              vanillaAlert(1, 'The hotline number you entered does not match.');
                              return false;
                     }
