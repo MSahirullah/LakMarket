@@ -40,7 +40,7 @@ class AdminDashboardCustomers extends Controller
                 ->addColumn('action', function ($customer) {
                     $customerFName = $customer->first_name;
                     $customerLName = $customer->last_name;
-                    $customerName = '<span>' . $customerFName . ' ' . $customerLName . '</span>';
+                    $customerName = $customerFName . ' ' . $customerLName;
                     $btn = '<span class="fas fa-edit editBtn" data-id="' . $customer->id . '" data-toggle="modal" data-target=".bd-AddEdit-modal-lg" target="modalAddEdit" data-button = "Update" data-title="Edit ' . $customerName . ' Details"></span></br>';
 
                     $btn = $btn . '<span class="fas fa-trash removeBtn1" data-id="' . $customer->id . '"></span></br>';
@@ -147,6 +147,44 @@ class AdminDashboardCustomers extends Controller
         $status = 0;
         $affected = DB::table('customers')->where('id', $row)
             ->update(['blacklisted' => 1]);
+
+        if ($affected) {
+            $status = 1;
+        }
+
+        return $status;
+    }
+
+    public function customerDetails(Request $request)
+    {
+        $cid = $request->get('rowid');
+
+        $data = DB::table('customers')
+            ->where('customers.id', $cid)
+            ->select('*')
+            ->get();
+
+        return $data;
+    }
+
+    public function updateCustomerDetails(Request $request)
+    {
+
+        $cid = $request->get('cid');
+        $status = 0;
+
+        $updateDetails = [
+            'first_name' => $request->get('first_name'),
+            'last_name' => $request->get('last_name'),
+            'address' => $request->get('address'),
+        ];
+
+        $files = $request->file('images');
+        $uploadedFiles = [];
+
+        $affected = DB::table('customers')
+            ->where('id', $cid)
+            ->update($updateDetails);
 
         if ($affected) {
             $status = 1;

@@ -258,13 +258,19 @@ Route::post('/admin/dashboard/update/admin-details', [AdminDashboardAdmins::clas
 Route::post('/admin/dashboard/admins/admin-password-reset', [AdminDashboardAdmins::class, 'changePassword'])->name('admin.passchange');
 
 Route::get('/admin/dashboard/sellers',  [AdminDashboardSellers::class, 'index'])->name('admin.sellers');
+Route::post('/admin/dashboard/sellers-details', [AdminDashboardSellers::class, 'sellerDetails'])->name('seller.details');
+Route::post('/admin/dashboard/update/sellers-details', [AdminDashboardSellers::class, 'updateSellerDetails'])->name('seller.update');
 Route::post('/admin/dashboard/sellers-delete', [AdminDashboardSellers::class, 'deleteSeller'])->name('seller.destroy');
 Route::post('/admin/dashboard/sellers-blacklist', [AdminDashboardSellers::class, 'blacklistSeller'])->name('seller.blacklist');
 
 Route::get('/admin/dashboard/products',  [AdminDashboardProducts::class, 'index'])->name('admin.products');
+Route::post('/admin/dashboard/products-details', [AdminDashboardProducts::class, 'productDetails'])->name('product.details');
+Route::post('/admin/dashboard/update/products-details', [AdminDashboardProducts::class, 'updateProductDetails'])->name('product.update');
 Route::post('/admin/dashboard/products-delete', [AdminDashboardProducts::class, 'deleteProduct'])->name('product.destroy');
 
 Route::get('/admin/dashboard/customers',  [AdminDashboardCustomers::class, 'index'])->name('admin.customers');
+Route::post('/admin/dashboard/customers-details', [AdminDashboardCustomers::class, 'customerDetails'])->name('customer.details');
+Route::post('/admin/dashboard/update/customers-details', [AdminDashboardCustomers::class, 'updateCustomerDetails'])->name('customer.update');
 Route::post('/admin/dashboard/customers-delete', [AdminDashboardCustomers::class, 'deleteCustomer'])->name('customer.destroy');
 Route::post('/admin/dashboard/customers-blacklist', [AdminDashboardCustomers::class, 'blacklistCustomer'])->name('customer.blacklist');
 

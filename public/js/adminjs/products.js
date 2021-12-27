@@ -16,8 +16,8 @@ $(document).ready(function () {
 
        $(".createBtn").click(function () {
           $("#detailsForm .modal-body input, #detailsForm .modal-body full_name").val('');
-          $('#Full_name, #phone_number, #address').val('');
-          $('#email,#DOB,#ad-password').removeAttr('disabled');
+          $('#item_name, #product_code').val('');
+          $('#email,#DOB,#ad-password,#seller_name').removeAttr('disabled');
           $('#modalLabel').text($(this).attr('data-title'));
           $('.btnSubmit').text($(this).attr('data-button'));
           $('.btnSubmit').attr('id', $(this).attr('data-button'));

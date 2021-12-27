@@ -15,9 +15,9 @@ $(document).ready(function () {
       })
 
        $(".createBtn").click(function () {
-          $("#detailsForm .modal-body input, #detailsForm .modal-body full_name").val('');
-          $('#Full_name, #phone_number, #address').val('');
-          $('#email,#DOB,#ad-password').removeAttr('disabled');
+          $("#detailsForm .modal-body input, #detailsForm .modal-body").val('');
+          $('#first_name, #last_name, #address, #mobile_no').val('');
+          $('#email,#ad-password').removeAttr('disabled');
           $('#modalLabel').text($(this).attr('data-title'));
           $('.btnSubmit').text($(this).attr('data-button'));
           $('.btnSubmit').attr('id', $(this).attr('data-button'));
