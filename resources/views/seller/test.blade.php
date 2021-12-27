@@ -90,8 +90,6 @@
             //Get location.
             var currentLocation = marker.getPosition();
             //Add lat and lng values to a field that we can save.
-            console.log(currentLocation.lat());
-            console.log(currentLocation.lng());
         }
     </script>
 

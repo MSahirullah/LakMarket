@@ -209,8 +209,6 @@
                 _token: "{{ csrf_token() }}"
             }, function(data) {
 
-                // console.log(this);
-
                 $('.btnSubmit').text($('.editBtn').attr('data-button'));
 
                 $('#modalLabel').text($('.editBtn').attr('data-title'));
@@ -265,7 +263,6 @@
                         contentType: false,
                         success: function(data) {
 
-                            console.log(data);
                             if (data == 1) {
                                 table.ajax.reload();
                                 vanillaAlert(0, 'Product details updated!');

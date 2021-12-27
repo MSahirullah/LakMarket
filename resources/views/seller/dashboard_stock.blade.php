@@ -162,7 +162,6 @@
                     $('#colors').empty();
                     $.each(data, function(key, value) {
                         $('#colors').append('<option>' + value + '</option>');
-                        console.log(value);
                     });
                     $("#colors").selectpicker('refresh');
                 }

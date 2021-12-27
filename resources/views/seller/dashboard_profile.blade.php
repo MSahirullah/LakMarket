@@ -212,7 +212,7 @@
 
         var img = $('.profile-pic').attr('src');
         if (img == '/') {
-            // console.log(1);
+            
             $('.profile-pic').attr('src', '/img/seller-temp.png');
         }
 

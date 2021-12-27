@@ -213,7 +213,6 @@
                 _token: "{{ csrf_token() }}"
             }, function(data) {
 
-                // console.log(this);
 
                 $('.btnSubmit').text($('.editBtn').attr('data-button'));
 
@@ -269,7 +268,6 @@
                         contentType: false,
                         success: function(data) {
 
-                            console.log(data);
                             if (data == 1) {
                                 table.ajax.reload();
                                 vanillaAlert(0, 'Product details updated!');
