@@ -52,7 +52,7 @@
     <link href="{{ URL::asset('css/store.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/products.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/loading.css') }}" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/8cb45c8c3b.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/8cb45c8c3b.js" crossorigin="anonymous"></script>   
 
     @yield('css')
 

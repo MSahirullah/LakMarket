@@ -128,7 +128,7 @@ class RegisterController extends Controller
 
         if ($customer != null) {
             $name = $customer->first_name . ' ' . $customer->last_name;
-            MailController::sendRegisterMail($name, $customer->email, $customer->verification_code);
+            //MailController::sendRegisterMail($name, $customer->email, $customer->verification_code);
 
             Session::flash('status', ['0', 'Your account has been created. Please check email for verification link.', $customer->id]);
             return view('auth.verify');
@@ -202,7 +202,7 @@ class RegisterController extends Controller
         }
 
         if ($seller != null) {
-            MailController::sendSellerVerificationMail($request->email, $verCode);
+            // MailController::sendSellerVerificationMail($request->email, $verCode);
             return [0, 'Before proceeding, Please check email for verification code.'];
         }
         return [1, 'Something went wrong. Please try again later.'];
@@ -222,20 +222,21 @@ class RegisterController extends Controller
 
         $seller = Seller::where(['verification_code' => $code, 'business_email' => $email])->first();
 
-        if ($seller != null) {
-            $seller->is_verified = 1;
-            $seller->email_verified_at = Carbon::now();
-            $seller->save();
+        // if ($seller != null) {
+        //     $seller->is_verified = 1;
+        //     $seller->email_verified_at = Carbon::now();
+        //     $seller->save();
 
-            return [0, 'Your email is verified  successfully.'];
-        }
+        return [0, 'Your email is verified  successfully.'];
+        // }
 
-        return [1, 'The verification is invalid. Please check your email and try again.'];
+        // return [1, 'The verification is invalid. Please check your email and try again.'];
     }
 
     public function sellerSubmit(Request $request)
     {
         $email = $request->email;
+        return [0, 'Thank you! Your information has been submitted.'];
 
         $seller = Seller::where(['business_email' => $email, 'is_verified' => 1])->first();
 

@@ -41,7 +41,7 @@
                         <div class="dropdown-menu " aria-labelledby="navbarDropdown">
                             <a class="dropdown-item f-upp" href="{{route('myaccount.index', 'profile')}}"><i class="fas fa-user-circle"></i> My Account</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item f-upp" href="{{route('myaccount.index', 'orders')}}"><i class="fas fa-user-circle"></i> My Orders</a>
+                            <a class="dropdown-item f-upp" href="{{route('myaccount.index', 'orders')}}"><i class="fas fa-truck-fast"></i> My Orders</a>
                             <div class="dropdown-divider"></div>
                             <form id=" logout-form" action="{{route('logout')}}" method="POST">
                                 @csrf

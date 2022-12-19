@@ -283,7 +283,7 @@ Lak Market : 1st Online Shopping Master Market In Sri Lanka | Buy Online | Buy G
         </div>
 
 
-        <!-- Home Shop Adertisments -->
+        <!-- Home Shop Adertisments --> 
         <div class="wrapper-div div-fade home-add-div">
             <div class="row home-add">
                 <div class="col-md home-add-shop">
